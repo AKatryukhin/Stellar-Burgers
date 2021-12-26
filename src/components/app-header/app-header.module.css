@@ -1,0 +1,15 @@
+.pageHeader {
+  padding: 16px 320px;
+  background-color: #1C1C21;
+}
+
+.linksWrap {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.logo {
+  position: absolute;
+  left: 495px;
+}

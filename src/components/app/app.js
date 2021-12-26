@@ -1,10 +1,11 @@
 import React from 'react';
-import AppStyles from './app.module.css';
+import styles from './app.module.css';
+import { AppHeader } from '../app-header/app-header';
 
 export const App = () => {
-  return (
-    <div className={ AppStyles.app }>
-     Lets begin
-    </div>
-  );
-}
+  return(
+  <div className={styles.page}>
+    <AppHeader />
+  </div>
+  )
+};
