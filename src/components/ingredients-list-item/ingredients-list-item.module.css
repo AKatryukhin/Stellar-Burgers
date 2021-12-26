@@ -1,0 +1,13 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.priceWrap {
+  display: flex;
+}
+
+.price {
+  margin: 0 8px 0 0;
+}

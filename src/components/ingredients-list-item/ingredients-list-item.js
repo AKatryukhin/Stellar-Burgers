@@ -1,16 +1,15 @@
-import React from 'react';
 import styles from './ingredients-list-item.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const IngredientsItem = ({ item }) => {
   return (
-    <>
-    <img src={item.image_large} alt={item.name}></img>
-    <div>
-        <p text text_type_digits-medium>{item.price}</p>
+    <article className={styles.card}>
+    <img src={item.image_large} alt={item.name} className='mb-1'></img>
+    <div className={`${styles.priceWrap} mb-1`}>
+        <p text text_type_digits-medium className={`${styles.price} mr-2`}>{item.price}</p>
         <CurrencyIcon type="secondary" />
       </div>
-      <p className='text text_type_main-medium'>{item.name}</p>
-    </> 
+      <p className='text text_type_main-small'>{item.name}</p>
+    </article> 
   )
 };

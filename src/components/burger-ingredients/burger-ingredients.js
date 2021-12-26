@@ -6,11 +6,14 @@ import { IngredientsList } from '../ingredients-list/ingredients-list';
 
 export const BurgerIngredients = ( { data }) => {
   const [current, setCurrent] = useState('Булки');
+  const bread = data.filter(i => i.type === 'bun');
+  const sauce = data.filter(i => i.type === 'sauce');
+  const main = data.filter(i => i.type === 'main');
 
   return (
     <section>
     <h1 className='text text_type_main-large pt-10 mb-5'>Соберите бургер</h1>
-    <div style={{ display: 'flex' }}>
+      <div className={`${styles.tabWrap} mb-10`}>
       <Tab value="one" active={current === 'Булки'} onClick={setCurrent}>
       Булки
       </Tab>
@@ -21,7 +24,9 @@ export const BurgerIngredients = ( { data }) => {
       Начинки
       </Tab>
       </div>
-      < IngredientsList data={data}/>
+      < IngredientsList data={bread} title='Булки'/>
+      < IngredientsList data={sauce} title='Соусы'/>
+      < IngredientsList data={main} title='Начинки'/>
     </section>
   )
 };
