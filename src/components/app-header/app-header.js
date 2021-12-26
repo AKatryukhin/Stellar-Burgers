@@ -12,9 +12,9 @@ export const AppHeader = () => {
           <li className='mr-2'><NavItem text = 'Конструктор' ><BurgerIcon type="primary"/></NavItem></li>
           <li><NavItem text='Лента заказов' styleInactive='text_color_inactive'><ListIcon type="secondary" /></NavItem></li>
         </ul>
-        <div className={styles.logo}>
+        <span className={styles.logo}>
           <Logo />
-        </div>
+        </span>
         <NavItem text='Личный кабинет' styleInactive='text_color_inactive'><ProfileIcon type="secondary" /></NavItem>
       </Nav>
     </header>
