@@ -2,6 +2,7 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 
 
@@ -12,6 +13,17 @@
 
 .listWrap {
   position: relative;
-  height: calc(100vh - 100px);
-  overflow: scroll;
+  height: calc(100vh - 300px);
+  overflow: auto;
+}
+
+.orderWrap {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
 }

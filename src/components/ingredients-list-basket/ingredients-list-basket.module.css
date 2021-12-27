@@ -2,9 +2,8 @@
   list-style-type: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(min-content, max-content));
-  grid-template-rows: repeat(auto-fit, 1fr);
-  gap: 32px 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   overflow: auto;
 }
 
@@ -12,3 +11,7 @@
   margin-top: 0;
 }
 
+.itemWrap {
+  display: flex;
+  align-items: center;
+}
