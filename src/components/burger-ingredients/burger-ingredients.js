@@ -43,7 +43,7 @@ export const BurgerIngredients = ({ data }) => {
         </div>
       </section>
       <section className={`${styles.section} pr-4 pl-4`}>
-        <div className={`${styles.listWrap} mb-10`}>
+        <div className={`${styles.listeWrap} mb-10`}>
           <IngredientsListBasket data={data} />
         </div>
         <div className={styles.orderWrap}>

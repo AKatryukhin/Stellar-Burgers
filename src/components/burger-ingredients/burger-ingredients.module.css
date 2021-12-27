@@ -2,7 +2,7 @@
   width: 50%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  height: calc(100vh - 200px);
 }
 
 
@@ -13,9 +13,10 @@
 
 .listWrap {
   position: relative;
-  height: calc(100vh - 300px);
-  overflow: auto;
+  overflow: scroll;
 }
+
+
 
 .orderWrap {
   display: flex;

@@ -4,7 +4,11 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  overflow: auto;
+}
+
+.scroll {
+  overflow: scroll;
+  height: calc(100vh - 550px);
 }
 
 .title {

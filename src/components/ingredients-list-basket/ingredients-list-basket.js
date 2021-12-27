@@ -11,7 +11,7 @@ export const IngredientsListBasket = ({ data }) => {
 
   return (
     <div className='mt-25 '>
-      <div className={`${styles.itemWrap} ml-8`}>
+      <div className={`${styles.itemWrap} ml-8 no-sroll`}>
         <ConstructorElement
           type='top'
           isLocked={true}
@@ -20,6 +20,7 @@ export const IngredientsListBasket = ({ data }) => {
           thumbnail={firstItem.image}
         />
       </div>
+      <div className={styles.scroll}>
       <ul className={`${styles.list}`}>
         {newData.map((item) => (
           <li key={item._id}>
@@ -35,7 +36,8 @@ export const IngredientsListBasket = ({ data }) => {
             </div>
           </li>
         ))}
-      </ul>
+        </ul>
+        </div>
       <div className={`${styles.itemWrap} ml-8`}>
         <ConstructorElement
           className='mt-4'
