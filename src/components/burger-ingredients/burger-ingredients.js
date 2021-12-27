@@ -24,9 +24,11 @@ export const BurgerIngredients = ( { data }) => {
       Начинки
       </Tab>
       </div>
+      <div className={styles.listWrap}>
       < IngredientsList data={bread} title='Булки'/>
       < IngredientsList data={sauce} title='Соусы'/>
-      < IngredientsList data={main} title='Начинки'/>
+        < IngredientsList data={main} title='Начинки' />
+      </div>
     </section>
   )
 };
