@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Nav } from '../nav/nav';
+// import { Link, animateScroll as scroll } from "react-scroll";
 import { IngredientsList } from '../ingredients-list/ingredients-list';
+import { IngredientsListBasket } from '../ingredients-list-basket/ingredients-list-basket';
 
 export const BurgerIngredients = ( { data }) => {
   const [current, setCurrent] = useState('Булки');
@@ -11,7 +12,8 @@ export const BurgerIngredients = ( { data }) => {
   const main = data.filter(i => i.type === 'main');
 
   return (
-    <section>
+    <>
+    <section className={`${styles.section} mr-18`}>
     <h1 className='text text_type_main-large pt-10 mb-5'>Соберите бургер</h1>
       <div className={`${styles.tabWrap} mb-10`}>
       <Tab value="one" active={current === 'Булки'} onClick={setCurrent}>
@@ -24,11 +26,15 @@ export const BurgerIngredients = ( { data }) => {
       Начинки
       </Tab>
       </div>
-      <div className={styles.listWrap}>
+      <div className={styles.listWrap} id="containerElement">
       < IngredientsList data={bread} title='Булки'/>
       < IngredientsList data={sauce} title='Соусы'/>
-        < IngredientsList data={main} title='Начинки' />
+      < IngredientsList data={main} title='Начинки' />
       </div>
     </section>
+    <section className={`${styles.section}`}>
+    <IngredientsListBasket data={data}/>> 
+    </section>
+    </>
   )
 };
