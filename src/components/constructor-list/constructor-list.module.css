@@ -8,7 +8,7 @@
 
 .scroll {
   overflow: scroll;
-  height: calc(100vh - 550px);
+  height: calc(100vh - 560px);
 }
 
 .title {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
+import PropTypes from 'prop-types';
 
 export const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState('Булки');
@@ -30,4 +31,25 @@ export const BurgerIngredients = ({ data }) => {
       </div>
     </section>
   );
+};
+
+
+const itemPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  calories: PropTypes.number,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  image_mobile: PropTypes.string.isRequired,
+  image_large: PropTypes.string.isRequired,
+  __v: PropTypes.number,
+
+});
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };
