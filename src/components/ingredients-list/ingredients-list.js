@@ -1,5 +1,7 @@
 import styles from './ingredients-list.module.css';
 import { IngredientsItem } from '../ingredients-list-item/ingredients-list-item';
+import PropTypes from 'prop-types';
+import { itemPropTypes } from '../../utils/types';
 
 export const IngredientsList = ({ title, data }) => {
   return (
@@ -17,4 +19,9 @@ export const IngredientsList = ({ title, data }) => {
         </div>
     </div>
   )
+};
+
+IngredientsList.propTypes = {
+  title: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };

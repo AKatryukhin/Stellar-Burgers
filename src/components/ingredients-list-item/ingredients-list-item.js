@@ -1,5 +1,6 @@
 import styles from './ingredients-list-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { itemPropTypes } from '../../utils/types';
 
 export const IngredientsItem = ({ item }) => {
   return (
@@ -13,4 +14,8 @@ export const IngredientsItem = ({ item }) => {
       <p className={`${styles.name} text="true" text_type_main-small`}>{item.name}</p>
     </article> 
   )
+};
+
+IngredientsItem.propTypes = {
+  item: itemPropTypes.isRequired
 };
