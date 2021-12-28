@@ -19,7 +19,7 @@ export const ConstructorList = ({ data }) => {
           thumbnail={bunImage}
         />
       </div>
-        <ul className={`${styles.list}`}>
+        <ul className={`${styles.list} custom-scroll`}>
           {data.map((item) => (
             <li key={item._id}>
               <div className={`${styles.itemWrap}`}>

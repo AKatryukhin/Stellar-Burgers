@@ -5,10 +5,10 @@ import { itemPropTypes } from '../../utils/types';
 
 export const IngredientsList = ({ title, data }) => {
   return (
-    <div className={`${styles.listWrap} mb-10`}>
+    <div className={`${styles.listWrap} mb-10 custom-scroll`}>
       <h2 className={`${styles.title} mb-6`}>{title}</h2>
       <div className='pr-4 pl-4'>
-      <ul className={`${styles.list}`}>
+      <ul className={`${styles.list} custom-scroll`}>
         {
           data.map(item => 
           (<li key={item._id}>

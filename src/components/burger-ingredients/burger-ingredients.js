@@ -25,7 +25,7 @@ export const BurgerIngredients = ({ data }) => {
           Начинки
         </Tab>
       </div>
-      <div className={styles.listWrap} id='containerElement'>
+      <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
         <IngredientsList data={bread} title='Булки' />
         <IngredientsList data={sauce} title='Соусы' />
         <IngredientsList data={main} title='Начинки' />
