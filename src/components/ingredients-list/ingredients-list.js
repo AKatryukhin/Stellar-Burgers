@@ -9,7 +9,7 @@ export const IngredientsList = ({ title, data }) => {
       <ul className={`${styles.list}`}>
         {
           data.map(item => 
-          (<li key={item._id} className="">
+          (<li key={item._id}>
           <IngredientsItem item={item}/>
           </li>)
           )}

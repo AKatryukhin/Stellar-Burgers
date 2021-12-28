@@ -16,7 +16,7 @@ export const BurgerConstructor = ({ data }) => {
         </div>
         <div className={styles.orderWrap}>
           <span className={`${styles.iconWrap} mr-10`}>
-            <p className='text text_type_digits-medium mr-2'>123</p>
+            <p className='text="true" text_type_digits-medium="true" mr-2'>123</p>
             <CurrencyIcon type='primary' />
           </span>
           <Button type='primary' size='medium'>
