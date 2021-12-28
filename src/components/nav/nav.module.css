@@ -4,5 +4,6 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  margin: 0;
+  margin: auto;
+  width: 100%;
 }

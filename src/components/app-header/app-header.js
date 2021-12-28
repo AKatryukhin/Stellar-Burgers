@@ -6,7 +6,7 @@ import { NavItem } from '../nav-item/nav-item';
 
 export const AppHeader = () => {
   return (
-    <header className={styles.pageHeader}>
+    <header className={`${styles.pageHeader}`}>
       <Nav>
         <ul className={ styles.linksWrap }>
           <li className='mr-2'><NavItem text = 'Конструктор' ><BurgerIcon type="primary"/></NavItem></li>

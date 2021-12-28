@@ -1,6 +1,8 @@
 .pageHeader {
   padding: 16px 320px;
   background-color: #1C1C21;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .linksWrap {
@@ -12,5 +14,6 @@
 
 .logo {
   position: absolute;
-  left: 495px;
+  top: 3px;
+  left: calc((100% - 290px) / 2);
 }
