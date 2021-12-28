@@ -5,25 +5,22 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
+import bunImage from '../../images/bun-02.png';
 
 export const ConstructorList = ({ data }) => {
-  const firstItem = data[0];
-  const lastItem = data[data.length - 1];
-  const newData = data.slice(1, data.length - 1);
-
   return (
     <div className='mt-25 '>
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
         <ConstructorElement
           type='top'
           isLocked={true}
-          text={firstItem.name}
-          price={firstItem.price}
-          thumbnail={firstItem.image}
+          text='Краторная булка N-200i (верх)'
+          price='20'
+          thumbnail={bunImage}
         />
       </div>
         <ul className={`${styles.list}`}>
-          {newData.map((item) => (
+          {data.map((item) => (
             <li key={item._id}>
               <div className={`${styles.itemWrap}`}>
                 <span className='mr-3'>
@@ -43,9 +40,9 @@ export const ConstructorList = ({ data }) => {
           className='mt-4'
           type='bottom'
           isLocked={true}
-          text={lastItem.name}
-          price={lastItem.price}
-          thumbnail={lastItem.image}
+          text='Краторная булка N-200i (низ)'
+          price='20'
+          thumbnail={bunImage}
         />
       </div>
     </div>
