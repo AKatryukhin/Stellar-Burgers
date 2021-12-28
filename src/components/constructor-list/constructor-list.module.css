@@ -1,0 +1,18 @@
+.list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  height: calc(100vh - 560px);
+  overflow: auto;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.itemWrap {
+  display: flex;
+  align-items: center;
+}

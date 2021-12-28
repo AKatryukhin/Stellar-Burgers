@@ -1,0 +1,17 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+}
+
+.orderWrap {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+}
