@@ -20,7 +20,6 @@ export const ConstructorList = ({ data }) => {
           thumbnail={firstItem.image}
         />
       </div>
-      <div className={styles.scroll}>
         <ul className={`${styles.list}`}>
           {newData.map((item) => (
             <li key={item._id}>
@@ -37,7 +36,6 @@ export const ConstructorList = ({ data }) => {
             </li>
           ))}
         </ul>
-      </div>
       <div className={`${styles.itemWrap} ml-8`}>
         <ConstructorElement
           className='mt-4'

@@ -4,12 +4,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  height: calc(100vh - 560px);
+  overflow: auto;
 }
 
-.scroll {
+/* .scroll {
   overflow: scroll;
   height: calc(100vh - 560px);
-}
+} */
 
 .title {
   margin-top: 0;

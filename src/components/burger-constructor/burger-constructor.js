@@ -10,7 +10,7 @@ import { itemPropTypes } from '../../utils/types';
 export const BurgerConstructor = ({ data }) => {
 
   return (
-    <section className={`${styles.section} pr-4 pl-4`}>
+    <section className={`${styles.section} pl-4`}>
         <div className='mb-10'>
           <ConstructorList data={data} />
         </div>
