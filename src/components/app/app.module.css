@@ -21,7 +21,10 @@
 }
 
 .main {
-  display: flex;
   margin-left: 340px;
   margin-right: 340px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 600px);
+  gap: 40px;
 }

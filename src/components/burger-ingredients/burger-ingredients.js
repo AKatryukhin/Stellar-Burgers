@@ -12,7 +12,7 @@ export const BurgerIngredients = ({ data }) => {
   const main = data.filter((i) => i.type === 'main');
 
   return (
-    <section className={`${styles.section} mr-10`}>
+    <section className={`${styles.section}`}>
       <h1 className='text="true" text_type_main-large pt-10 mb-5'>Соберите бургер</h1>
       <div className={`${styles.tabWrap} mb-10`}>
         <Tab value='one' active={current === 'Булки'} onClick={setCurrent}>

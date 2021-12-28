@@ -8,7 +8,7 @@ export const IngredientsItem = ({ item }) => {
       <Counter count={1} size="default" />
       <img src={item.image} alt={item.name} className='mb-1'></img>
       <div className={`${styles.priceWrap} mb-1`}>
-        <p text="true" text_type_digits-medium="true" className={`${styles.price} mr-2`}>{item.price}</p>
+        <p className={`${styles.price} mr-2 text="true" text_type_digits-medium`}>{item.price}</p>
         <CurrencyIcon type="secondary" />
         </div>
       <p className={`${styles.name} text="true" text_type_main-small`}>{item.name}</p>
