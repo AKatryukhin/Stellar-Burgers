@@ -19,3 +19,8 @@
   flex-direction: column;
 }
 
+@media screen and (max-width: 1280px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
