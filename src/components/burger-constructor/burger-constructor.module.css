@@ -1,14 +1,13 @@
 .section {
-  width: 100%;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 200px);
+  align-items: flex-end;
 }
 
 .orderWrap {
   display: flex;
   align-items: center;
-  align-self: flex-end;
 }
 
 .iconWrap {
@@ -17,6 +16,6 @@
 }
 
 .listWrap {
-  margin: auto;
-  width: 100%;
+  margin: 0;
+  display: flex;
 }
