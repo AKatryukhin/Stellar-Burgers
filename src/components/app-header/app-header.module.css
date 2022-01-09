@@ -18,3 +18,28 @@
   top: 3px;
   left: calc((100% - 290px) / 2);
 }
+
+@media screen and (max-width: 1900px) {
+  .pageHeader {
+    padding: 16px 280px;
+  }
+}
+
+
+@media screen and (max-width: 1820px) {
+  .pageHeader {
+    padding: 16px 240px;
+  }
+}
+
+ @media screen and (max-width: 1640px) {
+  .pageHeader {
+    padding: 16px 180px;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .pageHeader {
+    padding: 10px 80px;
+  }
+}

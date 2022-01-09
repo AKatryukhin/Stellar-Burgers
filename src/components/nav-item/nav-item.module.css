@@ -1,6 +1,16 @@
 .wrap {
+  composes: pl-5 pr-5 pb-4 pt-4 from global;
+
   display: flex;
   align-items: center;
   border-radius: 40px;
 }
+
+@media screen and (max-width: 1640px) {
+  .wrap  {
+    padding: 16px 0;
+  }
+}
+
+
 

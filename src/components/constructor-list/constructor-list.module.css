@@ -6,6 +6,7 @@
   gap: 16px;
   height: calc(100vh - 560px);
   overflow: auto;
+  align-items: flex-end;
 }
 
 .title {
