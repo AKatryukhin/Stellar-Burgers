@@ -2,9 +2,9 @@ import styles from './ingredients-list-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientsItem = ({ item }) => {
+export const IngredientsItem = ({ item, onModalOpen }) => {
   return (
-    <article className={styles.card}>
+    <article onClick={onModalOpen} className={styles.card}>
       <Counter count={1} size="default" />
       <img src={item.image} alt={item.name} className='mb-1'></img>
       <div className={`${styles.priceWrap} mb-1`}>

@@ -3,7 +3,7 @@ import { IngredientsItem } from '../ingredients-list-item/ingredients-list-item'
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientsList = ({ title, data }) => {
+export const IngredientsList = ({ title, data, onModalOpen }) => {
   return (
     <div className={`${styles.listWrap} mb-10 custom-scroll`}>
       <h2 className={`${styles.title} mb-6`}>{title}</h2>
@@ -12,7 +12,7 @@ export const IngredientsList = ({ title, data }) => {
         {
           data.map(item => 
           (<li key={item._id}>
-          <IngredientsItem item={item}/>
+            <IngredientsItem onModalOpen={onModalOpen} item={item}/>
           </li>)
           )}
         </ul>

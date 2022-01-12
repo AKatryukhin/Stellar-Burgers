@@ -23,12 +23,11 @@ export const BurgerConstructor = ({
           <p className='text="true" text_type_main-medium mr-2'>123</p>
           <CurrencyIcon type='primary' />
         </span>
-        <Button type='primary' size='medium'>
+        <Button type='primary' size='medium' onClick={onModalOpen}>
           Оформить заказ
         </Button>
       </div>
       <Modal isOpen={isModalOpen} title='' onClose={onModalClose}>
-        {/* <OrderDetails orderNumber={orderObject.number} /> */}
       </Modal>
     </section>
   );

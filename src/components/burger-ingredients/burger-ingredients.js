@@ -4,8 +4,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
+import Modal from '../modal/modal';
 
-export const BurgerIngredients = ({ data }) => {
+export const BurgerIngredients = ({ data, isModalOpen, onModalOpen, onModalClose }) => {
   const [current, setCurrent] = useState('Булки');
   const bread = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
@@ -26,10 +27,12 @@ export const BurgerIngredients = ({ data }) => {
         </Tab>
       </div>
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
-        <IngredientsList data={bread} title='Булки' />
-        <IngredientsList data={sauce} title='Соусы' />
-        <IngredientsList data={main} title='Начинки' />
+        <IngredientsList data={bread} onModalOpen={onModalOpen} title='Булки' />
+        <IngredientsList data={sauce} onModalOpen={onModalOpen} title='Соусы' />
+        <IngredientsList data={main} onModalOpen={onModalOpen} title='Начинки' />
       </div>
+      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose}>
+      </Modal>
     </section>
   );
 };

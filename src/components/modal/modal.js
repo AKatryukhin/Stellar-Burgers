@@ -26,7 +26,7 @@ const Modal = ({ isOpen, title, children, onClose }) => {
       window.removeEventListener('click', handleOverlayClose);
       window.removeEventListener('keydown', handleCloseByEsc);
     };
-  }, []);
+  }, [isOpen, onClose]);
 
   return createPortal(
     (
