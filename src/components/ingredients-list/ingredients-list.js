@@ -6,6 +6,7 @@ import { itemPropTypes } from '../../utils/types';
 
 export const IngredientsList = ({ title, data, onModalOpen }) => {
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleListItemClick = useCallback((item) => onModalOpen(item), []);
 
   return (
