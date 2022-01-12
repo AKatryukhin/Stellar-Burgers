@@ -8,7 +8,13 @@ import { INGREDIENTS_URL } from '../../utils/constants';
 
 export const App = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+
+  const handleIngredientModalOpen = () => setIsIngredientModalOpen(true);
+  const handleOrderModalOpen = () => setIsOrderModalOpen(true);
+  const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
+  const handleOrderModalClose = () => setIsOrderModalOpen(false);
 
   const [data, setData] = useState({
     ingredients: [],
@@ -34,8 +40,7 @@ export const App = () => {
     })();
   }, []);
 
-  const handleModalOpen = () => setIsModalOpen(true);
-  const handleModalClose = () => setIsModalOpen(false);
+
 
   return (
     <div className={styles.page}>
@@ -43,14 +48,14 @@ export const App = () => {
       <main className={styles.main}>
         <BurgerIngredients
           data={data.ingredients}
-          isModalOpen={isModalOpen}
-          onModalOpen={handleModalOpen}
-          onModalClose={handleModalClose} />
+          isModalOpen={isIngredientModalOpen}
+          onModalOpen={handleIngredientModalOpen}
+          onModalClose={handleIngredientModalClose} />
         <BurgerConstructor
           data={data.ingredients}
-          isModalOpen={isModalOpen}
-          onModalOpen={handleModalOpen}
-          onModalClose={handleModalClose} />
+          isModalOpen={isOrderModalOpen}
+          onModalOpen={handleOrderModalOpen}
+          onModalClose={handleOrderModalClose} />
       </main>
     </div>
   );

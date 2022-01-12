@@ -12,6 +12,8 @@ export const BurgerIngredients = ({ data, isModalOpen, onModalOpen, onModalClose
   const sauce = data.filter((i) => i.type === 'sauce');
   const main = data.filter((i) => i.type === 'main');
 
+  
+
   return (
     <section className={`${styles.section}`}>
       <h1 className='text="true" text_type_main-large pt-10 mb-5'>Соберите бургер</h1>
