@@ -10,11 +10,17 @@ export const App = () => {
 
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
-
-  const handleIngredientModalOpen = () => setIsIngredientModalOpen(true);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
+  // const handleIngredientModalOpen = () => setIsIngredientModalOpen(true);
   const handleOrderModalOpen = () => setIsOrderModalOpen(true);
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
   const handleOrderModalClose = () => setIsOrderModalOpen(false);
+  
+  
+  const handleIngredientClick = (item) => {
+    setSelectedIngredient(item);
+    setIsIngredientModalOpen(true);
+  };
 
   const [data, setData] = useState({
     ingredients: [],
@@ -49,8 +55,10 @@ export const App = () => {
         <BurgerIngredients
           data={data.ingredients}
           isModalOpen={isIngredientModalOpen}
-          onModalOpen={handleIngredientModalOpen}
-          onModalClose={handleIngredientModalClose} />
+          onModalOpen={handleIngredientClick}
+          onModalClose={handleIngredientModalClose}
+          ingredient={selectedIngredient}
+        />
         <BurgerConstructor
           data={data.ingredients}
           isModalOpen={isOrderModalOpen}

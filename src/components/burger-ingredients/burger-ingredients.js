@@ -6,7 +6,13 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import Modal from '../modal/modal';
 
-export const BurgerIngredients = ({ data, isModalOpen, onModalOpen, onModalClose }) => {
+export const BurgerIngredients = ({
+  data,
+  isModalOpen,
+  onModalOpen,
+  onModalClose,
+  ingredient
+}) => {
   const [current, setCurrent] = useState('Булки');
   const bread = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
@@ -33,7 +39,7 @@ export const BurgerIngredients = ({ data, isModalOpen, onModalOpen, onModalClose
         <IngredientsList data={sauce} onModalOpen={onModalOpen} title='Соусы' />
         <IngredientsList data={main} onModalOpen={onModalOpen} title='Начинки' />
       </div>
-      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose}>
+      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose} ingredient={ingredient}>
       </Modal>
     </section>
   );
