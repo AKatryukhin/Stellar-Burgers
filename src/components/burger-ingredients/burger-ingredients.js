@@ -5,6 +5,7 @@ import { IngredientsList } from '../ingredients-list/ingredients-list';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import Modal from '../modal/modal';
+import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
 export const BurgerIngredients = ({
   data,
@@ -22,7 +23,7 @@ export const BurgerIngredients = ({
 
   return (
     <section className={`${styles.section}`}>
-      <h1 className='text="true" text_type_main-large pt-10 mb-5'>Соберите бургер</h1>
+      <h1 className={`${styles.title} text="true" text_type_main-large pt-10 mb-5`}>Соберите бургер</h1>
       <div className={`${styles.tabWrap} mb-10`}>
         <Tab value='one' active={current === 'Булки'} onClick={setCurrent}>
           Булки
@@ -39,7 +40,8 @@ export const BurgerIngredients = ({
         <IngredientsList data={sauce} onModalOpen={onModalOpen} title='Соусы' />
         <IngredientsList data={main} onModalOpen={onModalOpen} title='Начинки' />
       </div>
-      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose} ingredient={ingredient}>
+      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose}>
+        {ingredient && <IngredientDetails item={ingredient} />}
       </Modal>
     </section>
   );

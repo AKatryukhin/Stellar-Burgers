@@ -9,3 +9,5 @@ export * from './constructor-list/constructor-list';
 export * from './error-boundary/error-boundary';
 export * from './modal-overlay/modal-overlay';
 export * from './modal/modal';
+export * from './ingredient-details/ingredient-details';
+export * from './order-details/order-details';

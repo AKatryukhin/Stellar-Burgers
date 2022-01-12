@@ -32,9 +32,9 @@ const Modal = ({ isOpen, title, children, onClose }) => {
     (
     <section className={`${style.wrap} ${isOpen && style.visible}`}>
       <ModalOverlay />
-      <div className={style.modal}>
+        <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>
-          <h2 className='text="true" text_type_main-large pt-10 pb-15 pr-10 pl-10'>
+            <h2 className={`${style.title} text="true" text_type_main-large`}>
             {title}
           </h2>
           <img

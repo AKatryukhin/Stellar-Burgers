@@ -11,7 +11,6 @@ export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
-  // const handleIngredientModalOpen = () => setIsIngredientModalOpen(true);
   const handleOrderModalOpen = () => setIsOrderModalOpen(true);
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
   const handleOrderModalClose = () => setIsOrderModalOpen(false);
