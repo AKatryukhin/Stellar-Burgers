@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
-export const ConstructorList = ({ data }) => {
+export const ConstructorList = ({ data, onModalOpen }) => {
+
+  const onClick = () => onModalOpen();
+
   return (
     <div className='mt-25 '>
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
@@ -17,6 +20,7 @@ export const ConstructorList = ({ data }) => {
           text='Краторная булка N-200i (верх)'
           price='20'
           thumbnail={bunImage}
+          onClick = {onClick}
         />
       </div>
         <ul className={`${styles.list} custom-scroll`}>

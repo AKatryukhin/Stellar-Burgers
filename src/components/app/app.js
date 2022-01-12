@@ -8,6 +8,8 @@ import { INGREDIENTS_URL } from '../../utils/constants';
 
 export const App = () => {
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [data, setData] = useState({
     ingredients: [],
     isLoading: false,
@@ -32,12 +34,23 @@ export const App = () => {
     })();
   }, []);
 
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return (
     <div className={styles.page}>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngredients data={data.ingredients} />
-        <BurgerConstructor data={data.ingredients} />
+        <BurgerIngredients
+          data={data.ingredients}
+          isModalOpen={isModalOpen}
+          onModalOpen={handleModalOpen}
+          onModalClose={handleModalClose} />
+        <BurgerConstructor
+          data={data.ingredients}
+          isModalOpen={isModalOpen}
+          onModalOpen={handleModalOpen}
+          onModalClose={handleModalClose} />
       </main>
     </div>
   );
