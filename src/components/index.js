@@ -6,3 +6,4 @@ export * from './burger-ingredients/burger-ingredients';
 export * from './ingredients-list/ingredients-list';
 export * from './ingredients-list-item/ingredients-list-item';
 export * from './constructor-list/constructor-list';
+export * from './error-boundary/error-boundary';
