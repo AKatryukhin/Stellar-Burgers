@@ -12,9 +12,9 @@ export const OrderDetails = () => {
         идентификатор заказа
       </p>
       <img
-        src={IconDone}
-        alt='Картинка - отметка выполнен'
-        className='mb-15'
+          src={IconDone}
+          alt='Картинка - отметка выполнен'
+          className={`${styles.icon} mb-15`}
       />
       <p className={`${styles.name} text="true" text_type_main-default mb-2`}>
         Ваш заказ начали готовить
