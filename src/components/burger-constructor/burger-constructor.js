@@ -5,6 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ConstructorList } from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
+import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
@@ -14,6 +15,7 @@ export const BurgerConstructor = ({
   onModalClose,
   onModalOpen }) => {
   return (
+    (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <ConstructorList data={data} onModalOpen={onModalOpen}/>
@@ -27,9 +29,11 @@ export const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-      <Modal isOpen={isModalOpen} title='' onClose={onModalClose}>
+        <Modal isOpen={isModalOpen} title='' onClose={onModalClose}>
+          <OrderDetails/>
       </Modal>
-    </section>
+      </section>
+    )
   );
 };
 

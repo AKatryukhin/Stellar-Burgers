@@ -2,6 +2,7 @@ import styles from './ingredient-details.module.css';
 
 export const IngredientDetails = ({ item }) => {
   return (
+    (
     <article className={styles.card}>
       <img
         src={item.image_large}
@@ -45,6 +46,7 @@ export const IngredientDetails = ({ item }) => {
           </p>
         </div>
       </div>
-    </article>
+      </article>
+    )
   );
 };
