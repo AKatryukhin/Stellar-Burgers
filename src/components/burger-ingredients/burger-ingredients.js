@@ -12,18 +12,21 @@ export const BurgerIngredients = ({
   isModalOpen,
   onModalOpen,
   onModalClose,
-  ingredient
+  ingredient,
 }) => {
   const [current, setCurrent] = useState('Булки');
   const bread = data.filter((i) => i.type === 'bun');
   const sauce = data.filter((i) => i.type === 'sauce');
   const main = data.filter((i) => i.type === 'main');
 
-  
-
   return (
+    (
     <section className={`${styles.section}`}>
-      <h1 className={`${styles.title} text="true" text_type_main-large pt-10 mb-5`}>Соберите бургер</h1>
+      <h1
+        className={`${styles.title} text="true" text_type_main-large pt-10 mb-5`}
+      >
+        Соберите бургер
+      </h1>
       <div className={`${styles.tabWrap} mb-10`}>
         <Tab value='one' active={current === 'Булки'} onClick={setCurrent}>
           Булки
@@ -38,12 +41,21 @@ export const BurgerIngredients = ({
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
         <IngredientsList data={bread} onModalOpen={onModalOpen} title='Булки' />
         <IngredientsList data={sauce} onModalOpen={onModalOpen} title='Соусы' />
-        <IngredientsList data={main} onModalOpen={onModalOpen} title='Начинки' />
+        <IngredientsList
+          data={main}
+          onModalOpen={onModalOpen}
+          title='Начинки'
+        />
       </div>
-      <Modal isOpen={isModalOpen} title='Детали ингредиента' onClose={onModalClose}>
+      <Modal
+        isOpen={isModalOpen}
+        title='Детали ингредиента'
+        onClose={onModalClose}
+      >
         {ingredient && <IngredientDetails item={ingredient} />}
       </Modal>
-    </section>
+      </section>
+    )
   );
 };
 

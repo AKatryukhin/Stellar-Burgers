@@ -4,6 +4,7 @@ import style from './modal.module.css';
 import closeIcon from '../../images/closeIcon.svg';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { ESC_KEYCODE } from '../../utils/constants';
+import PropTypes from 'prop-types';
 
 const Modal = ({ isOpen, title, children, onClose }) => {
   const modalRoot = document.getElementById('modals');
@@ -53,3 +54,11 @@ const Modal = ({ isOpen, title, children, onClose }) => {
 };
 
 export default Modal;
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
