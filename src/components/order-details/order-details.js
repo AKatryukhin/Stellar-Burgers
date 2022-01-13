@@ -1,5 +1,5 @@
 import styles from './order-details.module.css';
-import IconDone from '../../images/iconDone.png';
+import IconDone from '../../images/iconDoneGif.gif';
 
 export const OrderDetails = () => {
   return (
