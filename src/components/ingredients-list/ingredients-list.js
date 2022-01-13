@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
 export const IngredientsList = ({ title, data, onModalOpen }) => {
-  
+  // мемоизированный колбэк для передачи дочерним компонентам 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleListItemClick = useCallback((item) => onModalOpen(item), []);
 

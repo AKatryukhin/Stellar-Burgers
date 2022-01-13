@@ -15,18 +15,20 @@ export const App = () => {
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
   const handleOrderModalClose = () => setIsOrderModalOpen(false);
   
-  
+  // для открытия попапа ингредиента и передачи в него selectedIngredient
   const handleIngredientClick = (item) => {
     setSelectedIngredient(item);
     setIsIngredientModalOpen(true);
   };
 
+  // основной стейт с данными
   const [data, setData] = useState({
     ingredients: [],
     isLoading: false,
     isError: false,
   });
 
+  // для получения данных API и обновления основного стейта
   useEffect(() => {
     (async () => {
       setData({ ...data, isLoading: true });
