@@ -4,7 +4,6 @@ import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import * as ingredientsApi from '../../utils/IngredientsApi';
-// import { INGREDIENTS_URL } from '../../utils/constants';
 
 export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
@@ -43,6 +42,7 @@ export const App = () => {
   //       setState({ ...state, isError: true, isLoading: false });
   //       console.log(err);
   //     });
+  //  // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
   // для получения данных API и обновления основного стейта
@@ -61,6 +61,7 @@ export const App = () => {
         console.log(err);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
