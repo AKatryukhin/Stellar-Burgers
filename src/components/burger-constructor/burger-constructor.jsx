@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
 export const BurgerConstructor = ({
-  data,
+  ingredients,
   isModalOpen,
   onModalClose,
   onModalOpen }) => {
@@ -18,7 +18,7 @@ export const BurgerConstructor = ({
     (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
-        <ConstructorList data={data} onModalOpen={onModalOpen}/>
+        <ConstructorList ingredients={ingredients} onModalOpen={onModalOpen}/>
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
@@ -38,5 +38,5 @@ export const BurgerConstructor = ({
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };

@@ -4,19 +4,18 @@ import { IngredientsItem } from '../ingredients-list-item/ingredients-list-item'
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientsList = ({ title, data, onModalOpen }) => {
+export const IngredientsList = ({ title, filteredIngredients, onModalOpen }) => {
   // мемоизированный колбэк для передачи дочерним компонентам 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleListItemClick = useCallback((item) => onModalOpen(item), []);
+  const handleListItemClick = useCallback((i) => onModalOpen(i), [onModalOpen]);
 
   return (
     <div className={`${styles.listWrap} mb-10 custom-scroll`}>
       <h2 className={`${styles.title} mb-6`}>{title}</h2>
       <div className='pr-4 pl-4'>
         <ul className={`${styles.list} custom-scroll`}>
-          {data.map((item) => (
-            <li key={item._id}>
-              <IngredientsItem onModalOpen={handleListItemClick} item={item} />
+          {filteredIngredients.map((i) => (
+            <li key={i._id}>
+              <IngredientsItem onModalOpen={handleListItemClick} ingredient={i} />
             </li>
           ))}
         </ul>
@@ -27,5 +26,5 @@ export const IngredientsList = ({ title, data, onModalOpen }) => {
 
 IngredientsList.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  filteredIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };

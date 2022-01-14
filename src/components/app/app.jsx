@@ -55,14 +55,14 @@ export const App = () => {
       <AppHeader />
       <main className={styles.main}>
         <BurgerIngredients
-          data={data.ingredients}
+          ingredients={data.ingredients}
           isModalOpen={isIngredientModalOpen}
           onModalOpen={handleIngredientClick}
           onModalClose={handleIngredientModalClose}
-          ingredient={selectedIngredient}
+          currentIngredient={selectedIngredient}
         />
         <BurgerConstructor
-          data={data.ingredients}
+          ingredients={data.ingredients}
           isModalOpen={isOrderModalOpen}
           onModalOpen={handleOrderModalOpen}
           onModalClose={handleOrderModalClose} />

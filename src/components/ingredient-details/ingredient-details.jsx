@@ -1,50 +1,70 @@
 import styles from './ingredient-details.module.css';
 import { itemPropTypes } from '../../utils/types';
 
+export const IngredientDetails = ({ ingredient }) => {
+  const {
+    name,
+    image_large,
+    calories,
+    proteins,
+    fat,
+    carbohydrates
+  } = ingredient;
 
-export const IngredientDetails = ({ item }) => {
   return (
     (
     <article className={styles.card}>
-      <img
-        src={item.image_large}
-        alt={item.name}
-        className='mb-4 mr-5 ml-5'
-      ></img>
+      <img src={image_large} alt={name} className='mb-4 mr-5 ml-5'/>
       <p className={`${styles.name} text="true" text_type_main-medium mb-8`}>
-        {item.name}
+        {name}
       </p>
       <div className={styles.infoWrap}>
         <div className={`${styles.infoContainer}`}>
-          <p className={`${styles.info} text="true" text_type_main-default text_color_inactive`}>
-          Калории,ккал
+          <p
+            className={`${styles.info} text="true" text_type_main-default text_color_inactive`}
+          >
+            Калории,ккал
           </p>
-          <p className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}>
-            {item.calories}
-          </p>
-        </div>
-        <div className={`${styles.infoContainer}`}>
-          <p className={`${styles.info} text="true" text_type_main-default text_color_inactive`}>
-          Белки, г
-          </p>
-          <p className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}>
-            {item.proteins}
+          <p
+            className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}
+          >
+            {calories}
           </p>
         </div>
         <div className={`${styles.infoContainer}`}>
-          <p className={`${styles.info} text="true" text_type_main-default text_color_inactive`}>
-          Жиры, г
+          <p
+            className={`${styles.info} text="true" text_type_main-default text_color_inactive`}
+          >
+            Белки, г
           </p>
-          <p className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}>
-            {item.fat}
+          <p
+            className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}
+          >
+            {proteins}
           </p>
         </div>
         <div className={`${styles.infoContainer}`}>
-          <p className={`${styles.info} text="true" text_type_main-default text_color_inactive`}>
-          Углеводы,г
+          <p
+            className={`${styles.info} text="true" text_type_main-default text_color_inactive`}
+          >
+            Жиры, г
           </p>
-          <p className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}>
-            {item.carbohydrates}
+          <p
+            className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}
+          >
+            {fat}
+          </p>
+        </div>
+        <div className={`${styles.infoContainer}`}>
+          <p
+            className={`${styles.info} text="true" text_type_main-default text_color_inactive`}
+          >
+            Углеводы,г
+          </p>
+          <p
+            className={`${styles.info} mr-2 text="true" text_type_digits-default text_color_inactive`}
+          >
+            {carbohydrates}
           </p>
         </div>
       </div>
@@ -54,5 +74,5 @@ export const IngredientDetails = ({ item }) => {
 };
 
 IngredientDetails.propTypes = {
-  item: itemPropTypes.isRequired
+  ingredient: itemPropTypes.isRequired,
 };

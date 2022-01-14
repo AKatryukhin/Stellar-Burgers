@@ -8,16 +8,16 @@ import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 
 export const BurgerIngredients = ({
-  data,
+  ingredients,
   isModalOpen,
   onModalOpen,
   onModalClose,
-  ingredient,
+  currentIngredient,
 }) => {
   const [current, setCurrent] = useState('Булки');
-  const bread = data.filter((i) => i.type === 'bun');
-  const sauce = data.filter((i) => i.type === 'sauce');
-  const main = data.filter((i) => i.type === 'main');
+  const buns = ingredients.filter((i) => i.type === 'bun');
+  const sauces = ingredients.filter((i) => i.type === 'sauce');
+  const mains = ingredients.filter((i) => i.type === 'main');
 
   return (
     (
@@ -39,10 +39,10 @@ export const BurgerIngredients = ({
         </Tab>
       </div>
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
-        <IngredientsList data={bread} onModalOpen={onModalOpen} title='Булки' />
-        <IngredientsList data={sauce} onModalOpen={onModalOpen} title='Соусы' />
+        <IngredientsList filteredIngredients={buns} onModalOpen={onModalOpen} title='Булки' />
+        <IngredientsList filteredIngredients={sauces} onModalOpen={onModalOpen} title='Соусы' />
         <IngredientsList
-          data={main}
+          filteredIngredients={mains}
           onModalOpen={onModalOpen}
           title='Начинки'
         />
@@ -52,7 +52,7 @@ export const BurgerIngredients = ({
         title='Детали ингредиента'
         onClose={onModalClose}
       >
-        {ingredient && <IngredientDetails item={ingredient} />}
+        {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
       </Modal>
       </section>
     )
@@ -60,5 +60,5 @@ export const BurgerIngredients = ({
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };
