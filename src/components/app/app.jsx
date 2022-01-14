@@ -27,25 +27,6 @@ export const App = () => {
   });
 
   // для получения данных API и обновления основного стейта
-  // useEffect(() => {
-  //   setState({ ...state, isLoading: true });
-  //   ingredientsApi
-  //     .getIngredientsList()
-  //     .then((res) => {
-  //       setState({
-  //         ...state,
-  //         ingredients: res.data,
-  //         isLoading: false,
-  //       });
-  //     })
-  //     .catch(err => {
-  //       setState({ ...state, isError: true, isLoading: false });
-  //       console.log(err);
-  //     });
-  //  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // для получения данных API и обновления основного стейта
   useEffect(() => {
     (async () => {
       setState({ ...state, isLoading: true });
