@@ -29,7 +29,7 @@ export const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-        <Modal isOpen={isModalOpen} title='' onClose={onModalClose}>
+        <Modal isOpen={isModalOpen} onClose={onModalClose}>
           <OrderDetails/>
       </Modal>
       </section>
