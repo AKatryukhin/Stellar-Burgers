@@ -35,7 +35,7 @@ const Modal = ({ isOpen, title, children, onClose }) => {
       <ModalOverlay />
         <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>
-            <h2 className={`${style.title} text="true" text_type_main-large`}>
+            <h2 className={`${style.title} text text_type_main-large`}>
             {title}
           </h2>
           <img

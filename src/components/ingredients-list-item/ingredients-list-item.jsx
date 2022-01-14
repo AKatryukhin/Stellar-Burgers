@@ -13,10 +13,10 @@ export const IngredientsItem = React.memo(({ ingredient, onModalOpen }) => {
       <Counter count={1} size="default" />
       <img src={image} alt={name} className='mb-1'></img>
       <div className={`${styles.priceWrap} mb-1`}>
-        <p className={`${styles.price} mr-2 text="true" text_type_digits-medium`}>{price}</p>
+        <p className={`${styles.price} mr-2 text text_type_digits-medium`}>{price}</p>
         <CurrencyIcon type="secondary" />
         </div>
-      <p className={`${styles.name} text="true" text_type_main-small`}>{name}</p>
+      <p className={`${styles.name} text text_type_main-small`}>{name}</p>
     </article> 
   )
 });

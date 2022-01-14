@@ -22,7 +22,7 @@ export const BurgerConstructor = ({
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
-          <p className='text="true" text_type_main-medium mr-2'>123</p>
+          <p className='text text_type_main-medium mr-2'>123</p>
           <CurrencyIcon type='primary' />
         </span>
         <Button type='primary' size='medium' onClick={onModalOpen}>

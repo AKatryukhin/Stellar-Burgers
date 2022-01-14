@@ -23,7 +23,7 @@ export const BurgerIngredients = ({
     (
     <section className={`${styles.section}`}>
       <h1
-        className={`${styles.title} text="true" text_type_main-large pt-10 mb-5`}
+        className={`${styles.title} text text_type_main-large pt-10 mb-5`}
       >
         Соберите бургер
       </h1>
