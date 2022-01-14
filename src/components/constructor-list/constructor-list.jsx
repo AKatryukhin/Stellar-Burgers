@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
-export const ConstructorList = ({ data }) => {
+export const ConstructorList = ({ ingredients }) => {
+
   return (
     <div className='mt-25 '>
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
@@ -20,16 +21,16 @@ export const ConstructorList = ({ data }) => {
         />
       </div>
         <ul className={`${styles.list} custom-scroll`}>
-          {data.map((item) => (
-            <li key={item._id}>
+          {ingredients.map((i) => (
+            <li key={i._id}>
               <div className={`${styles.itemWrap}`}>
                 <span className='mr-3'>
                   <DragIcon type='primary' className='mr-6' />
                 </span>
                 <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
+                  text={i.name}
+                  price={i.price}
+                  thumbnail={i.image}
                 />
               </div>
             </li>
@@ -50,5 +51,5 @@ export const ConstructorList = ({ data }) => {
 };
 
 ConstructorList.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
 };

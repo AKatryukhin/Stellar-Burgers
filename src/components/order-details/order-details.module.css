@@ -1,0 +1,15 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 100px;
+}
+
+.name {
+  text-align: center;
+  margin-top: 0;
+}
+
+.icon {
+  height: 120px;
+}
