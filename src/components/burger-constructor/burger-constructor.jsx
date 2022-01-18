@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import styles from './burger-constructor.module.css';
 import {
   CurrencyIcon,
@@ -8,17 +9,21 @@ import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
 export const BurgerConstructor = ({
-  ingredients,
   isModalOpen,
   onModalClose,
   onModalOpen }) => {
+  
+    const { state } = useContext(IngredientsContext);
+  
+  
   return (
     (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
-        <ConstructorList ingredients={ingredients} onModalOpen={onModalOpen}/>
+        <ConstructorList ingredients={state.ingredients} onModalOpen={onModalOpen}/>
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>

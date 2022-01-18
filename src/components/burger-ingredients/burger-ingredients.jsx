@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
@@ -6,18 +6,19 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
 export const BurgerIngredients = ({
-  ingredients,
   isModalOpen,
   onModalOpen,
   onModalClose,
   currentIngredient,
 }) => {
+  const { state } = useContext(IngredientsContext);
   const [current, setCurrent] = useState('Булки');
-  const buns = ingredients.filter((i) => i.type === 'bun');
-  const sauces = ingredients.filter((i) => i.type === 'sauce');
-  const mains = ingredients.filter((i) => i.type === 'main');
+  const buns = state.ingredients.filter((i) => i.type === 'bun');
+  const sauces = state.ingredients.filter((i) => i.type === 'sauce');
+  const mains = state.ingredients.filter((i) => i.type === 'main');
 
   return (
     (

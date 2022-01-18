@@ -4,6 +4,7 @@ import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor';
 import * as ingredientsApi from '../../utils/IngredientsApi';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
 export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
@@ -42,7 +43,7 @@ export const App = () => {
         console.log(err);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -50,19 +51,19 @@ export const App = () => {
     <div className={styles.page}>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngredients
-          ingredients={state.ingredients}
-          isModalOpen={isIngredientModalOpen}
-          onModalOpen={handleIngredientClick}
-          onModalClose={handleIngredientModalClose}
-          currentIngredient={selectedIngredient}
-        />
-        <BurgerConstructor
-          ingredients={state.ingredients}
-          isModalOpen={isOrderModalOpen}
-          onModalOpen={handleOrderModalOpen}
-          onModalClose={handleOrderModalClose}
-        />
+        <IngredientsContext.Provider value={{ state, setState }}>
+          <BurgerIngredients
+            isModalOpen={isIngredientModalOpen}
+            onModalOpen={handleIngredientClick}
+            onModalClose={handleIngredientModalClose}
+            currentIngredient={selectedIngredient}
+          />
+          <BurgerConstructor
+            isModalOpen={isOrderModalOpen}
+            onModalOpen={handleOrderModalOpen}
+            onModalClose={handleOrderModalClose}
+          />
+        </IngredientsContext.Provider>
       </main>
       </div>
     )
