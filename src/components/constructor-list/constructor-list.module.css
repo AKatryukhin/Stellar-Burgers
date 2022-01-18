@@ -4,16 +4,31 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  height: calc(100vh - 560px);
+  height: calc(100vh - 540px);
   overflow: auto;
   align-items: flex-end;
+  margin: 0;
 }
 
 .title {
   margin-top: 0;
 }
 
+.wrap {
+  width: 100%;
+}
+
 .itemWrap {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.messageWrap {
+  display: flex;
+  height: calc(100vh - 540px);
+}
+
+.message {
+  margin: auto;
 }
