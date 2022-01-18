@@ -14,16 +14,18 @@ import { IngredientsContext } from '../../contexts/ingredients-context';
 export const BurgerConstructor = ({
   isModalOpen,
   onModalClose,
-  onModalOpen }) => {
-  
-    const { state } = useContext(IngredientsContext);
-  
-  
+  onModalOpen,
+}) => {
+  const { state } = useContext(IngredientsContext);
+
   return (
     (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
-        <ConstructorList ingredients={state.ingredients} onModalOpen={onModalOpen}/>
+        <ConstructorList
+          ingredients={state.ingredients}
+          onModalOpen={onModalOpen}
+        />
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
@@ -34,8 +36,8 @@ export const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-        <Modal isOpen={isModalOpen} onClose={onModalClose}>
-          <OrderDetails/>
+      <Modal isOpen={isModalOpen} onClose={onModalClose}>
+        <OrderDetails />
       </Modal>
       </section>
     )
@@ -43,5 +45,7 @@ export const BurgerConstructor = ({
 };
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  onModalOpen: PropTypes.func.isRequired,
+  onModalClose: PropTypes.func.isRequired,
 };

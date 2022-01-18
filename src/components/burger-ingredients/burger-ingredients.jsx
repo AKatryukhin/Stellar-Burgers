@@ -61,5 +61,8 @@ export const BurgerIngredients = ({
 };
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  onModalOpen: PropTypes.func.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+  currentIngredient: itemPropTypes
 };
