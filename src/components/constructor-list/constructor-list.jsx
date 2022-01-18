@@ -8,8 +8,8 @@ import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
 export const ConstructorList = ({ ingredients }) => {
-
   const bun = ingredients.find(i => i.type === 'bun');
+  const otherIngredients = ingredients.filter(i => i.type !== 'bun');
 
   return (
     <div className={`${styles.wrap} mt-25 mb-10`}>
@@ -19,8 +19,8 @@ export const ConstructorList = ({ ingredients }) => {
             type='top'
             isLocked={true}
             text={`${bun.name} (верх)`}
-            price='20'
-            thumbnail={bunImage}
+            price={bun.price}
+            thumbnail={bun.image}
           />)
           :
           ( <ConstructorElement
@@ -33,9 +33,9 @@ export const ConstructorList = ({ ingredients }) => {
           />)
         }
       </div>
-      {ingredients.length > 0 ? (
+      {otherIngredients.length > 0 ? (
         <ul className={`${styles.list} custom-scroll`}>
-          {ingredients.map((i) => (
+          {otherIngredients.map((i) => (
             <li key={i._id}>
               <div className={`${styles.itemWrap}`}>
                 <span className='mr-3'>
@@ -63,8 +63,8 @@ export const ConstructorList = ({ ingredients }) => {
             type='bottom'
             isLocked={true}
             text={`${bun.name} (низ)`}
-            price='20'
-            thumbnail={bunImage}
+            price={bun.price}
+            thumbnail={bun.image}
           />)
           :
           ( <ConstructorElement

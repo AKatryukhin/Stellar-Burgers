@@ -18,6 +18,11 @@ export const App = () => {
   const handleIngredientClick = (item) => {
     setSelectedIngredient(item);
     setIsIngredientModalOpen(true);
+
+    const isBunInOrder = state.selectedIngredients.some(i => i.type === 'bun');
+    const isInOrder = state.selectedIngredients.some(i => i._id === item._id);
+    
+    item.type !== 'bun' && !isInOrder &&
     setState(s => ({
       ...s,
       selectedIngredients: [
@@ -25,7 +30,16 @@ export const App = () => {
         item
       ]
     })
-    );
+      );
+    item.type === 'bun' && !isBunInOrder &&
+    setState(s => ({
+      ...s,
+      selectedIngredients: [
+        ...s.selectedIngredients,
+        item
+      ]
+    })
+      );    
   };
 
   // основной стейт с данными
