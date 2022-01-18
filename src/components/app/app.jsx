@@ -18,10 +18,19 @@ export const App = () => {
   const handleIngredientClick = (item) => {
     setSelectedIngredient(item);
     setIsIngredientModalOpen(true);
+    setState(s => ({
+      ...s,
+      selectedIngredients: [
+        ...s.selectedIngredients,
+        item
+      ]
+    })
+    );
   };
 
   // основной стейт с данными
   const [state, setState] = useState({
+    selectedIngredients: [],
     ingredients: [],
     isLoading: false,
     isError: false,

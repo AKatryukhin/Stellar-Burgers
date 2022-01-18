@@ -8,7 +8,6 @@ import { ConstructorList } from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
-import { itemPropTypes } from '../../utils/types';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 
 export const BurgerConstructor = ({
@@ -16,14 +15,14 @@ export const BurgerConstructor = ({
   onModalClose,
   onModalOpen,
 }) => {
-  const { state } = useContext(IngredientsContext);
+  const { state, setState } = useContext(IngredientsContext);
 
   return (
     (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <ConstructorList
-          ingredients={state.ingredients}
+          ingredients={state.selectedIngredients}
           onModalOpen={onModalOpen}
         />
       </div>

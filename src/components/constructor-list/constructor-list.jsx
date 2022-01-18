@@ -16,6 +16,7 @@ export const ConstructorList = ({ ingredients }) => {
           type='top'
           isLocked={true}
           text='Краторная булка N-200i (верх)'
+          // text={bun && bun.name && bun.name + (" (верх)")}
           price='20'
           thumbnail={bunImage}
         />
