@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './app.module.css';
 import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
@@ -8,19 +8,6 @@ import {
   IngredientsContext,
   TotalPriceContext,
 } from '../../contexts/ingredients-context';
-
-// const totalPriceInitialState = { totalPrice: 0 };
-
-// const reducer = (state = totalPriceInitialState, action) => {
-//   switch (action.type) {
-//     case 'ADD_TO_ORDER':
-//       return { totalPrice: action.payload };
-//     case 'DELETE_FROM_ORDER':
-//       return { totalPrice: action.payload };
-//     default:
-//       throw new Error(`Wrong type of action: ${action.type}`);
-//   }
-// };
 
 export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
@@ -32,7 +19,8 @@ export const App = () => {
  
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // для открытия попапа ингредиента и передачи в него selectedIngredient
+  // для открытия попапа ингредиента, передачи в него selectedIngredient
+  // и добавления его в selectedIngredients
   const handleIngredientClick = (item) => {
     setSelectedIngredient(item);
     setIsIngredientModalOpen(true);
@@ -53,20 +41,7 @@ export const App = () => {
         selectedIngredients: [...s.selectedIngredients, item],
       }));
     }
-
-    // const calcTotalPrice = () =>
-    //   state.selectedIngredients.reduce(
-    //     (prevValue, i) => prevValue + i.price,
-    //     totalPrice
-    //   );
-    // setTotalPrice(() =>
-    // state.selectedIngredients.reduce(
-    //   (prevValue, i) => prevValue + i.price,
-    //   totalPrice
-    // ));
-
   };
-
 
 
   // основной стейт с данными

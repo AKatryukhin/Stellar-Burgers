@@ -14,7 +14,7 @@ export const BurgerIngredients = ({
   onModalClose,
   currentIngredient,
 }) => {
-  const { state, setState } = useContext(IngredientsContext);
+  const { state } = useContext(IngredientsContext);
   const [current, setCurrent] = useState('Булки');
   const buns = state.ingredients.filter((i) => i.type === 'bun');
   const sauces = state.ingredients.filter((i) => i.type === 'sauce');
@@ -40,9 +40,9 @@ export const BurgerIngredients = ({
         </Tab>
       </div>
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
-        <IngredientsList filteredIngredients={buns} onModalOpen={onModalOpen} title='Булки' />
+          <IngredientsList filteredIngredients={buns} onModalOpen={onModalOpen} title='Булки' />
         <IngredientsList filteredIngredients={sauces} onModalOpen={onModalOpen} title='Соусы' />
-        <IngredientsList
+          <IngredientsList
           filteredIngredients={mains}
           onModalOpen={onModalOpen}
           title='Начинки'
