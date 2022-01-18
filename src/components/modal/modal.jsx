@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import style from './modal.module.css';
 import closeIcon from '../../images/closeIcon.svg';
@@ -22,6 +22,7 @@ const Modal = ({ isOpen, title, children, onClose }) => {
 
     window.addEventListener('keydown', handleCloseByEsc);
     window.addEventListener('click', handleOverlayClose);
+
 
     return () => {
       window.removeEventListener('click', handleOverlayClose);

@@ -7,31 +7,29 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
-export const ConstructorList = ({ ingredients }) => {
-  const bun = ingredients.find(i => i.type === 'bun');
-  const otherIngredients = ingredients.filter(i => i.type !== 'bun');
+export const ConstructorList = ({ bun, otherIngredients }) => {
 
   return (
     <div className={`${styles.wrap} mt-25 mb-10`}>
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
-        {bun ?
-          (<ConstructorElement
+        {bun ? (
+          <ConstructorElement
             type='top'
             isLocked={true}
             text={`${bun.name} (верх)`}
             price={bun.price}
             thumbnail={bun.image}
-          />)
-          :
-          ( <ConstructorElement
+          />
+        ) : (
+          <ConstructorElement
             className='mt-4'
             type='top'
             isLocked={true}
             text='Выберите булку'
             price=''
             thumbnail={bunImage}
-          />)
-        }
+          />
+        )}
       </div>
       {otherIngredients.length > 0 ? (
         <ul className={`${styles.list} custom-scroll`}>
@@ -52,36 +50,38 @@ export const ConstructorList = ({ ingredients }) => {
         </ul>
       ) : (
         <div className={`${styles.messageWrap}`}>
-          <p className={`${styles.message} text text_type_main-default text_color_inactive`}>
+          <p
+            className={`${styles.message} text text_type_main-default text_color_inactive`}
+          >
             Выберите начинку
           </p>
         </div>
       )}
       <div className={`${styles.itemWrap} ml-8`}>
-      {bun ?
-          (<ConstructorElement
+        {bun ? (
+          <ConstructorElement
             type='bottom'
             isLocked={true}
             text={`${bun.name} (низ)`}
             price={bun.price}
             thumbnail={bun.image}
-          />)
-          :
-          ( <ConstructorElement
+          />
+        ) : (
+          <ConstructorElement
             className='mt-4'
             type='bottom'
             isLocked={true}
             text='Выберите булку'
             price=''
             thumbnail={bunImage}
-          />)
-         
-        }
+          />
+        )}
       </div>
     </div>
   );
 };
 
 ConstructorList.propTypes = {
-  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  bun: itemPropTypes
 };
