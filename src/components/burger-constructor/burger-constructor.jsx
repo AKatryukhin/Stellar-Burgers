@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import styles from './burger-constructor.module.css';
 import {
   CurrencyIcon,
@@ -22,10 +22,10 @@ export const BurgerConstructor = React.memo(({
   const { state } = useContext(IngredientsContext);
   const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
 
-  const bun = state.selectedIngredients.find((i) => i.type === 'bun');
-  const otherIngredients = state.selectedIngredients.filter(
+  const bun = useMemo(() => state.selectedIngredients.find((i) => i.type === 'bun'), [state.selectedIngredients]);
+  const otherIngredients = useMemo(() => state.selectedIngredients.filter(
     (i) => i.type !== 'bun'
-  );
+  ), [state.selectedIngredients]);
    
   useEffect(() => {
     if (bun) {

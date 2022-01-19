@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
@@ -8,7 +8,7 @@ import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 
-export const BurgerIngredients = ({
+export const BurgerIngredients = React.memo(({
   isModalOpen,
   onModalOpen,
   onModalClose,
@@ -16,9 +16,9 @@ export const BurgerIngredients = ({
 }) => {
   const { state } = useContext(IngredientsContext);
   const [current, setCurrent] = useState('Булки');
-  const buns = state.ingredients.filter((i) => i.type === 'bun');
-  const sauces = state.ingredients.filter((i) => i.type === 'sauce');
-  const mains = state.ingredients.filter((i) => i.type === 'main');
+  const buns = useMemo(() => state.ingredients.filter((i) => i.type === 'bun'), [state.ingredients]);
+  const sauces = useMemo(() => state.ingredients.filter((i) => i.type === 'sauce'), [state.ingredients]);
+  const mains = useMemo(() => state.ingredients.filter((i) => i.type === 'main'), [state.ingredients]);
 
   return (
     (
@@ -58,7 +58,7 @@ export const BurgerIngredients = ({
       </section>
     )
   );
-};
+});
 
 BurgerIngredients.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,

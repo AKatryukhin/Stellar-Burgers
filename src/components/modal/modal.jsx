@@ -21,11 +21,11 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
     };
 
     window.addEventListener('keydown', handleCloseByEsc);
-    window.addEventListener('click', handleOverlayClose);
+    document.addEventListener('click', handleOverlayClose);
 
 
     return () => {
-      window.removeEventListener('click', handleOverlayClose);
+      document.removeEventListener('click', handleOverlayClose);
       window.removeEventListener('keydown', handleCloseByEsc);
     };
   }, [isOpen, onClose]);

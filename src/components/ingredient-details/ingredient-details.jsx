@@ -1,7 +1,8 @@
+import React from 'react';
 import styles from './ingredient-details.module.css';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = React.memo(({ ingredient }) => {
   const {
     name,
     image_large,
@@ -71,7 +72,7 @@ export const IngredientDetails = ({ ingredient }) => {
       </article>
     )
   );
-};
+});
 
 IngredientDetails.propTypes = {
   ingredient: itemPropTypes.isRequired,
