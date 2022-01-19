@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import styles from './burger-constructor.module.css';
 import {
   CurrencyIcon,
@@ -13,10 +13,11 @@ import {
   TotalPriceContext,
 } from '../../contexts/ingredients-context';
 
-export const BurgerConstructor = ({
+export const BurgerConstructor = React.memo(({
   isModalOpen,
   onModalClose,
   onModalOpen,
+  onDeleteIngredient
 }) => {
   const { state } = useContext(IngredientsContext);
   const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
@@ -44,9 +45,8 @@ export const BurgerConstructor = ({
       );
       setTotalPrice(totalSumm);
       }
-    }, [bun, otherIngredients, setTotalPrice]);
- 
-
+  }, [bun, otherIngredients, setTotalPrice]);
+  
   return (
     (
     <section className={`${styles.section} pl-4`}>
@@ -55,6 +55,7 @@ export const BurgerConstructor = ({
           bun={bun}
           otherIngredients={otherIngredients}
           onModalOpen={onModalOpen}
+          onRemove={onDeleteIngredient}
         />
       </div>
       <div className={styles.orderWrap}>
@@ -72,7 +73,7 @@ export const BurgerConstructor = ({
       </section>
     )
   );
-};
+});
 
 BurgerConstructor.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,

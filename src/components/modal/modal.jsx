@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import style from './modal.module.css';
 import closeIcon from '../../images/closeIcon.svg';
@@ -6,13 +6,13 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import { ESC_KEYCODE } from '../../utils/constants';
 import PropTypes from 'prop-types';
 
-const Modal = ({ isOpen, title, children, onClose }) => {
+const Modal = React.memo(({ isOpen, title, children, onClose }) => {
   const modalRoot = document.getElementById('modals');
 
   useEffect(() => {
     //функция закрытия модального окна по оверлей
     const handleOverlayClose = (e) => {
-      e.target.className.includes('overlay') && onClose();
+     e.target.className.includes('overlay') && onClose();
     };
 
     //функция закрытия модального окна по Escape
@@ -52,7 +52,7 @@ const Modal = ({ isOpen, title, children, onClose }) => {
     ),
     modalRoot
   );
-};
+});
 
 export default Modal;
 

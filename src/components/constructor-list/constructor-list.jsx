@@ -7,7 +7,14 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
-export const ConstructorList = ({ bun, otherIngredients }) => {
+
+export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
+
+  const onClose = (item) => {
+    if (typeof onRemove === 'function') {
+    onRemove(item);
+    }
+  };
 
   return (
     <div className={`${styles.wrap} mt-25 mb-10`}>
@@ -43,6 +50,7 @@ export const ConstructorList = ({ bun, otherIngredients }) => {
                   text={i.name}
                   price={i.price}
                   thumbnail={i.image}
+                  handleClose={(e) => onClose(i)}
                 />
               </div>
             </li>

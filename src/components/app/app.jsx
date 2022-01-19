@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import styles from './app.module.css';
 import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
@@ -14,8 +14,8 @@ export const App = () => {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
-  const handleOrderModalClose = () => setIsOrderModalOpen(false);
-
+  const handleOrderModalClose = useCallback(() => setIsOrderModalOpen(false), []);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   // основной стейт с данными
   const [state, setState] = useState({
@@ -23,14 +23,15 @@ export const App = () => {
     ingredients: [],
     isLoading: false,
     isError: false,
-    order: null
-    });
-  
+    order: null,
+  });
+
   // для открытия попапа заказа, отправки запроса на Api и получения номера заказа
-  const handleOrderModalOpen = async () => {
+  const handleOrderModalOpen = useCallback(async () => {
     setState({ ...state, isLoading: true });
     try {
-      const handleOrderClick = () => state.selectedIngredients.map((i) => i._id);
+      const handleOrderClick = () =>
+        state.selectedIngredients.map((i) => i._id);
       const res = await ingredientsApi.placeAnOrder(handleOrderClick());
       setState({
         ...state,
@@ -42,21 +43,62 @@ export const App = () => {
       setState({ ...state, isError: true, isLoading: false });
       console.log(err);
     }
-  };
+  }, [state]);
 
- 
-  const [totalPrice, setTotalPrice] = useState(0);
+  // removeIngredient(state, action) {
+  //   if (action.payload.item.type !== "bun") {
+  //     const deletedItem = state.chosenOtherItems.find(
+  //       (el) => el.name === action.payload.item.name
+  //     );
+  //     state.chosenOtherItems = deletedItem
+  //       ? state.chosenOtherItems.filter(
+  //           (el, index, arr) => index !== arr.indexOf(deletedItem)
+  //         )
+  //       : state.chosenOtherItems;
+  //   }
+  // },
+
+  const handleDeleteIngredient = useCallback((item) => {
+  
+    const newsSelectedIngredients = state.selectedIngredients.filter((i) => i._id !== item._id);
+    setState(s =>
+    ({
+      ...s,
+      selectedIngredients: [
+        ...newsSelectedIngredients,
+      ]
+  
+    }));
+  }, [state.selectedIngredients]);
+
+  // const filterSelectedIngredients = () => {
+  //   console.log(state.selectedIngredients)
+  //   const newsSelectedIngredients = state.selectedIngredients.filter((i) => i._id !== deletedIngredient._id);
+  //   console.log(newsSelectedIngredients)
+  //   setState(s =>
+  //   ({
+  //     ...s,
+  //     selectedIngredients: [
+  //       ...newsSelectedIngredients,
+         
+  //     ]
+
+  //   }));
+  // };
+
 
   // для открытия попапа ингредиента, передачи в него selectedIngredient
   // и добавления его в selectedIngredients
-  const handleIngredientClick = (item) => {
+  const handleIngredientClick = useCallback((item) => {
     setSelectedIngredient(item);
     setIsIngredientModalOpen(true);
 
     const isBunInOrder = state.selectedIngredients.some(
       (i) => i.type === 'bun'
     );
-    const isIngredientInOrder = state.selectedIngredients.some((i) => i._id === item._id);
+    const isIngredientInOrder = state.selectedIngredients.some(
+      (i) => i._id === item._id
+    );
     if (item.type !== 'bun' && !isIngredientInOrder) {
       setState((s) => ({
         ...s,
@@ -69,10 +111,7 @@ export const App = () => {
         selectedIngredients: [...s.selectedIngredients, item],
       }));
     }
-  };
-
-
-
+  }, [state.selectedIngredients]);
 
   // для получения данных API и обновления основного стейта
   useEffect(() => {
@@ -95,9 +134,7 @@ export const App = () => {
 
   return (
     <IngredientsContext.Provider value={{ state, setState }}>
-      <TotalPriceContext.Provider
-        value={{ totalPrice, setTotalPrice }}
-      >
+      <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
         <div className={styles.page}>
           <AppHeader />
           <main className={styles.main}>
@@ -111,6 +148,7 @@ export const App = () => {
               isModalOpen={isOrderModalOpen}
               onModalOpen={handleOrderModalOpen}
               onModalClose={handleOrderModalClose}
+              onDeleteIngredient={handleDeleteIngredient}
             />
           </main>
         </div>
