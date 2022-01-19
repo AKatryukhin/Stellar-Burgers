@@ -13,9 +13,37 @@ export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
-  const handleOrderModalOpen = () => setIsOrderModalOpen(true);
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
   const handleOrderModalClose = () => setIsOrderModalOpen(false);
+
+
+  // основной стейт с данными
+  const [state, setState] = useState({
+    selectedIngredients: [],
+    ingredients: [],
+    isLoading: false,
+    isError: false,
+    order: null
+    });
+  
+  // для открытия попапа заказа, отправки запроса на Api и получения номера заказа
+  const handleOrderModalOpen = async () => {
+    setState({ ...state, isLoading: true });
+    try {
+      const handleOrderClick = () => state.selectedIngredients.map((i) => i._id);
+      const res = await ingredientsApi.placeAnOrder(handleOrderClick());
+      setState({
+        ...state,
+        order: res.order.number,
+        isLoading: false,
+      });
+      setIsOrderModalOpen(true);
+    } catch (err) {
+      setState({ ...state, isError: true, isLoading: false });
+      console.log(err);
+    }
+  };
+
  
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -28,8 +56,8 @@ export const App = () => {
     const isBunInOrder = state.selectedIngredients.some(
       (i) => i.type === 'bun'
     );
-    const isInOrder = state.selectedIngredients.some((i) => i._id === item._id);
-    if (item.type !== 'bun' && !isInOrder) {
+    const isIngredientInOrder = state.selectedIngredients.some((i) => i._id === item._id);
+    if (item.type !== 'bun' && !isIngredientInOrder) {
       setState((s) => ({
         ...s,
         selectedIngredients: [...s.selectedIngredients, item],
@@ -44,13 +72,7 @@ export const App = () => {
   };
 
 
-  // основной стейт с данными
-  const [state, setState] = useState({
-    selectedIngredients: [],
-    ingredients: [],
-    isLoading: false,
-    isError: false,
-  });
+
 
   // для получения данных API и обновления основного стейта
   useEffect(() => {

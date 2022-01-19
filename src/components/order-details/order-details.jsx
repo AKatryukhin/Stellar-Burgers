@@ -1,12 +1,18 @@
+import { useContext } from 'react';
 import styles from './order-details.module.css';
 import IconDone from '../../images/iconDoneGif.gif';
+import { IngredientsContext } from '../../contexts/ingredients-context';
 
 export const OrderDetails = () => {
+
+  const { state } = useContext(IngredientsContext);
+
+
   return (
     (
     <article className={styles.card}>
       <p className={`${styles.name} text text_type_digits-large mt-4 mb-8`}>
-        034536
+        {state.order}
       </p>
       <p className={`${styles.name} text text_type_main-medium mb-15`}>
         идентификатор заказа
