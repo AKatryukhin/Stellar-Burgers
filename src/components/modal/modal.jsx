@@ -10,10 +10,6 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
   const modalRoot = document.getElementById('modals');
 
   useEffect(() => {
-    //функция закрытия модального окна по оверлей
-    const handleOverlayClose = (e) => {
-     e.target.className.includes('overlay') && onClose();
-    };
 
     //функция закрытия модального окна по Escape
     const handleCloseByEsc = (evt) => {
@@ -21,11 +17,8 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
     };
 
     window.addEventListener('keydown', handleCloseByEsc);
-    document.addEventListener('click', handleOverlayClose);
-
 
     return () => {
-      document.removeEventListener('click', handleOverlayClose);
       window.removeEventListener('keydown', handleCloseByEsc);
     };
   }, [isOpen, onClose]);
@@ -33,7 +26,7 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
   return createPortal(
     (
     <section className={`${style.wrap} ${isOpen && style.visible}`}>
-      <ModalOverlay />
+        <ModalOverlay onClose={onClose}/>
         <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>
             <h2 className={`${style.title} text text_type_main-large`}>
