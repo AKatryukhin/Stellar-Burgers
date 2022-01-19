@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styles from './burger-constructor.module.css';
 import {
   CurrencyIcon,
@@ -79,4 +79,5 @@ BurgerConstructor.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   onModalOpen: PropTypes.func.isRequired,
   onModalClose: PropTypes.func.isRequired,
+  onDeleteIngredient: PropTypes.func.isRequired
 };

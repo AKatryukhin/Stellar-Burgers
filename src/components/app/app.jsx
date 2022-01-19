@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './app.module.css';
 import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
@@ -14,7 +14,10 @@ export const App = () => {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const handleIngredientModalClose = () => setIsIngredientModalOpen(false);
-  const handleOrderModalClose = useCallback(() => setIsOrderModalOpen(false), []);
+  const handleOrderModalClose = useCallback(
+    () => setIsOrderModalOpen(false),
+    []
+  );
   const [totalPrice, setTotalPrice] = useState(0);
 
   // основной стейт с данными
@@ -45,73 +48,67 @@ export const App = () => {
     }
   }, [state]);
 
-  // removeIngredient(state, action) {
-  //   if (action.payload.item.type !== "bun") {
-  //     const deletedItem = state.chosenOtherItems.find(
-  //       (el) => el.name === action.payload.item.name
-  //     );
-  //     state.chosenOtherItems = deletedItem
-  //       ? state.chosenOtherItems.filter(
-  //           (el, index, arr) => index !== arr.indexOf(deletedItem)
-  //         )
-  //       : state.chosenOtherItems;
-  //   }
-  // },
+  const handleDeleteIngredient = useCallback(
+    (item) => {
+      if (item.type === 'bun') {
+        item.count = item.count === 2 && null;
+      } else item.count = item.count === 1 ? null : item.count - 1;
+      const newsIngredients = state.ingredients.filter(
+        (i) => i._id !== item._id
+      );
 
-  const handleDeleteIngredient = useCallback((item) => {
-  
-    const newsSelectedIngredients = state.selectedIngredients.filter((i) => i._id !== item._id);
-    setState(s =>
-    ({
-      ...s,
-      selectedIngredients: [
-        ...newsSelectedIngredients,
-      ]
-  
-    }));
-  }, [state.selectedIngredients]);
-
-  // const filterSelectedIngredients = () => {
-  //   console.log(state.selectedIngredients)
-  //   const newsSelectedIngredients = state.selectedIngredients.filter((i) => i._id !== deletedIngredient._id);
-  //   console.log(newsSelectedIngredients)
-  //   setState(s =>
-  //   ({
-  //     ...s,
-  //     selectedIngredients: [
-  //       ...newsSelectedIngredients,
-         
-  //     ]
-
-  //   }));
-  // };
-
+      const newsSelectedIngredients = state.selectedIngredients.filter(
+        (i) => i._id !== item._id
+      );
+      setState((s) => ({
+        ...s,
+        selectedIngredients: [...newsSelectedIngredients],
+        ingredients: [...newsIngredients, item],
+      }));
+    },
+    [state.selectedIngredients, state.ingredients]
+  );
 
   // для открытия попапа ингредиента, передачи в него selectedIngredient
   // и добавления его в selectedIngredients
-  const handleIngredientClick = useCallback((item) => {
-    setSelectedIngredient(item);
-    setIsIngredientModalOpen(true);
+  const handleIngredientClick = useCallback(
+    (item) => {
+      setSelectedIngredient(item);
+      setIsIngredientModalOpen(true);
+      const isBunInOrder = state.selectedIngredients.some(
+        (i) => i.type === 'bun'
+      );
+      const isIngredientInOrder = state.selectedIngredients.some(
+        (i) => i._id === item._id
+      );
 
-    const isBunInOrder = state.selectedIngredients.some(
-      (i) => i.type === 'bun'
-    );
-    const isIngredientInOrder = state.selectedIngredients.some(
-      (i) => i._id === item._id
-    );
-    if (item.type !== 'bun' && !isIngredientInOrder) {
-      setState((s) => ({
-        ...s,
-        selectedIngredients: [...s.selectedIngredients, item],
-      }));
-    }
-    if (item.type === 'bun' && !isBunInOrder) {
-      setState((s) => ({
-        ...s,
-        selectedIngredients: [...s.selectedIngredients, item],
-      }));
-    }
-  }, [state.selectedIngredients]);
+      if (item.type !== 'bun' && !isIngredientInOrder) {
+        item.count = item.count ? item.count + 1 : 1;
+      }
+
+      if (item.type !== 'bun' && isIngredientInOrder) {
+        item.count = item.count ? item.count + 1 : 1;
+      }
+
+      if (item.type === 'bun' && !isBunInOrder) {
+        item.count = 2;
+      }
+
+      if (item.type !== 'bun' && !isIngredientInOrder) {
+        setState((s) => ({
+          ...s,
+          selectedIngredients: [...s.selectedIngredients, item],
+        }));
+      }
+      if (item.type === 'bun' && !isBunInOrder) {
+        setState((s) => ({
+          ...s,
+          selectedIngredients: [...s.selectedIngredients, item],
+        }));
+      }
+    },
+    [state.selectedIngredients]
+  );
 
   // для получения данных API и обновления основного стейта
   useEffect(() => {
