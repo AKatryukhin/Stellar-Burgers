@@ -48,6 +48,8 @@ export const App = () => {
     }
   }, [state]);
 
+  // для удаления ранее добавленных ингредиентов из BurgerConstructor
+  // и подсчета количества добавленных ингредиентов
   const handleDeleteIngredient = useCallback(
     (item) => {
       if (item.type === 'bun') {
