@@ -6,6 +6,8 @@ import {
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
+import { v4 as uuid } from "uuid";
+
 
 
 export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
@@ -41,7 +43,7 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
       {otherIngredients.length > 0 ? (
         <ul className={`${styles.list} custom-scroll`}>
           {otherIngredients.map((i) => (
-            <li key={i._id}>
+            <li key={uuid()}>
               <div className={`${styles.itemWrap}`}>
                 <span className='mr-3'>
                   <DragIcon type='primary' className='mr-6' />

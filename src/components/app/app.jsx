@@ -51,17 +51,19 @@ export const App = () => {
   // для удаления ранее добавленных ингредиентов из BurgerConstructor
   // и подсчета количества добавленных ингредиентов
   const handleDeleteIngredient = useCallback(
-    (item) => {
+    (item, index) => {
       if (item.type === 'bun') {
         item.count = item.count === 2 && null;
       } else item.count = item.count === 1 ? null : item.count - 1;
       const newsIngredients = state.ingredients.filter(
         (i) => i._id !== item._id
       );
+      // const index = state.selectedIngredients.findIndex(item => index);
 
-      const newsSelectedIngredients = state.selectedIngredients.filter(
-        (i) => i._id !== item._id
-      );
+      const newsSelectedIngredients = state.selectedIngredients.splice(index, 1); 
+      // const newsSelectedIngredients = state.selectedIngredients.filter(
+      //   (i) => i._id !== item._id
+      // );
       setState((s) => ({
         ...s,
         selectedIngredients: [...newsSelectedIngredients],
@@ -97,11 +99,12 @@ export const App = () => {
       }
 
       // if (item.type !== 'bun' && !isIngredientInOrder) {
-        if (item.type !== 'bun') {
+      if (item.type !== 'bun') {
         setState((s) => ({
           ...s,
           selectedIngredients: [...s.selectedIngredients, item],
         }));
+        console.log(state.selectedIngredients)
       }
       if (item.type === 'bun' && !isBunInOrder) {
         setState((s) => ({
