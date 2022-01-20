@@ -41,8 +41,10 @@ export const App = () => {
         ...state,
         order: res.order.number,
         isLoading: false,
+        selectedIngredients: []
       });
       setIsOrderModalOpen(true);
+
     } catch (err) {
       setState({ ...state, isError: true, isLoading: false });
       console.log(err);
@@ -63,7 +65,6 @@ export const App = () => {
       if (currentItem.count < 1) {
         currentItem.count = null;
       }
-
       setState((s) => ({
         ...s,
         selectedIngredients: [...newSelectedIngredients],

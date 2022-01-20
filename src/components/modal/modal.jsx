@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import style from './modal.module.css';
 import closeIcon from '../../images/closeIcon.svg';
@@ -8,32 +8,29 @@ import PropTypes from 'prop-types';
 
 const Modal = React.memo(({ isOpen, title, children, onClose }) => {
   const modalRoot = document.getElementById('modals');
+  //функция закрытия модального окна по Escape
+  const handleCloseByEsc = useCallback(
+    (evt) => {
+      isOpen && evt.key === ESC_KEYCODE && onClose();
+    },
+    [isOpen, onClose]
+  );
 
   useEffect(() => {
-    console.log( 'in useEffect')
-    //функция закрытия модального окна по Escape
-    const handleCloseByEsc = (evt) => {
-      // isOpen && evt.key === ESC_KEYCODE && onClose();
-      if (isOpen && evt.key === ESC_KEYCODE) {
-        onClose();
-        console.log( 'in handleCloseByEsc')
-      } 
-    };
-
     window.addEventListener('keydown', handleCloseByEsc);
 
     return () => {
       window.removeEventListener('keydown', handleCloseByEsc);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, handleCloseByEsc]);
 
   return createPortal(
     (
     <section className={`${style.wrap} ${isOpen && style.visible}`}>
-        <ModalOverlay onClose={onClose}/>
-        <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
+      <ModalOverlay onClose={onClose} />
+      <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>
-            <h2 className={`${style.title} text text_type_main-large`}>
+          <h2 className={`${style.title} text text_type_main-large`}>
             {title}
           </h2>
           <img
@@ -45,8 +42,7 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
         </div>
         {children}
       </div>
-      </section>
-    ),
+    </section>),
     modalRoot
   );
 });
@@ -57,6 +53,5 @@ Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   title: PropTypes.string,
   children: PropTypes.element,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
-

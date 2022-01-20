@@ -67,9 +67,9 @@ export const BurgerConstructor = React.memo(({
           Оформить заказ
         </Button>
       </div>
-      <Modal isOpen={isModalOpen} onClose={onModalClose}>
-        <OrderDetails />
-      </Modal>
+        {isModalOpen && <Modal isOpen={isModalOpen} onClose={onModalClose}>
+          <OrderDetails />
+        </Modal>}
       </section>
     )
   );

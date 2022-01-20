@@ -8,7 +8,7 @@ import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 
-export const BurgerIngredients = ({
+export const BurgerIngredients = React.memo(({
   isModalOpen,
   onModalOpen,
   onModalClose,
@@ -53,17 +53,17 @@ export const BurgerIngredients = ({
           title='Начинки'
         />
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        title='Детали ингредиента'
-        onClose={onModalClose}
-      >
-        {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
-      </Modal>
+        {isModalOpen && <Modal
+          isOpen={isModalOpen}
+          title='Детали ингредиента'
+          onClose={onModalClose}
+        >
+          {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
+        </Modal>}
       </section>
     )
   );
-};
+});
 
 BurgerIngredients.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
