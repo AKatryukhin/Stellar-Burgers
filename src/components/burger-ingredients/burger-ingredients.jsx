@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext, useMemo, useCallback } from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
@@ -20,6 +20,11 @@ export const BurgerIngredients = React.memo(({
   const sauces = useMemo(() => state.ingredients.filter((i) => i.type === 'sauce'), [state.ingredients]);
   const mains = useMemo(() => state.ingredients.filter((i) => i.type === 'main'), [state.ingredients]);
 
+  const handleCurrent = useCallback((evt) => {
+    setCurrent(evt);
+}, []);
+
+
   return (
     (
     <section className={`${styles.section}`}>
@@ -29,13 +34,13 @@ export const BurgerIngredients = React.memo(({
         Соберите бургер
       </h1>
       <div className={`${styles.tabWrap} mb-10`}>
-        <Tab value='one' active={current === 'Булки'} onClick={setCurrent}>
+        <Tab value='one' active={current === 'Булки'} onClick={handleCurrent}>
           Булки
         </Tab>
-        <Tab value='two' active={current === 'Соусы'} onClick={setCurrent}>
+        <Tab value='two' active={current === 'Соусы'} onClick={handleCurrent}>
           Соусы
         </Tab>
-        <Tab value='three' active={current === 'Начинки'} onClick={setCurrent}>
+        <Tab value='three' active={current === 'Начинки'} onClick={handleCurrent}>
           Начинки
         </Tab>
       </div>

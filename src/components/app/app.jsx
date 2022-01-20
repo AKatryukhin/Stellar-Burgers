@@ -96,7 +96,8 @@ export const App = () => {
         item.count = 2;
       }
 
-      if (item.type !== 'bun' && !isIngredientInOrder) {
+      // if (item.type !== 'bun' && !isIngredientInOrder) {
+        if (item.type !== 'bun') {
         setState((s) => ({
           ...s,
           selectedIngredients: [...s.selectedIngredients, item],

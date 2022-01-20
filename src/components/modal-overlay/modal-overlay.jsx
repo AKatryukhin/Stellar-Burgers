@@ -7,6 +7,7 @@ const ModalOverlay = ( {onClose}) => {
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
+      console.log( 'in handleOverlay')
     }
  };
 

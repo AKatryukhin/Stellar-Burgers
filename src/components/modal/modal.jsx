@@ -10,10 +10,14 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
   const modalRoot = document.getElementById('modals');
 
   useEffect(() => {
-
+    console.log( 'in useEffect')
     //функция закрытия модального окна по Escape
     const handleCloseByEsc = (evt) => {
-      isOpen && evt.key === ESC_KEYCODE && onClose();
+      // isOpen && evt.key === ESC_KEYCODE && onClose();
+      if (isOpen && evt.key === ESC_KEYCODE) {
+        onClose();
+        console.log( 'in handleCloseByEsc')
+      } 
     };
 
     window.addEventListener('keydown', handleCloseByEsc);
