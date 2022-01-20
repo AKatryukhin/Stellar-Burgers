@@ -8,6 +8,7 @@ import {
   IngredientsContext,
   TotalPriceContext,
 } from '../../contexts/ingredients-context';
+import { v4 as uuid } from 'uuid';
 
 export const App = () => {
   const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
@@ -51,23 +52,21 @@ export const App = () => {
   // для удаления ранее добавленных ингредиентов из BurgerConstructor
   // и подсчета количества добавленных ингредиентов
   const handleDeleteIngredient = useCallback(
-    (item, index) => {
-      if (item.type === 'bun') {
-        item.count = item.count === 2 && null;
-      } else item.count = item.count === 1 ? null : item.count - 1;
-      const newsIngredients = state.ingredients.filter(
-        (i) => i._id !== item._id
+    (item) => {
+      const currentItem = state.ingredients.find((i) => i._id === item._id);
+      const newSelectedIngredients = state.selectedIngredients.filter(
+        (i) => i.key !== item.key
       );
-      // const index = state.selectedIngredients.findIndex(item => index);
+      if (currentItem.count >= 1) {
+        currentItem.count = currentItem.count - 1;
+      }
+      if (currentItem.count < 1) {
+        currentItem.count = null;
+      }
 
-      const newsSelectedIngredients = state.selectedIngredients.splice(index, 1); 
-      // const newsSelectedIngredients = state.selectedIngredients.filter(
-      //   (i) => i._id !== item._id
-      // );
       setState((s) => ({
         ...s,
-        selectedIngredients: [...newsSelectedIngredients],
-        ingredients: [...newsIngredients, item],
+        selectedIngredients: [...newSelectedIngredients],
       }));
     },
     [state.selectedIngredients, state.ingredients]
@@ -98,18 +97,22 @@ export const App = () => {
         item.count = 2;
       }
 
-      // if (item.type !== 'bun' && !isIngredientInOrder) {
       if (item.type !== 'bun') {
         setState((s) => ({
           ...s,
-          selectedIngredients: [...s.selectedIngredients, item],
+          selectedIngredients: [
+            ...s.selectedIngredients,
+            { ...item, key: uuid() },
+          ],
         }));
-        console.log(state.selectedIngredients)
       }
       if (item.type === 'bun' && !isBunInOrder) {
         setState((s) => ({
           ...s,
-          selectedIngredients: [...s.selectedIngredients, item],
+          selectedIngredients: [
+            ...s.selectedIngredients,
+            { ...item, key: uuid() },
+          ],
         }));
       }
     },

@@ -8,7 +8,7 @@ import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 
-export const BurgerIngredients = React.memo(({
+export const BurgerIngredients = ({
   isModalOpen,
   onModalOpen,
   onModalClose,
@@ -63,7 +63,7 @@ export const BurgerIngredients = React.memo(({
       </section>
     )
   );
-});
+};
 
 BurgerIngredients.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
