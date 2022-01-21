@@ -37,14 +37,21 @@ export const App = () => {
       const handleOrderClick = () =>
         state.selectedIngredients.map((i) => i._id);
       const res = await ingredientsApi.placeAnOrder(handleOrderClick());
+      const pureIngredients = state.ingredients.map((i) => {
+        if (i.count) {
+          i.count = null;
+        }
+        return i;
+      });
+
       setState({
         ...state,
         order: res.order.number,
         isLoading: false,
-        selectedIngredients: []
+        selectedIngredients: [],
+        ingredients: pureIngredients,
       });
       setIsOrderModalOpen(true);
-
     } catch (err) {
       setState({ ...state, isError: true, isLoading: false });
       console.log(err);
@@ -82,15 +89,8 @@ export const App = () => {
       const isBunInOrder = state.selectedIngredients.some(
         (i) => i.type === 'bun'
       );
-      const isIngredientInOrder = state.selectedIngredients.some(
-        (i) => i._id === item._id
-      );
 
-      if (item.type !== 'bun' && !isIngredientInOrder) {
-        item.count = item.count ? item.count + 1 : 1;
-      }
-
-      if (item.type !== 'bun' && isIngredientInOrder) {
+      if (item.type !== 'bun') {
         item.count = item.count ? item.count + 1 : 1;
       }
 

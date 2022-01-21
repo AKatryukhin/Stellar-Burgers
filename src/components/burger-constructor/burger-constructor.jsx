@@ -26,6 +26,8 @@ export const BurgerConstructor = React.memo(({
   const otherIngredients = useMemo(() => state.selectedIngredients.filter(
     (i) => i.type !== 'bun'
   ), [state.selectedIngredients]);
+
+  const handleClick = () =>  bun && otherIngredients && onModalOpen();
    
   useEffect(() => {
     if (bun) {
@@ -63,7 +65,7 @@ export const BurgerConstructor = React.memo(({
           <p className='text text_type_main-medium mr-2'>{totalPrice}</p>
           <CurrencyIcon type='primary' />
         </span>
-        <Button type='primary' size='medium' onClick={onModalOpen}>
+        <Button type='primary' size='medium' onClick={handleClick}>
           Оформить заказ
         </Button>
       </div>
