@@ -7,22 +7,40 @@ import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
 
-export const ConstructorList = ({ ingredients }) => {
+export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
+
+  const onClose = (item) => {
+    if (typeof onRemove === 'function') {
+    onRemove(item);
+    }
+  };
 
   return (
-    <div className='mt-25 '>
+    <div className={`${styles.wrap} mt-25 mb-10`}>
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
-        <ConstructorElement
-          type='top'
-          isLocked={true}
-          text='Краторная булка N-200i (верх)'
-          price='20'
-          thumbnail={bunImage}
-        />
+        {bun ? (
+          <ConstructorElement
+            type='top'
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        ) : (
+          <ConstructorElement
+            className='mt-4'
+            type='top'
+            isLocked={true}
+            text='Выберите булку'
+            price=''
+            thumbnail={bunImage}
+          />
+        )}
       </div>
+      {otherIngredients.length > 0 ? (
         <ul className={`${styles.list} custom-scroll`}>
-          {ingredients.map((i) => (
-            <li key={i._id}>
+          {otherIngredients.map((i) => (
+            <li key={i.key}>
               <div className={`${styles.itemWrap}`}>
                 <span className='mr-3'>
                   <DragIcon type='primary' className='mr-6' />
@@ -31,25 +49,47 @@ export const ConstructorList = ({ ingredients }) => {
                   text={i.name}
                   price={i.price}
                   thumbnail={i.image}
+                  handleClose={(e) => onClose(i)}
                 />
               </div>
             </li>
           ))}
         </ul>
+      ) : (
+        <div className={`${styles.messageWrap}`}>
+          <p
+            className={`${styles.message} text text_type_main-default text_color_inactive`}
+          >
+            Выберите начинку
+          </p>
+        </div>
+      )}
       <div className={`${styles.itemWrap} ml-8`}>
-        <ConstructorElement
-          className='mt-4'
-          type='bottom'
-          isLocked={true}
-          text='Краторная булка N-200i (низ)'
-          price='20'
-          thumbnail={bunImage}
-        />
+        {bun ? (
+          <ConstructorElement
+            type='bottom'
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        ) : (
+          <ConstructorElement
+            className='mt-4'
+            type='bottom'
+            isLocked={true}
+            text='Выберите булку'
+            price=''
+            thumbnail={bunImage}
+          />
+        )}
       </div>
     </div>
   );
 };
 
 ConstructorList.propTypes = {
-  ingredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  bun: itemPropTypes,
+  onRemove: PropTypes.func
 };

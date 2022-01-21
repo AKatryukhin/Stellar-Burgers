@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import styles from './ingredients-list.module.css';
 import { IngredientsItem } from '../ingredients-list-item/ingredients-list-item';
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientsList = ({ title, filteredIngredients, onModalOpen }) => {
+export const IngredientsList = React.memo(({ title, filteredIngredients, onModalOpen }) => {
   // мемоизированный колбэк для передачи дочерним компонентам 
   const handleListItemClick = useCallback((i) => onModalOpen(i), [onModalOpen]);
 
@@ -22,7 +22,7 @@ export const IngredientsList = ({ title, filteredIngredients, onModalOpen }) => 
       </div>
     </div>
   );
-};
+});
 
 IngredientsList.propTypes = {
   title: PropTypes.string.isRequired,
