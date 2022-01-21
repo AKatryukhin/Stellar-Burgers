@@ -140,26 +140,26 @@ export const App = () => {
   }, []);
 
   return (
-    <IngredientsContext.Provider value={{ state, setState }}>
-      <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-        <div className={styles.page}>
-          <AppHeader />
-          <main className={styles.main}>
-            <BurgerIngredients
-              isModalOpen={isIngredientModalOpen}
-              onModalOpen={handleIngredientClick}
-              onModalClose={handleIngredientModalClose}
-              currentIngredient={selectedIngredient}
-            />
+    <div className={styles.page}>
+      <AppHeader />
+      <main className={styles.main}>
+        <IngredientsContext.Provider value={{ state, setState }}>
+          <BurgerIngredients
+            isModalOpen={isIngredientModalOpen}
+            onModalOpen={handleIngredientClick}
+            onModalClose={handleIngredientModalClose}
+            currentIngredient={selectedIngredient}
+          />
+          <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
             <BurgerConstructor
               isModalOpen={isOrderModalOpen}
               onModalOpen={handleOrderModalOpen}
               onModalClose={handleOrderModalClose}
               onDeleteIngredient={handleDeleteIngredient}
             />
-          </main>
-        </div>
-      </TotalPriceContext.Provider>
-    </IngredientsContext.Provider>
+          </TotalPriceContext.Provider>
+        </IngredientsContext.Provider>
+      </main>
+    </div>
   );
 };
