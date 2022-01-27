@@ -8,26 +8,27 @@ import { ConstructorList } from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
-import {
-  IngredientsContext,
-  TotalPriceContext,
-} from '../../contexts/ingredients-context';
+// import {
+//   IngredientsContext,
+//   TotalPriceContext,
+// } from '../../contexts/ingredients-context';
+import {useDispatch, useSelector} from "react-redux";
 
 export const BurgerConstructor = React.memo(({
-  isModalOpen,
-  onModalClose,
-  onModalOpen,
+  // isModalOpen,
+  // onModalClose,
+  // onModalOpen,
   onDeleteIngredient
 }) => {
-  const { state } = useContext(IngredientsContext);
-  const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
-
-  const bun = useMemo(() => state.selectedIngredients.find((i) => i.type === 'bun'), [state.selectedIngredients]);
-  const otherIngredients = useMemo(() => state.selectedIngredients.filter(
+  // const { state } = useContext(IngredientsContext);
+  // const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
+  const selectedIngredients = useSelector(state => state.app.selectedIngredients)
+  const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
+  const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'
-  ), [state.selectedIngredients]);
+  ), [selectedIngredients]);
 
-  const handleClick = () =>  bun && otherIngredients && onModalOpen();
+  // const handleClick = () =>  bun && otherIngredients && onModalOpen();
    
   useEffect(() => {
     if (bun) {
@@ -39,15 +40,17 @@ export const BurgerConstructor = React.memo(({
         );
         return bunSumm + otherIngredientsSumm;
       };
-      setTotalPrice(totalSumm);
+      // setTotalPrice(totalSumm);
     } else {
       const totalSumm = otherIngredients.reduce(
           (acc, i) => acc + i.price,
           0
       );
-      setTotalPrice(totalSumm);
+      // setTotalPrice(totalSumm);
       }
-  }, [bun, otherIngredients, setTotalPrice]);
+  }, [bun, otherIngredients,
+    // setTotalPrice
+  ]);
   
   return (
     (
@@ -56,30 +59,36 @@ export const BurgerConstructor = React.memo(({
         <ConstructorList
           bun={bun}
           otherIngredients={otherIngredients}
-          onModalOpen={onModalOpen}
+          // onModalOpen={onModalOpen}
           onRemove={onDeleteIngredient}
         />
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
-          <p className='text text_type_main-medium mr-2'>{totalPrice}</p>
+          <p className='text text_type_main-medium mr-2'>
+            {/*{totalPrice}*/}
+          </p>
           <CurrencyIcon type='primary' />
         </span>
-        <Button type='primary' size='medium' onClick={handleClick}>
+        <Button
+            type='primary'
+            size='medium'
+            // onClick={handleClick}
+        >
           Оформить заказ
         </Button>
       </div>
-        {isModalOpen && <Modal isOpen={isModalOpen} onClose={onModalClose}>
-          <OrderDetails />
-        </Modal>}
+        {/*{isModalOpen && <Modal isOpen={isModalOpen} onClose={onModalClose}>*/}
+        {/*  <OrderDetails />*/}
+        {/*</Modal>}*/}
       </section>
     )
   );
 });
 
 BurgerConstructor.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
-  onModalClose: PropTypes.func.isRequired,
-  onDeleteIngredient: PropTypes.func.isRequired
+  // isModalOpen: PropTypes.bool.isRequired,
+  // onModalOpen: PropTypes.func.isRequired,
+  // onModalClose: PropTypes.func.isRequired,
+  // onDeleteIngredient: PropTypes.func.isRequired
 };

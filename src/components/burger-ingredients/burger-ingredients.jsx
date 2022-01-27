@@ -7,18 +7,20 @@ import { itemPropTypes } from '../../utils/types';
 import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from '../../contexts/ingredients-context';
+import {useDispatch, useSelector} from "react-redux";
 
 export const BurgerIngredients = React.memo(({
-  isModalOpen,
-  onModalOpen,
-  onModalClose,
+  // isModalOpen,
+  // onModalOpen,
+  // onModalClose,
   currentIngredient,
 }) => {
-  const { state } = useContext(IngredientsContext);
+  // const { state } = useContext(IngredientsContext);
+    const ingredients = useSelector(state => state.app.ingredients)
   const [current, setCurrent] = useState('Булки');
-  const buns = useMemo(() => state.ingredients.filter((i) => i.type === 'bun'), [state.ingredients]);
-  const sauces = useMemo(() => state.ingredients.filter((i) => i.type === 'sauce'), [state.ingredients]);
-  const mains = useMemo(() => state.ingredients.filter((i) => i.type === 'main'), [state.ingredients]);
+  const buns = useMemo(() => ingredients.filter((i) => i.type === 'bun'), [ingredients]);
+  const sauces = useMemo(() => ingredients.filter((i) => i.type === 'sauce'), [ingredients]);
+  const mains = useMemo(() => ingredients.filter((i) => i.type === 'main'), [ingredients]);
 
   const handleCurrent = useCallback((evt) => {
     setCurrent(evt);
@@ -45,29 +47,35 @@ export const BurgerIngredients = React.memo(({
         </Tab>
       </div>
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
-          <IngredientsList filteredIngredients={buns} onModalOpen={onModalOpen} title='Булки' />
-        <IngredientsList filteredIngredients={sauces} onModalOpen={onModalOpen} title='Соусы' />
+          <IngredientsList
+              filteredIngredients={buns}
+              // onModalOpen={onModalOpen}
+              title='Булки' />
+        <IngredientsList
+            filteredIngredients={sauces}
+            // onModalOpen={onModalOpen}
+            title='Соусы' />
           <IngredientsList
           filteredIngredients={mains}
-          onModalOpen={onModalOpen}
+          // onModalOpen={onModalOpen}
           title='Начинки'
         />
       </div>
-        {isModalOpen && <Modal
-          isOpen={isModalOpen}
-          title='Детали ингредиента'
-          onClose={onModalClose}
-        >
-          {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
-        </Modal>}
+        {/*{isModalOpen && <Modal*/}
+        {/*  isOpen={isModalOpen}*/}
+        {/*  title='Детали ингредиента'*/}
+        {/*  onClose={onModalClose}*/}
+        {/*>*/}
+        {/*  {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}*/}
+        {/*</Modal>}*/}
       </section>
     )
   );
 });
 
 BurgerIngredients.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
-  onModalClose: PropTypes.func.isRequired,
+  // isModalOpen: PropTypes.bool.isRequired,
+  // onModalOpen: PropTypes.func.isRequired,
+  // onModalClose: PropTypes.func.isRequired,
   currentIngredient: itemPropTypes
 };
