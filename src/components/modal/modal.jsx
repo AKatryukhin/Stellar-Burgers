@@ -14,7 +14,14 @@ const Modal = React.memo(({ title, children }) => {
   const dispatch = useDispatch();
 
   const onClose = () => {
-    isIngredientModalOpen || isOrderModalOpen && dispatch({type: 'CLOSE_ALL_MODAL'})
+    if(isIngredientModalOpen) {
+      dispatch({type: 'CLOSE_ALL_MODAL'})
+    }
+    if(isOrderModalOpen) {
+      dispatch({type: 'CLOSE_ALL_MODAL'});
+      dispatch({type: 'CLEAR_LIST'});
+      dispatch({type: 'RESET_ORDER_NUMBER'});
+    }
   };
   const isOpen =  isIngredientModalOpen || isOrderModalOpen;
   //функция закрытия модального окна по Escape
@@ -22,7 +29,7 @@ const Modal = React.memo(({ title, children }) => {
     (evt) => {
       isOpen && evt.key === ESC_KEYCODE && onClose();
     },
-    [onClose]
+    [isOpen, onClose]
   );
 
   useEffect(() => {
