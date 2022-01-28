@@ -21,7 +21,7 @@ export const BurgerIngredients = React.memo(({
   const buns = useMemo(() => ingredients.filter((i) => i.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter((i) => i.type === 'sauce'), [ingredients]);
   const mains = useMemo(() => ingredients.filter((i) => i.type === 'main'), [ingredients]);
-
+  const isOpen = useSelector(state => state?.modal.isIngredientModalOpen);
   const handleCurrent = useCallback((evt) => {
     setCurrent(evt);
 }, []);
@@ -61,13 +61,12 @@ export const BurgerIngredients = React.memo(({
           title='Начинки'
         />
       </div>
-        {/*{isModalOpen && <Modal*/}
-        {/*  isOpen={isModalOpen}*/}
-        {/*  title='Детали ингредиента'*/}
-        {/*  onClose={onModalClose}*/}
-        {/*>*/}
-        {/*  {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}*/}
-        {/*</Modal>}*/}
+        {isOpen && <Modal
+          title='Детали ингредиента'
+          // onClose={onModalClose}
+        >
+          {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
+        </Modal>}
       </section>
     )
   );

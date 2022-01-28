@@ -24,9 +24,10 @@ export const BurgerConstructor = React.memo(({
   const handleClick = () => {
     // dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
     dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
+    dispatch({type: 'OPEN_ORDER_MODAL'});
   };
   const selectedIngredients = useSelector(state => state?.selectedIngredients.selectedIngredients);
-  const isOpen = useSelector(state => state?.order.isOpen);
+  const isOpen = useSelector(state => state?.modal.isOrderModalOpen);
   const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
   const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'

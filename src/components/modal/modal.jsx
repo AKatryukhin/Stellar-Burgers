@@ -5,15 +5,24 @@ import closeIcon from '../../images/closeIcon.svg';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { ESC_KEYCODE } from '../../utils/constants';
 import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from "react-redux";
 
-const Modal = React.memo(({ isOpen, title, children, onClose }) => {
+const Modal = React.memo(({ title, children }) => {
   const modalRoot = document.getElementById('modals');
+  const isIngredientModalOpen = useSelector(state => state?.modal.isIngredientModalOpen);
+  const isOrderModalOpen = useSelector(state => state?.modal.isOrderModalOpen);
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    isIngredientModalOpen || isOrderModalOpen && dispatch({type: 'CLOSE_ALL_MODAL'})
+  };
+  const isOpen =  isIngredientModalOpen || isOrderModalOpen;
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
     (evt) => {
       isOpen && evt.key === ESC_KEYCODE && onClose();
     },
-    [isOpen, onClose]
+    [onClose]
   );
 
   useEffect(() => {

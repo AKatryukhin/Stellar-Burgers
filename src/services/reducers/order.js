@@ -2,7 +2,6 @@ const initialState = {
     orderNumber: null,
     orderNumberRequest: false,
     orderNumberFailed: false,
-    isOpen: false
 };
 
 export const order = (state = initialState, action) => {
@@ -19,7 +18,6 @@ export const order = (state = initialState, action) => {
                 orderNumberFailed: false,
                 orderNumber: action.payload,
                 orderNumberRequest: false,
-                isOpen: true
             };
         }
         case 'RESET_ORDER_NUMBER': {
