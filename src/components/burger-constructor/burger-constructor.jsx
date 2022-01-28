@@ -22,7 +22,7 @@ export const BurgerConstructor = React.memo(({
 }) => {
   // const { state } = useContext(IngredientsContext);
   // const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
-  const selectedIngredients = useSelector(state => state.app.selectedIngredients)
+  const selectedIngredients = useSelector(state => state.selectedIngredients.selectedIngredients)
   const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
   const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'

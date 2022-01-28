@@ -5,11 +5,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { itemPropTypes } from '../../utils/types';
 import PropTypes from 'prop-types';
+import {useSelector, useDispatch} from "react-redux";
 
 export const IngredientsItem = ({ ingredient, onModalOpen }) => {
-
+  const orderIngredientsArr = useSelector(store => store.ingredients.ingredients.map((i) => i._id))
+    const dispatch = useDispatch();
   const handleClick = () => {
     onModalOpen(ingredient);
+    dispatch('GET_INGREDIENTS_REQUEST', orderIngredientsArr);
   };
 
   const { image, name, price } = ingredient;
