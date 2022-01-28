@@ -1,9 +1,15 @@
 import { spawn, call, put, all, takeEvery} from 'redux-saga/effects';
-import {getIngredientsList} from "../../utils/IngredientsApi";
 import {watchLoadIngredients} from "./ingredients";
+import {watchLoadSelectIngredients} from "./selectedIngredients";
+import {watchGetOrderNumber} from "./order";
+
 
 export default function* rootSaga() {
-    const sagas = [watchLoadIngredients];
+    const sagas = [
+        watchLoadIngredients,
+        watchLoadSelectIngredients,
+        watchGetOrderNumber
+    ];
     const retrySagas = yield sagas.map(saga => {
         return spawn(function* () {
             while (true) {

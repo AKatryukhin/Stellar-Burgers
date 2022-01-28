@@ -6,13 +6,15 @@ import {
 import { itemPropTypes } from '../../utils/types';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from "react-redux";
+import { v4 as uuid } from 'uuid';
 
 export const IngredientsItem = ({ ingredient, onModalOpen }) => {
-  const orderIngredientsArr = useSelector(store => store.ingredients.ingredients.map((i) => i._id))
     const dispatch = useDispatch();
   const handleClick = () => {
-    onModalOpen(ingredient);
-    dispatch('GET_INGREDIENTS_REQUEST', orderIngredientsArr);
+    dispatch({
+      type: 'ADD_INGREDIENT_REQUEST',
+      payload: { ...ingredient, key: uuid() }
+    });
   };
 
   const { image, name, price } = ingredient;

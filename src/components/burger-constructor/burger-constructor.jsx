@@ -8,10 +8,6 @@ import { ConstructorList } from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
-// import {
-//   IngredientsContext,
-//   TotalPriceContext,
-// } from '../../contexts/ingredients-context';
 import {useDispatch, useSelector} from "react-redux";
 
 export const BurgerConstructor = React.memo(({
@@ -22,7 +18,14 @@ export const BurgerConstructor = React.memo(({
 }) => {
   // const { state } = useContext(IngredientsContext);
   // const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
+  const orderIngredientsArr = useSelector(store => store.ingredients.ingredients.map((i) => i._id))
+    const dispatch = useDispatch();
+  const handleClick = () => {
+    // onModalOpen(ingredient);
+    dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
+  };
   const selectedIngredients = useSelector(state => state.selectedIngredients.selectedIngredients)
+  console.log(selectedIngredients)
   const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
   const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'
@@ -61,6 +64,7 @@ export const BurgerConstructor = React.memo(({
           otherIngredients={otherIngredients}
           // onModalOpen={onModalOpen}
           onRemove={onDeleteIngredient}
+          key={otherIngredients.key}
         />
       </div>
       <div className={styles.orderWrap}>

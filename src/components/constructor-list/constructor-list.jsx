@@ -25,6 +25,7 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
             text={`${bun.name} (верх)`}
             price={bun.price}
             thumbnail={bun.image}
+            key={bun.key}
           />
         ) : (
           <ConstructorElement
@@ -88,8 +89,8 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
   );
 };
 
-ConstructorList.propTypes = {
-  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-  bun: itemPropTypes,
-  onRemove: PropTypes.func
-};
+// ConstructorList.propTypes = {
+//   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+//   bun: itemPropTypes,
+//   onRemove: PropTypes.func
+// };

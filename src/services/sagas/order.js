@@ -13,5 +13,5 @@ function* workGetOrderNumber(orderIngredientsArr) {
 }
 
 export function* watchGetOrderNumber() {
-    yield takeEvery('GET_INGREDIENTS_REQUEST', workGetOrderNumber);
+    yield takeEvery('GET_ORDER_REQUEST', workGetOrderNumber);
 }
