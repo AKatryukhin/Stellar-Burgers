@@ -16,16 +16,17 @@ export const BurgerConstructor = React.memo(({
   // onModalOpen,
   onDeleteIngredient
 }) => {
-  // const { state } = useContext(IngredientsContext);
-  // const { totalPrice, setTotalPrice } = useContext(TotalPriceContext);
-  const orderIngredientsArr = useSelector(store => store.ingredients.ingredients.map((i) => i._id))
-    const dispatch = useDispatch();
+
+  const orderIngredientsArr = useSelector(state => state?.selectedIngredients.selectedIngredients.map((i) => i._id))
+  // const orderNum = useSelector(state => state.order.orderNumber)
+  // console.log(orderNum)
+  const dispatch = useDispatch();
   const handleClick = () => {
-    // onModalOpen(ingredient);
+    // dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
     dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
   };
-  const selectedIngredients = useSelector(state => state.selectedIngredients.selectedIngredients)
-  console.log(selectedIngredients)
+  const selectedIngredients = useSelector(state => state?.selectedIngredients.selectedIngredients);
+  const isOpen = useSelector(state => state?.order.isOpen);
   const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
   const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'
@@ -77,14 +78,16 @@ export const BurgerConstructor = React.memo(({
         <Button
             type='primary'
             size='medium'
-            // onClick={handleClick}
+            onClick={handleClick}
         >
           Оформить заказ
         </Button>
       </div>
-        {/*{isModalOpen && <Modal isOpen={isModalOpen} onClose={onModalClose}>*/}
-        {/*  <OrderDetails />*/}
-        {/*</Modal>}*/}
+        {isOpen && <Modal isOpen={isOpen}
+                          // onClose={onModalClose}
+        >
+          <OrderDetails />
+        </Modal>}
       </section>
     )
   );

@@ -49,9 +49,9 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
 
 export default Modal;
 
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  title: PropTypes.string,
-  children: PropTypes.element,
-  onClose: PropTypes.func.isRequired,
-};
+// Modal.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   title: PropTypes.string,
+//   children: PropTypes.element,
+//   onClose: PropTypes.func.isRequired,
+// };

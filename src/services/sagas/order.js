@@ -2,12 +2,12 @@ import {call, put, takeEvery} from "redux-saga/effects";
 import {placeAnOrder} from "../../utils/IngredientsApi";
 
 
-
-function* workGetOrderNumber(orderIngredientsArr) {
+function* workGetOrderNumber(action) {
     try {
-        const { data } = yield call(placeAnOrder(orderIngredientsArr));
+        const data = yield call(placeAnOrder, action.payload);
         yield put({ type: 'GET_ORDER_NUMBER_SUCCESS', payload: data.order.number });
-    } catch {
+    } catch (err) {
+        console.log(err)
         yield put({ type: 'GET_ORDER_NUMBER_FAILED' });
     }
 }

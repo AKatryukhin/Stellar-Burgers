@@ -1,11 +1,11 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 
-export function* workAddSelectIngredients(ingredient) {
-    yield put({type: 'ADD_INGREDIENT', payload: ingredient.payload });
+export function* workAddSelectIngredients(action) {
+    yield put({type: 'ADD_INGREDIENT', payload: action.payload });
 }
 
-export function* workRemoveSelectIngredients(ingredient) {
-    yield put({ type: 'DELETE_INGREDIENT', payload: ingredient.payload });
+export function* workRemoveSelectIngredients(action) {
+    yield put({ type: 'DELETE_INGREDIENT', payload: action.payload });
 }
 
 export function* watchLoadSelectIngredients() {
