@@ -4,13 +4,13 @@ import { IngredientsItem } from '../ingredients-list-item/ingredients-list-item'
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 
-export const IngredientsList = React.memo(({ title, filteredIngredients, onModalOpen }) => {
+export const IngredientsList = React.forwardRef(({ title, filteredIngredients, onModalOpen}, ref ) => {
   // мемоизированный колбэк для передачи дочерним компонентам 
   const handleListItemClick = useCallback((i) => onModalOpen(i), [onModalOpen]);
 
   return (
     <div className={`${styles.listWrap} mb-10 custom-scroll`}>
-      <h2 className={`${styles.title} mb-6`}>{title}</h2>
+      <h2 ref={ref} className={`${styles.title} mb-6`}>{title}</h2>
       <div className='pr-4 pl-4'>
         <ul className={`${styles.list} custom-scroll`}>
           {filteredIngredients.map((i) => (
