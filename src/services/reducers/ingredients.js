@@ -1,3 +1,11 @@
+import {
+  CLEAR_INGREDIENT_LIST_COUNT,
+  DECREASE_COUNT,
+  GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  INCREASE_COUNT
+} from "../actions/types";
+
 const initialState = {
   ingredients: [],
   ingredientsRequest: false,
@@ -6,13 +14,13 @@ const initialState = {
 
 export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_INGREDIENTS_REQUEST": {
+    case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         ingredientsRequest: true,
       };
     }
-    case "GET_INGREDIENTS_SUCCESS": {
+    case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredientsFailed: false,
@@ -20,14 +28,14 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredientsRequest: false,
       };
     }
-    case "GET_INGREDIENTS_FAILED": {
+    case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
         itemsFailed: true,
         itemsRequest: false,
       };
     }
-    case "INCREASE_COUNT": {
+    case INCREASE_COUNT: {
       const item = action.ingredient;
       const newIngredients = state.ingredients.filter(
         (i) => i._id !== item._id
@@ -37,7 +45,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredients: [...newIngredients, { ...item, count: action.count }],
       };
     }
-    case "DECREASE_COUNT": {
+    case DECREASE_COUNT: {
       const item = state.ingredients.find(
         (i) => i._id === action.ingredient._id
       );
@@ -55,7 +63,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredients: [...newIngredients, { ...item, count: null }],
       };
     }
-    case "CLEAR_INGREDIENT_LIST_COUNT": {
+    case CLEAR_INGREDIENT_LIST_COUNT: {
         return {
           ...state,
           ingredients: state.ingredients.map((i) => {

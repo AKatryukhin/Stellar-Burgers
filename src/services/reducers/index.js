@@ -3,6 +3,7 @@ import {ingredientsReducer} from "./ingredients";
 import {selectedIngredientsReducer} from "./selectedIngredients";
 import {currentIngredientReducer} from "./currentIngredient";
 import {order} from './order';
+import {CLOSE_ALL_MODAL, OPEN_INGREDIENT_MODAL, OPEN_ORDER_MODAL} from "../actions/types";
 
 
 const initialState = {
@@ -12,19 +13,19 @@ const initialState = {
 
 const modalReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'OPEN_ORDER_MODAL': {
+        case OPEN_ORDER_MODAL: {
             return {
                 ...state,
                 isOrderModalOpen: true
             };
         }
-        case 'OPEN_INGREDIENT_MODAL': {
+        case OPEN_INGREDIENT_MODAL: {
             return {
                 ...state,
                 isIngredientModalOpen: true
             };
         }
-        case 'CLOSE_ALL_MODAL': {
+        case CLOSE_ALL_MODAL: {
             return initialState
         }
 

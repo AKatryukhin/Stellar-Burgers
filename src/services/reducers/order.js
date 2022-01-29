@@ -1,3 +1,10 @@
+import {
+    GET_ORDER_NUMBER_FAILED,
+    GET_ORDER_NUMBER_REQUEST,
+    GET_ORDER_NUMBER_SUCCESS,
+    RESET_ORDER_NUMBER
+} from "../actions/types";
+
 const initialState = {
     orderNumber: null,
     orderNumberRequest: false,
@@ -6,13 +13,13 @@ const initialState = {
 
 export const order = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_ORDER_NUMBER_REQUEST': {
+        case GET_ORDER_NUMBER_REQUEST: {
             return {
                 ...state,
                 orderNumberRequest: true
             };
         }
-        case 'GET_ORDER_NUMBER_SUCCESS': {
+        case GET_ORDER_NUMBER_SUCCESS: {
             return {
                 ...state,
                 orderNumberFailed: false,
@@ -20,11 +27,11 @@ export const order = (state = initialState, action) => {
                 orderNumberRequest: false,
             };
         }
-        case 'RESET_ORDER_NUMBER': {
+        case RESET_ORDER_NUMBER: {
             return initialState;
         }
 
-        case 'GET_ORDER_NUMBER_FAILED': {
+        case GET_ORDER_NUMBER_FAILED: {
             return {
                 ...state,
                 orderNumberFailed: true,

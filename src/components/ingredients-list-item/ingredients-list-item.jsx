@@ -7,6 +7,12 @@ import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
+import {
+  ADD_CURRENT_INGREDIENT,
+  ADD_SELECTED_INGREDIENT,
+  INCREASE_COUNT,
+  OPEN_INGREDIENT_MODAL
+} from "../../services/actions/types";
 
 export const IngredientsItem = ({ ingredient }) => {
   const dispatch = useDispatch();
@@ -17,32 +23,32 @@ export const IngredientsItem = ({ ingredient }) => {
     if (ingredient.type !== "bun") {
       ingredient.count
         ? dispatch({
-            type: "INCREASE_COUNT",
+            type: INCREASE_COUNT,
             ingredient: ingredient,
             count: ingredient.count + 1,
           })
         : dispatch({
-            type: "INCREASE_COUNT",
+            type: INCREASE_COUNT,
             ingredient: ingredient,
             count: 1,
           });
     }
     if (ingredient.type === "bun" && !isBunInOrder) {
       dispatch({
-        type: "INCREASE_COUNT",
+        type: INCREASE_COUNT,
         ingredient: ingredient,
         count: 2,
       });
     }
     dispatch({
-      type: "ADD_SELECTED_INGREDIENT",
+      type: ADD_SELECTED_INGREDIENT,
       payload: { ...ingredient, key: uuid() },
     });
     dispatch({
-      type: "ADD_CURRENT_INGREDIENT",
+      type: ADD_CURRENT_INGREDIENT,
       ingredient: ingredient,
     });
-    dispatch({ type: "OPEN_INGREDIENT_MODAL" });
+    dispatch({ type: OPEN_INGREDIENT_MODAL });
   };
 
   const { image, name, price } = ingredient;

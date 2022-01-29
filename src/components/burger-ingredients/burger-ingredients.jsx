@@ -13,6 +13,7 @@ import { itemPropTypes } from "../../utils/types";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
+import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
 
 export const BurgerIngredients = React.memo(() => {
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
@@ -40,7 +41,7 @@ export const BurgerIngredients = React.memo(() => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "GET_INGREDIENTS_REQUEST" });
+    dispatch({ type: GET_INGREDIENTS_REQUEST });
   }, []);
 
   const bunsRef = useRef();
@@ -59,11 +60,11 @@ export const BurgerIngredients = React.memo(() => {
     const mainsAbs = Math.abs(containerTop - mainsTop);
 
     if (bunsAbs < saucesAbs) {
-        setCurrent("Булки");
+      setCurrent("Булки");
     } else if (saucesAbs < mainsAbs) {
-        setCurrent("Соусы");
+      setCurrent("Соусы");
     } else {
-        setCurrent("Начинки");
+      setCurrent("Начинки");
     }
   }
 

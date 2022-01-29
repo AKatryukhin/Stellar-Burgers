@@ -7,16 +7,20 @@ import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
 import { useDispatch } from "react-redux";
+import {
+  DECREASE_COUNT,
+  DELETE_SELECTED_INGREDIENT,
+} from "../../services/actions/types";
 
-export const ConstructorList = ({ bun, otherIngredients }) => {
+export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const dispatch = useDispatch();
   const onClose = (item) => {
     dispatch({
-      type: "DELETE_SELECTED_INGREDIENT",
+      type: DELETE_SELECTED_INGREDIENT,
       payload: item,
     });
     dispatch({
-      type: "DECREASE_COUNT",
+      type: DECREASE_COUNT,
       ingredient: item,
     });
   };
@@ -95,7 +99,7 @@ export const ConstructorList = ({ bun, otherIngredients }) => {
   );
 };
 
-ConstructorList.propTypes = {
+BurgerConstructorList.propTypes = {
   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
   bun: itemPropTypes,
 };

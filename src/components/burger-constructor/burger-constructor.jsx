@@ -4,17 +4,21 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ConstructorList } from "../burger-constructor-list/constructor-list";
+import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  OPEN_ORDER_MODAL,
+  SET_TOTAL_PRICE,
+} from "../../services/actions/types";
 
 export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
   const dispatch = useDispatch();
 
   const handleClick = () =>
-    bun && otherIngredients && dispatch({ type: "OPEN_ORDER_MODAL" });
+    bun && otherIngredients && dispatch({ type: OPEN_ORDER_MODAL });
 
   const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
@@ -42,17 +46,17 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
         );
         return bunSum + otherIngredientsSum;
       })();
-      dispatch({ type: "SET_TOTAL_PRICE", payload: totalSum });
+      dispatch({ type: SET_TOTAL_PRICE, payload: totalSum });
     } else {
       const totalSum = otherIngredients.reduce((acc, i) => acc + i.price, 0);
-      dispatch({ type: "SET_TOTAL_PRICE", payload: totalSum });
+      dispatch({ type: SET_TOTAL_PRICE, payload: totalSum });
     }
   }, [bun, otherIngredients, dispatch]);
 
   return (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
-        <ConstructorList
+        <BurgerConstructorList
           bun={bun}
           otherIngredients={otherIngredients}
           onRemove={onDeleteIngredient}

@@ -6,6 +6,12 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { ESC_KEYCODE } from "../../utils/constants";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  CLEAR_INGREDIENT_LIST_COUNT,
+  CLEAR_SELECTED_INGREDIENT_LIST,
+  CLOSE_ALL_MODAL, REMOVE_CURRENT_INGREDIENT,
+  RESET_ORDER_NUMBER
+} from "../../services/actions/types";
 
 const Modal = React.memo(({ title, children }) => {
   const modalRoot = document.getElementById("modals");
@@ -19,14 +25,14 @@ const Modal = React.memo(({ title, children }) => {
 
   const onClose = useCallback(() => {
     if (isIngredientModalOpen) {
-      dispatch({ type: "CLOSE_ALL_MODAL" });
-      dispatch({ type: "REMOVE_CURRENT_INGREDIENT" });
+      dispatch({ type: CLOSE_ALL_MODAL });
+      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
     }
     if (isOrderModalOpen) {
-      dispatch({ type: "CLOSE_ALL_MODAL" });
-      dispatch({ type: "CLEAR_SELECTED_INGREDIENT_LIST" });
-      dispatch({ type: "CLEAR_INGREDIENT_LIST_COUNT" });
-      dispatch({ type: "RESET_ORDER_NUMBER" });
+      dispatch({ type: CLOSE_ALL_MODAL });
+      dispatch({ type: CLEAR_SELECTED_INGREDIENT_LIST });
+      dispatch({ type: CLEAR_INGREDIENT_LIST_COUNT });
+      dispatch({ type: RESET_ORDER_NUMBER });
     }
   }, [dispatch, isIngredientModalOpen, isOrderModalOpen]);
   const isOpen = isIngredientModalOpen || isOrderModalOpen;
