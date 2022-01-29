@@ -27,7 +27,7 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
         ...state,
         totalPrice: null,
       };
-    case "CLEAR_LIST": {
+    case "CLEAR_SELECTED_INGREDIENT_LIST": {
       return initialState;
     }
     default:

@@ -1,29 +1,36 @@
-import React, { useEffect, useMemo } from 'react';
-import styles from './burger-constructor.module.css';
+import React, { useEffect, useMemo } from "react";
+import styles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
   Button,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { ConstructorList } from '../burger-constructor-list/constructor-list';
-import Modal from '../modal/modal';
-import { OrderDetails } from '../order-details/order-details';
-import PropTypes from 'prop-types';
-import {useDispatch, useSelector} from "react-redux";
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorList } from "../burger-constructor-list/constructor-list";
+import Modal from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
-export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
-
-  const orderIngredientsArr = useSelector(state => state?.selectedIngredients.selectedIngredients.map((i) => i._id))
+export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
   const dispatch = useDispatch();
-  const handleClick = () =>  bun && otherIngredients &&
-      dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
 
-  const selectedIngredients = useSelector(state => state?.selectedIngredients.selectedIngredients);
-  const isOpen = useSelector(state => state?.modal.isOrderModalOpen);
-  const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
-  const otherIngredients = useMemo(() => selectedIngredients.filter(
-    (i) => i.type !== 'bun'
-  ), [selectedIngredients]);
-  const totalPrice = useSelector(state => state?.selectedIngredients.totalPrice)
+  const handleClick = () =>
+    bun && otherIngredients && dispatch({ type: "OPEN_ORDER_MODAL" });
+
+  const selectedIngredients = useSelector(
+    (state) => state?.selectedIngredients.selectedIngredients
+  );
+  const isOpen = useSelector((state) => state?.modal.isOrderModalOpen);
+  const bun = useMemo(
+    () => selectedIngredients.find((i) => i.type === "bun"),
+    [selectedIngredients]
+  );
+  const otherIngredients = useMemo(
+    () => selectedIngredients.filter((i) => i.type !== "bun"),
+    [selectedIngredients]
+  );
+  const totalPrice = useSelector(
+    (state) => state?.selectedIngredients.totalPrice
+  );
 
   useEffect(() => {
     if (bun) {
@@ -35,18 +42,14 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
         );
         return bunSum + otherIngredientsSum;
       })();
-      dispatch({type: 'SET_TOTAL_PRICE', payload: totalSum});
+      dispatch({ type: "SET_TOTAL_PRICE", payload: totalSum });
     } else {
-      const totalSum = otherIngredients.reduce(
-          (acc, i) => acc + i.price,
-          0
-      );
-      dispatch({type: 'SET_TOTAL_PRICE', payload: totalSum});
-      }
-  }, [bun, otherIngredients ]);
-  
+      const totalSum = otherIngredients.reduce((acc, i) => acc + i.price, 0);
+      dispatch({ type: "SET_TOTAL_PRICE", payload: totalSum });
+    }
+  }, [bun, otherIngredients, dispatch]);
+
   return (
-    (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <ConstructorList
@@ -58,24 +61,19 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
-          <p className='text text_type_main-medium mr-2'>
-            {totalPrice}
-          </p>
-          <CurrencyIcon type='primary' />
+          <p className="text text_type_main-medium mr-2">{totalPrice}</p>
+          <CurrencyIcon type="primary" />
         </span>
-        <Button
-            type='primary'
-            size='medium'
-            onClick={handleClick}
-        >
+        <Button type="primary" size="medium" onClick={handleClick}>
           Оформить заказ
         </Button>
       </div>
-        {isOpen && <Modal >
+      {isOpen && (
+        <Modal>
           <OrderDetails />
-        </Modal>}
-      </section>
-    )
+        </Modal>
+      )}
+    </section>
   );
 });
 

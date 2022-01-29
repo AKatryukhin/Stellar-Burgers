@@ -55,6 +55,14 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredients: [...newIngredients, { ...item, count: null }],
       };
     }
+    case "CLEAR_INGREDIENT_LIST_COUNT": {
+        return {
+          ...state,
+          ingredients: state.ingredients.map((i) => {
+            return {...i, count: null}
+          })
+        }
+    }
     default: {
       return state;
     }

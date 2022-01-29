@@ -1,10 +1,17 @@
-import React, { useContext } from 'react';
+import React, {useEffect} from 'react';
 import styles from './order-details.module.css';
 import IconDone from '../../images/iconDoneGif.gif';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 export const OrderDetails = React.memo(() => {
-  const order = useSelector(state => state.order.orderNumber)
+  const order = useSelector(state => state?.order.orderNumber)
+  const dispatch = useDispatch();
+    const orderIngredientsArr = useSelector((state) =>
+        state?.selectedIngredients.selectedIngredients.map((i) => i._id)
+    );
+  useEffect(() => {
+      dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
+  },[]);
 
   return (
     (
