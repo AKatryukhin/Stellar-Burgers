@@ -6,7 +6,7 @@ import {
 import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export const ConstructorList = ({ bun, otherIngredients }) => {
   const dispatch = useDispatch();
@@ -15,10 +15,10 @@ export const ConstructorList = ({ bun, otherIngredients }) => {
       type: "DELETE_SELECTED_INGREDIENT",
       payload: item,
     });
-      dispatch({
-        type: "DECREASE_COUNT",
-        ingredient: item,
-      });
+    dispatch({
+      type: "DECREASE_COUNT",
+      ingredient: item,
+    });
   };
 
   return (

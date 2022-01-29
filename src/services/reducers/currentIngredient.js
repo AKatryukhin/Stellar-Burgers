@@ -1,18 +1,19 @@
 const initialState = {
-    ingredient: null,
+  ingredient: null,
 };
 
 export const currentIngredientReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'ADD_CURRENT_INGREDIENT': {
-            return {
-                ...state,
-                ingredient: action.ingredient};
-        }
-        case 'REMOVE_CURRENT_INGREDIENT': {
-            return initialState;
-        }
-        default:
-            return state;
+  switch (action.type) {
+    case "ADD_CURRENT_INGREDIENT": {
+      return {
+        ...state,
+        ingredient: action.ingredient,
+      };
     }
+    case "REMOVE_CURRENT_INGREDIENT": {
+      return initialState;
+    }
+    default:
+      return state;
+  }
 };
