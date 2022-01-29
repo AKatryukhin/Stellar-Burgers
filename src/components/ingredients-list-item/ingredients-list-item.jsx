@@ -16,8 +16,8 @@ export const IngredientsItem = ({ ingredient }) => {
       payload: { ...ingredient, key: uuid() }
     });
     dispatch({
-      type: 'ADD_CURRENT_INGREDIENT_REQUEST',
-      payload: ingredient});
+      type: 'ADD_CURRENT_INGREDIENT',
+      ingredient: ingredient});
       dispatch({type: 'OPEN_INGREDIENT_MODAL'});
   };
 

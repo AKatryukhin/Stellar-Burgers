@@ -9,6 +9,6 @@ export function* workRemoveCurrentIngredients(action) {
 }
 
 export function* watchCurrentIngredients() {
-    yield takeEvery('ADD_CURRENT_INGREDIENT_REQUEST', workAddCurrentIngredients);
-    yield takeEvery('REMOVE_CURRENT_INGREDIENT_REQUEST', workRemoveCurrentIngredients);
+    // yield takeEvery('ADD_CURRENT_INGREDIENT_REQUEST', workAddCurrentIngredients);
+    // yield takeEvery('REMOVE_CURRENT_INGREDIENT_REQUEST', workRemoveCurrentIngredients);
 }

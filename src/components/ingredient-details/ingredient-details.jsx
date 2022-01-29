@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 
 export const IngredientDetails = React.memo(() => {
   const currentIngredient = useSelector(state => state?.currentIngredient.ingredient);
-  console.log(currentIngredient)
   const {
     name,
     image_large,
@@ -77,6 +76,6 @@ export const IngredientDetails = React.memo(() => {
   );
 });
 
-IngredientDetails.propTypes = {
-  ingredient: itemPropTypes.isRequired,
-};
+// IngredientDetails.propTypes = {
+//   ingredient: itemPropTypes.isRequired,
+// };

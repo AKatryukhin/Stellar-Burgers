@@ -16,9 +16,6 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
           type: 'DELETE_SELECTED_INGREDIENT',
           payload: item
       });
-    // if (typeof onRemove === 'function') {
-    // onRemove(item);
-    // }
   };
 
   return (
