@@ -2,9 +2,9 @@ const initialState = {
     ingredient: null,
 };
 
-export const currentIngredient = (state = initialState, action) => {
+export const currentIngredientReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADDED_CURRENT_INGREDIENT': {
+        case 'ADD_CURRENT_INGREDIENT': {
             return {
                 ...state,
                 ingredient: action.ingredient};

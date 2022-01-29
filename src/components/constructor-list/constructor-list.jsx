@@ -6,13 +6,19 @@ import {
 import PropTypes from 'prop-types';
 import { itemPropTypes } from '../../utils/types';
 import bunImage from '../../images/bun-02.png';
+import {useDispatch} from "react-redux";
+import {v4 as uuid} from "uuid";
 
 export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
-
+  const dispatch = useDispatch();
   const onClose = (item) => {
-    if (typeof onRemove === 'function') {
-    onRemove(item);
-    }
+      dispatch({
+          type: 'DELETE_SELECTED_INGREDIENT',
+          payload: item
+      });
+    // if (typeof onRemove === 'function') {
+    // onRemove(item);
+    // }
   };
 
   return (

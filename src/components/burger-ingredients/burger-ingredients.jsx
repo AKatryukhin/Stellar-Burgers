@@ -9,19 +9,14 @@ import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from '../../contexts/ingredients-context';
 import {useDispatch, useSelector} from "react-redux";
 
-export const BurgerIngredients = React.memo(({
-  // isModalOpen,
-  // onModalOpen,
-  // onModalClose,
-  currentIngredient,
-}) => {
-  // const { state } = useContext(IngredientsContext);
-  const ingredients = useSelector(state => state.ingredients.ingredients)
+export const BurgerIngredients = React.memo(() => {
+  const ingredients = useSelector(state => state?.ingredients.ingredients)
   const [current, setCurrent] = useState('Булки');
   const buns = useMemo(() => ingredients.filter((i) => i.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter((i) => i.type === 'sauce'), [ingredients]);
   const mains = useMemo(() => ingredients.filter((i) => i.type === 'main'), [ingredients]);
   const isOpen = useSelector(state => state?.modal.isIngredientModalOpen);
+  const currentIngredient = useSelector(state => state?.currentIngredient.ingredient);
   const handleCurrent = useCallback((evt) => {
     setCurrent(evt);
 }, []);
@@ -49,15 +44,12 @@ export const BurgerIngredients = React.memo(({
       <div className={`${styles.listWrap} custom-scroll`} id='containerElement'>
           <IngredientsList
               filteredIngredients={buns}
-              // onModalOpen={onModalOpen}
               title='Булки' />
         <IngredientsList
             filteredIngredients={sauces}
-            // onModalOpen={onModalOpen}
             title='Соусы' />
           <IngredientsList
           filteredIngredients={mains}
-          // onModalOpen={onModalOpen}
           title='Начинки'
         />
       </div>
@@ -65,7 +57,7 @@ export const BurgerIngredients = React.memo(({
           title='Детали ингредиента'
           // onClose={onModalClose}
         >
-          {currentIngredient && <IngredientDetails ingredient={currentIngredient} />}
+          {currentIngredient && <IngredientDetails/>}
         </Modal>}
       </section>
     )

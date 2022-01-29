@@ -19,7 +19,7 @@ export const App = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
-   const ingredients = useSelector(state => state.ingredients.ingredients)
+   const ingredients = useSelector(state => state?.ingredients.ingredients)
   // основной стейт с данными
   // const [state, setState] = useState({
   //   selectedIngredients: [],

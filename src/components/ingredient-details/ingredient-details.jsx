@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import { itemPropTypes } from '../../utils/types';
+import {useSelector} from "react-redux";
 
-export const IngredientDetails = React.memo(({ ingredient }) => {
+export const IngredientDetails = React.memo(() => {
+  const currentIngredient = useSelector(state => state?.currentIngredient.ingredient);
+  console.log(currentIngredient)
   const {
     name,
     image_large,
@@ -10,7 +13,7 @@ export const IngredientDetails = React.memo(({ ingredient }) => {
     proteins,
     fat,
     carbohydrates
-  } = ingredient;
+  } = currentIngredient;
 
   return (
     (

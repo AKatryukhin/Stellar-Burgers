@@ -10,22 +10,13 @@ import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from "react-redux";
 
-export const BurgerConstructor = React.memo(({
-  // isModalOpen,
-  // onModalClose,
-  // onModalOpen,
-  onDeleteIngredient
-}) => {
+export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
 
   const orderIngredientsArr = useSelector(state => state?.selectedIngredients.selectedIngredients.map((i) => i._id))
-  // const orderNum = useSelector(state => state.order.orderNumber)
-  // console.log(orderNum)
   const dispatch = useDispatch();
-  const handleClick = () => {
-    // dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
-    dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
-    dispatch({type: 'OPEN_ORDER_MODAL'});
-  };
+  const handleClick = () =>  bun && otherIngredients &&
+      dispatch({type: 'GET_ORDER_REQUEST', payload: orderIngredientsArr});
+
   const selectedIngredients = useSelector(state => state?.selectedIngredients.selectedIngredients);
   const isOpen = useSelector(state => state?.modal.isOrderModalOpen);
   const bun = useMemo(() => selectedIngredients.find((i) => i.type === 'bun'), [selectedIngredients]);
@@ -64,7 +55,6 @@ export const BurgerConstructor = React.memo(({
         <ConstructorList
           bun={bun}
           otherIngredients={otherIngredients}
-          // onModalOpen={onModalOpen}
           onRemove={onDeleteIngredient}
           key={otherIngredients.key}
         />
@@ -84,9 +74,7 @@ export const BurgerConstructor = React.memo(({
           Оформить заказ
         </Button>
       </div>
-        {isOpen && <Modal isOpen={isOpen}
-                          // onClose={onModalClose}
-        >
+        {isOpen && <Modal >
           <OrderDetails />
         </Modal>}
       </section>

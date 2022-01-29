@@ -6,6 +6,7 @@ function* workGetOrderNumber(action) {
     try {
         const data = yield call(placeAnOrder, action.payload);
         yield put({ type: 'GET_ORDER_NUMBER_SUCCESS', payload: data.order.number });
+        yield put({ type: 'OPEN_ORDER_MODAL'});
     } catch (err) {
         console.log(err)
         yield put({ type: 'GET_ORDER_NUMBER_FAILED' });
