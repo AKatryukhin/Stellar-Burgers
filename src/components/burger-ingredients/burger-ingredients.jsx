@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useCallback } from 'react';
+import React, {useState, useContext, useMemo, useCallback, useEffect} from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsList } from '../ingredients-list/ingredients-list';
@@ -21,6 +21,10 @@ export const BurgerIngredients = React.memo(() => {
     setCurrent(evt);
 }, []);
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({ type: "GET_INGREDIENTS_REQUEST" });
+    }, []);
 
   return (
     (
