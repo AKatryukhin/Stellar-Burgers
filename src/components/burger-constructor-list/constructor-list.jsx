@@ -6,12 +6,10 @@ import {
 import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
-import {useDispatch, useSelector} from "react-redux";
-import { v4 as uuid } from "uuid";
+import {useDispatch } from "react-redux";
 
 export const ConstructorList = ({ bun, otherIngredients }) => {
   const dispatch = useDispatch();
-  // const currentItem = useSelector(state => state?.ingredients.find(i => i._id === item._id))
   const onClose = (item) => {
     dispatch({
       type: "DELETE_SELECTED_INGREDIENT",
@@ -58,7 +56,7 @@ export const ConstructorList = ({ bun, otherIngredients }) => {
                   text={i.name}
                   price={i.price}
                   thumbnail={i.image}
-                  handleClose={(e) => onClose(i)}
+                  handleClose={() => onClose(i)}
                 />
               </div>
             </li>
@@ -97,8 +95,7 @@ export const ConstructorList = ({ bun, otherIngredients }) => {
   );
 };
 
-// ConstructorList.propTypes = {
-//   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-//   bun: itemPropTypes,
-//   onRemove: PropTypes.func
-// };
+ConstructorList.propTypes = {
+  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  bun: itemPropTypes,
+};
