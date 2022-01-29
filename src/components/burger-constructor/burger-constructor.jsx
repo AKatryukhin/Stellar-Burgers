@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styles from './burger-constructor.module.css';
 import {
   CurrencyIcon,
@@ -79,9 +79,9 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
   );
 });
 
-BurgerConstructor.propTypes = {
-  // isModalOpen: PropTypes.bool.isRequired,
-  // onModalOpen: PropTypes.func.isRequired,
-  // onModalClose: PropTypes.func.isRequired,
-  // onDeleteIngredient: PropTypes.func.isRequired
-};
+// BurgerConstructor.propTypes = {
+//   isModalOpen: PropTypes.bool.isRequired,
+//   onModalOpen: PropTypes.func.isRequired,
+//   onModalClose: PropTypes.func.isRequired,
+//   onDeleteIngredient: PropTypes.func.isRequired
+// };

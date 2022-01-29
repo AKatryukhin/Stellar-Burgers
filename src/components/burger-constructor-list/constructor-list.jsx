@@ -1,20 +1,25 @@
-import styles from './burger-constructor-list.module.css';
+import styles from "./burger-constructor-list.module.css";
 import {
   ConstructorElement,
   DragIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import { itemPropTypes } from '../../utils/types';
-import bunImage from '../../images/bun-02.png';
-import {useDispatch} from "react-redux";
-import {v4 as uuid} from "uuid";
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import { itemPropTypes } from "../../utils/types";
+import bunImage from "../../images/bun-02.png";
+import {useDispatch, useSelector} from "react-redux";
+import { v4 as uuid } from "uuid";
 
-export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
+export const ConstructorList = ({ bun, otherIngredients }) => {
   const dispatch = useDispatch();
+  // const currentItem = useSelector(state => state?.ingredients.find(i => i._id === item._id))
   const onClose = (item) => {
+    dispatch({
+      type: "DELETE_SELECTED_INGREDIENT",
+      payload: item,
+    });
       dispatch({
-          type: 'DELETE_SELECTED_INGREDIENT',
-          payload: item
+        type: "DECREASE_COUNT",
+        ingredient: item,
       });
   };
 
@@ -23,7 +28,7 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
       <div className={`${styles.itemWrap} ml-8 no-sroll`}>
         {bun ? (
           <ConstructorElement
-            type='top'
+            type="top"
             isLocked={true}
             text={`${bun.name} (верх)`}
             price={bun.price}
@@ -32,11 +37,11 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
           />
         ) : (
           <ConstructorElement
-            className='mt-4'
-            type='top'
+            className="mt-4"
+            type="top"
             isLocked={true}
-            text='Выберите булку'
-            price=''
+            text="Выберите булку"
+            price=""
             thumbnail={bunImage}
           />
         )}
@@ -46,8 +51,8 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
           {otherIngredients.map((i) => (
             <li key={i.key}>
               <div className={`${styles.itemWrap}`}>
-                <span className='mr-3'>
-                  <DragIcon type='primary' className='mr-6' />
+                <span className="mr-3">
+                  <DragIcon type="primary" className="mr-6" />
                 </span>
                 <ConstructorElement
                   text={i.name}
@@ -71,7 +76,7 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
       <div className={`${styles.itemWrap} ml-8`}>
         {bun ? (
           <ConstructorElement
-            type='bottom'
+            type="bottom"
             isLocked={true}
             text={`${bun.name} (низ)`}
             price={bun.price}
@@ -79,11 +84,11 @@ export const ConstructorList = ({ bun, otherIngredients, onRemove }) => {
           />
         ) : (
           <ConstructorElement
-            className='mt-4'
-            type='bottom'
+            className="mt-4"
+            type="bottom"
             isLocked={true}
-            text='Выберите булку'
-            price=''
+            text="Выберите булку"
+            price=""
             thumbnail={bunImage}
           />
         )}
