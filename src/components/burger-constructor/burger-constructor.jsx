@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ConstructorList } from '../constructor-list/constructor-list';
+import { ConstructorList } from '../burger-constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
 import PropTypes from 'prop-types';
@@ -23,30 +23,27 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
   const otherIngredients = useMemo(() => selectedIngredients.filter(
     (i) => i.type !== 'bun'
   ), [selectedIngredients]);
+  const totalPrice = useSelector(state => state?.selectedIngredients.totalPrice)
 
-  // const handleClick = () =>  bun && otherIngredients && onModalOpen();
-   
   useEffect(() => {
     if (bun) {
-      const totalSumm = () => {
-        const bunSumm = bun.price * 2;
-        const otherIngredientsSumm = otherIngredients.reduce(
+      const totalSum = (() => {
+        const bunSum = bun.price * 2;
+        const otherIngredientsSum = otherIngredients.reduce(
           (acc, i) => acc + i.price,
           0
         );
-        return bunSumm + otherIngredientsSumm;
-      };
-      // setTotalPrice(totalSumm);
+        return bunSum + otherIngredientsSum;
+      })();
+      dispatch({type: 'SET_TOTAL_PRICE', payload: totalSum});
     } else {
-      const totalSumm = otherIngredients.reduce(
+      const totalSum = otherIngredients.reduce(
           (acc, i) => acc + i.price,
           0
       );
-      // setTotalPrice(totalSumm);
+      dispatch({type: 'SET_TOTAL_PRICE', payload: totalSum});
       }
-  }, [bun, otherIngredients,
-    // setTotalPrice
-  ]);
+  }, [bun, otherIngredients ]);
   
   return (
     (
@@ -62,7 +59,7 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient}) => {
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
           <p className='text text_type_main-medium mr-2'>
-            {/*{totalPrice}*/}
+            {totalPrice}
           </p>
           <CurrencyIcon type='primary' />
         </span>

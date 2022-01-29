@@ -1,4 +1,4 @@
-import styles from './constructor-list.module.css';
+import styles from './burger-constructor-list.module.css';
 import {
   ConstructorElement,
   DragIcon,

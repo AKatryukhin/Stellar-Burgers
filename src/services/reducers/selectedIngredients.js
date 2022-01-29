@@ -1,6 +1,7 @@
 
 const initialState = {
     selectedIngredients: [],
+    totalPrice: null
 };
 export const selectedIngredientsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -17,6 +18,16 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
                 ...state,
                 selectedIngredients: [
                     ...state.selectedIngredients].filter(i => i.key !== action.payload.key)
+            };
+        case 'SET_TOTAL_PRICE':
+            return {
+                ...state,
+                totalPrice: action.payload
+            };
+        case 'RESET_TOTAL_PRICE':
+            return {
+                ...state,
+                totalPrice: null
             };
         case 'CLEAR_LIST': {
             return initialState;
