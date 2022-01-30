@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
+
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
@@ -51,7 +52,6 @@ export const BurgerIngredients = React.memo(() => {
 
   function handleScroll() {
     const containerTop = containerRef.current.getBoundingClientRect().top;
-    console.log(containerTop);
     const bunsTop = bunsRef.current.getBoundingClientRect().top;
     const saucesTop = saucesRef.current.getBoundingClientRect().top;
     const mainsTop = mainsRef.current.getBoundingClientRect().top;

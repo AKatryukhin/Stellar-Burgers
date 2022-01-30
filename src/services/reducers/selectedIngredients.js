@@ -1,5 +1,5 @@
 import {
-  ADD_SELECTED_INGREDIENT,
+  ADD_SELECTED_INGREDIENT, CHANGE_SELECTED_INGREDIENT,
   CLEAR_SELECTED_INGREDIENT_LIST,
   DELETE_SELECTED_INGREDIENT,
   RESET_TOTAL_PRICE,
@@ -16,6 +16,12 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients, action.payload],
+      };
+    }
+    case CHANGE_SELECTED_INGREDIENT: {
+      return {
+        ...state,
+        selectedIngredients: [...state.selectedIngredients.filter(i => i.type !== 'bun'), action.payload],
       };
     }
     case DELETE_SELECTED_INGREDIENT:

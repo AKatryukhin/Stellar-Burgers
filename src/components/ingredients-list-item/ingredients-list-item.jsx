@@ -11,10 +11,20 @@ import {
   ADD_CURRENT_INGREDIENT,
   ADD_SELECTED_INGREDIENT,
   INCREASE_COUNT,
-  OPEN_INGREDIENT_MODAL
+  OPEN_INGREDIENT_MODAL,
 } from "../../services/actions/types";
+import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
+
+  const [{ isDrag }, drag] = useDrag({
+    type: "place",
+    item: { ingredient },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+
   const dispatch = useDispatch();
   const isBunInOrder = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.some((i) => i.type === "bun")
@@ -54,7 +64,11 @@ export const IngredientsItem = ({ ingredient }) => {
   const { image, name, price } = ingredient;
 
   return (
-    <article onClick={handleClick} className={styles.card}>
+    <article
+      ref={drag}
+      onClick={handleClick}
+      className={`${styles.card} ${isDrag && styles.cardTransparent}`}
+    >
       {ingredient?.count && <Counter count={ingredient.count} size="default" />}
       <img src={image} alt={name} className="mb-1" />
       <div className={`${styles.priceWrap} mb-1`}>

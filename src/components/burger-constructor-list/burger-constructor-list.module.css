@@ -24,6 +24,10 @@
   width: 100%;
 }
 
+.onDrop {
+  opacity: .5;
+}
+
 .messageWrap {
   display: flex;
   height: calc(100vh - 540px);

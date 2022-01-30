@@ -6,13 +6,75 @@ import {
 import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  ADD_CURRENT_INGREDIENT,
+  ADD_SELECTED_INGREDIENT,
+  CHANGE_SELECTED_INGREDIENT,
   DECREASE_COUNT,
   DELETE_SELECTED_INGREDIENT,
+  INCREASE_COUNT,
+  OPEN_INGREDIENT_MODAL,
 } from "../../services/actions/types";
+import { useDrop } from "react-dnd";
+import { v4 as uuid } from "uuid";
 
 export const BurgerConstructorList = ({ bun, otherIngredients }) => {
+  const isBunInOrder = useSelector((state) =>
+    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
+  );
+  const handleClick = (ingredient) => {
+    if (ingredient.type !== "bun") {
+      ingredient.count
+        ? dispatch({
+            type: INCREASE_COUNT,
+            ingredient: ingredient,
+            count: ingredient.count + 1,
+          })
+        : dispatch({
+            type: INCREASE_COUNT,
+            ingredient: ingredient,
+            count: 1,
+          });
+    }
+    if (ingredient.type === "bun" && !isBunInOrder) {
+      dispatch({
+        type: INCREASE_COUNT,
+        ingredient: ingredient,
+        count: 2,
+      });
+    }
+    if (ingredient.type === "bun" && isBunInOrder) {
+      dispatch({
+        type: DELETE_SELECTED_INGREDIENT,
+        payload: isBunInOrder,
+      });
+      dispatch({
+        type: DECREASE_COUNT,
+        ingredient: isBunInOrder,
+      });
+      dispatch({
+        type: INCREASE_COUNT,
+        ingredient: ingredient,
+        count: 2,
+      });
+    }
+    dispatch({
+      type: ADD_SELECTED_INGREDIENT,
+      payload: { ...ingredient, key: uuid() },
+    });
+  };
+
+  const [{ isHover }, drop] = useDrop({
+    accept: "place",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop({ ingredient }) {
+      handleClick(ingredient);
+    },
+  });
+
   const dispatch = useDispatch();
   const onClose = (item) => {
     dispatch({
@@ -26,8 +88,8 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   };
 
   return (
-    <div className={`${styles.wrap} mt-25 mb-10`}>
-      <div className={`${styles.itemWrap} ml-8 no-sroll`}>
+    <div className={`${styles.wrap} mt-25 mb-10`} ref={drop}>
+      <div className={`${styles.itemWrap} ${isHover && styles.onDrop} ml-8 no-sroll`}>
         {bun ? (
           <ConstructorElement
             type="top"
@@ -36,6 +98,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
             price={bun.price}
             thumbnail={bun.image}
             key={bun.key}
+            isHover={isHover}
           />
         ) : (
           <ConstructorElement
@@ -45,6 +108,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
             text="Выберите булку"
             price=""
             thumbnail={bunImage}
+            isHover={isHover}
           />
         )}
       </div>
@@ -52,7 +116,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
         <ul className={`${styles.list} custom-scroll`}>
           {otherIngredients.map((i) => (
             <li key={i.key}>
-              <div className={`${styles.itemWrap}`}>
+              <div className={`${styles.itemWrap} ${isHover && styles.onDrop}`}>
                 <span className="mr-3">
                   <DragIcon type="primary" className="mr-6" />
                 </span>
@@ -61,6 +125,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
                   price={i.price}
                   thumbnail={i.image}
                   handleClose={() => onClose(i)}
+                  isHover={isHover}
                 />
               </div>
             </li>
@@ -75,7 +140,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
           </p>
         </div>
       )}
-      <div className={`${styles.itemWrap} ml-8`}>
+      <div className={`${styles.itemWrap} ${isHover && styles.onDrop} ml-8`}>
         {bun ? (
           <ConstructorElement
             type="bottom"
@@ -83,6 +148,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
             text={`${bun.name} (низ)`}
             price={bun.price}
             thumbnail={bun.image}
+            isHover={isHover}
           />
         ) : (
           <ConstructorElement
@@ -92,6 +158,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
             text="Выберите булку"
             price=""
             thumbnail={bunImage}
+            isHover={isHover}
           />
         )}
       </div>
@@ -100,6 +167,6 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 };
 
 BurgerConstructorList.propTypes = {
-  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-  bun: itemPropTypes,
+  // otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  // bun: itemPropTypes,
 };

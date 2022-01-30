@@ -1,9 +1,11 @@
 import {
   CLEAR_INGREDIENT_LIST_COUNT,
   DECREASE_COUNT,
-  GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_FAILED,
+  GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-  INCREASE_COUNT
+  INCREASE_COUNT,
+  UPDATE_TYPE,
 } from "../actions/types";
 
 const initialState = {
@@ -52,10 +54,22 @@ export const ingredientsReducer = (state = initialState, action) => {
       const newIngredients = state.ingredients.filter(
         (i) => i._id !== item._id
       );
-      if (item.count >= 1) {
+      if (item.type === "bun") {
+        return {
+          ...state,
+          ingredients: [...newIngredients, { ...item, count: null }],
+        };
+      }
+      if (item.count > 1) {
         return {
           ...state,
           ingredients: [...newIngredients, { ...item, count: item.count - 1 }],
+        };
+      }
+      if (item.count === 1) {
+        return {
+          ...state,
+          ingredients: [...newIngredients, { ...item, count: null }],
         };
       }
       return {
@@ -64,12 +78,12 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
     case CLEAR_INGREDIENT_LIST_COUNT: {
-        return {
-          ...state,
-          ingredients: state.ingredients.map((i) => {
-            return {...i, count: null}
-          })
-        }
+      return {
+        ...state,
+        ingredients: state.ingredients.map((i) => {
+          return { ...i, count: null };
+        }),
+      };
     }
     default: {
       return state;
