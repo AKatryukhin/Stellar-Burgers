@@ -7,14 +7,13 @@ import {
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   OPEN_ORDER_MODAL,
   SET_TOTAL_PRICE,
 } from "../../services/actions/types";
 
-export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
+export const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
 
   const handleClick = () =>
@@ -59,8 +58,6 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
         <BurgerConstructorList
           bun={bun}
           otherIngredients={otherIngredients}
-          onRemove={onDeleteIngredient}
-          key={otherIngredients.key}
         />
       </div>
       <div className={styles.orderWrap}>
@@ -81,9 +78,4 @@ export const BurgerConstructor = React.memo(({ onDeleteIngredient }) => {
   );
 });
 
-// BurgerConstructor.propTypes = {
-//   isModalOpen: PropTypes.bool.isRequired,
-//   onModalOpen: PropTypes.func.isRequired,
-//   onModalClose: PropTypes.func.isRequired,
-//   onDeleteIngredient: PropTypes.func.isRequired
-// };
+

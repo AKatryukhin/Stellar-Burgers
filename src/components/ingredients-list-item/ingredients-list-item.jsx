@@ -84,5 +84,4 @@ export const IngredientsItem = ({ ingredient }) => {
 
 IngredientsItem.propTypes = {
   ingredient: itemPropTypes.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
 };

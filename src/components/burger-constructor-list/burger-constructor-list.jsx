@@ -1,23 +1,20 @@
 import styles from "./burger-constructor-list.module.css";
 import {
-  ConstructorElement,
-  DragIcon,
+  ConstructorElement
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ADD_CURRENT_INGREDIENT,
   ADD_SELECTED_INGREDIENT,
-  CHANGE_SELECTED_INGREDIENT,
   DECREASE_COUNT,
   DELETE_SELECTED_INGREDIENT,
   INCREASE_COUNT,
-  OPEN_INGREDIENT_MODAL,
 } from "../../services/actions/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
+import BurgerConstructorItem from "../barger-constructor-item/burger-constructor-item";
 
 export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const isBunInOrder = useSelector((state) =>
@@ -89,7 +86,11 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 
   return (
     <div className={`${styles.wrap} mt-25 mb-10`} ref={drop}>
-      <div className={`${styles.itemWrap} ${isHover && styles.onDrop} ml-8 no-sroll`}>
+      <div
+        className={`${styles.itemWrap} ${
+          isHover && styles.onDrop
+        } ml-8 no-sroll`}
+      >
         {bun ? (
           <ConstructorElement
             type="top"
@@ -114,21 +115,16 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
       </div>
       {otherIngredients.length > 0 ? (
         <ul className={`${styles.list} custom-scroll`}>
-          {otherIngredients.map((i) => (
-            <li key={i.key}>
-              <div className={`${styles.itemWrap} ${isHover && styles.onDrop}`}>
-                <span className="mr-3">
-                  <DragIcon type="primary" className="mr-6" />
-                </span>
-                <ConstructorElement
-                  text={i.name}
-                  price={i.price}
-                  thumbnail={i.image}
-                  handleClose={() => onClose(i)}
-                  isHover={isHover}
-                />
-              </div>
-            </li>
+          {otherIngredients.map((i, index) => (
+            <BurgerConstructorItem
+              key={i.key}
+              id={i.key}
+              text={i.name}
+              thumbnail={i.image}
+              handleClose={() => onClose(i)}
+              price={i.price}
+              index={index}
+            />
           ))}
         </ul>
       ) : (
@@ -167,6 +163,6 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 };
 
 BurgerConstructorList.propTypes = {
-  // otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-  // bun: itemPropTypes,
+  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  bun: itemPropTypes,
 };

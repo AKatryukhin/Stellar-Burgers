@@ -9,8 +9,6 @@ import React, {
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
-import PropTypes from "prop-types";
-import { itemPropTypes } from "../../utils/types";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
@@ -118,10 +116,3 @@ export const BurgerIngredients = React.memo(() => {
     </section>
   );
 });
-
-BurgerIngredients.propTypes = {
-  // isModalOpen: PropTypes.bool.isRequired,
-  // onModalOpen: PropTypes.func.isRequired,
-  // onModalClose: PropTypes.func.isRequired,
-  currentIngredient: itemPropTypes,
-};
