@@ -14,7 +14,7 @@ import {
 } from "../../services/actions/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
-import BurgerConstructorItem from "../barger-constructor-item/burger-constructor-item";
+import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
 
 export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const isBunInOrder = useSelector((state) =>

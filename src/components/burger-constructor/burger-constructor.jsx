@@ -9,16 +9,22 @@ import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  GET_ORDER_REQUEST,
   OPEN_ORDER_MODAL,
   SET_TOTAL_PRICE,
 } from "../../services/actions/types";
-import bigIconPrice from '../../images/bigIconPrice.svg';
+import bigIconPrice from "../../images/bigIconPrice.svg";
 
 export const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
+  const orderIngredientsArr = useSelector((state) =>
+    state?.selectedIngredients.selectedIngredients.map((i) => i._id)
+  );
 
   const handleClick = () =>
-    bun && otherIngredients && dispatch({ type: OPEN_ORDER_MODAL });
+    bun &&
+    otherIngredients &&
+    dispatch({ type: GET_ORDER_REQUEST, payload: orderIngredientsArr });
 
   const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
