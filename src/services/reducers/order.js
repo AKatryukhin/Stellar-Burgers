@@ -33,9 +33,9 @@ export const order = (state = initialState, action) => {
 
         case GET_ORDER_NUMBER_FAILED: {
             return {
-                ...state,
+                ...initialState,
                 orderNumberFailed: true,
-                orderNumberRequest: false };
+                 };
         }
         default:
             return state;

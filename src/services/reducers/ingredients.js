@@ -32,10 +32,8 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case GET_INGREDIENTS_FAILED: {
       return {
-        ...state,
-        ingredients: [],
+        ...initialState,
         itemsFailed: true,
-        itemsRequest: false,
       };
     }
     case INCREASE_COUNT: {
@@ -54,9 +52,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       );
       const index = state.ingredients.indexOf(item);
       const copyIngredients = [...state.ingredients];
-      // const newIngredients = state.ingredients.filter(
-      //   (i) => i._id !== item._id
-      // );
       if (item.type === "bun") {
       copyIngredients.splice(index, 1, { ...item, count: null })
         return {
