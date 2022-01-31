@@ -11,8 +11,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
+import { useSelector } from "react-redux";
 
 export const BurgerIngredients = React.memo(() => {
   const ingredients = useSelector((state) => state?.ingredients.ingredients);

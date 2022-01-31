@@ -1,7 +1,5 @@
 import styles from "./burger-constructor-list.module.css";
-import {
-  ConstructorElement
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
@@ -11,10 +9,12 @@ import {
   DECREASE_COUNT,
   DELETE_SELECTED_INGREDIENT,
   INCREASE_COUNT,
+  MOVE_INGREDIENT,
 } from "../../services/actions/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
+import { useCallback } from "react";
 
 export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const isBunInOrder = useSelector((state) =>
@@ -84,6 +84,19 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
     });
   };
 
+  const selectedIngredients = useSelector(
+    (state) => state?.selectedIngredients.selectedIngredients
+  );
+
+  const moveItems = useCallback(
+    (dragIndex, hoverIndex) => {
+      const newCards = [...selectedIngredients];
+      newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
+      dispatch({ type: MOVE_INGREDIENT, payload: newCards });
+    },
+    [selectedIngredients, dispatch]
+  );
+
   return (
     <div className={`${styles.wrap} mt-25 mb-10`} ref={drop}>
       <div
@@ -124,6 +137,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
               handleClose={() => onClose(i)}
               price={i.price}
               index={index}
+              moveItems={moveItems}
             />
           ))}
         </ul>

@@ -40,6 +40,10 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case INCREASE_COUNT: {
       const item = action.ingredient;
+      // const index = state.ingredients.indexOf(item);
+      // console.log(index)
+      // const newIngredients = [...state.ingredients].splice(index, 1, { ...item, count: action.count })
+          // (i) => i._id !== item._id
       const newIngredients = state.ingredients.filter(
         (i) => i._id !== item._id
       );
