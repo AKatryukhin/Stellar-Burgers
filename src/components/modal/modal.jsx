@@ -5,43 +5,21 @@ import closeIcon from "../../images/closeIcon.svg";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { ESC_KEYCODE } from "../../utils/constants";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  CLEAR_INGREDIENT_LIST_COUNT,
-  CLEAR_SELECTED_INGREDIENT_LIST,
-  REMOVE_CURRENT_INGREDIENT,
-  RESET_ORDER_NUMBER
-} from "../../services/actions/types";
+import { useSelector } from "react-redux";
 
-const Modal = React.memo(({ title, children }) => {
+const Modal = React.memo(({ title, children, onClose }) => {
   const modalRoot = document.getElementById("modals");
-
-  const dispatch = useDispatch();
   const order = useSelector(state => state?.order.orderNumber);
   const currentIngredient = useSelector(
       (state) => state?.currentIngredient.ingredient
   );
 
-  const onClose = useCallback(() => {
-    if (currentIngredient) {
-      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
-    }
-    if (order) {
-      dispatch({ type: CLEAR_SELECTED_INGREDIENT_LIST });
-      dispatch({ type: CLEAR_INGREDIENT_LIST_COUNT });
-      dispatch({ type: RESET_ORDER_NUMBER });
-    }
-  }, [dispatch, currentIngredient, order]);
-
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
     (evt) => {
-      currentIngredient &&
-      evt.key === ESC_KEYCODE && onClose();
-      order &&
       evt.key === ESC_KEYCODE && onClose();
     },
-    [order, currentIngredient, onClose]
+    [onClose]
   );
 
   useEffect(() => {

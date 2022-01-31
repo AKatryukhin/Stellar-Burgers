@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useCallback, useMemo} from "react";
 import styles from "./burger-constructor.module.css";
 import {
   Button,
@@ -8,7 +8,9 @@ import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  GET_ORDER_REQUEST,
+  CLEAR_INGREDIENT_LIST_COUNT,
+  CLEAR_SELECTED_INGREDIENT_LIST,
+  GET_ORDER_REQUEST, REMOVE_CURRENT_INGREDIENT, RESET_ORDER_NUMBER,
 } from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 
@@ -50,6 +52,12 @@ export const BurgerConstructor = React.memo(() => {
     }
 
   },[otherIngredients, bun]);
+
+  const onClose = useCallback(() => {
+      dispatch({ type: CLEAR_SELECTED_INGREDIENT_LIST });
+      dispatch({ type: CLEAR_INGREDIENT_LIST_COUNT });
+      dispatch({ type: RESET_ORDER_NUMBER });
+  }, [dispatch]);
   return (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
@@ -65,7 +73,7 @@ export const BurgerConstructor = React.memo(() => {
         </Button>
       </div>
       {order && (
-        <Modal>
+        <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>
       )}

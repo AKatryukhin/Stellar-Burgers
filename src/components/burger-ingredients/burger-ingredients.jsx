@@ -10,9 +10,15 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  CLEAR_INGREDIENT_LIST_COUNT,
+  CLEAR_SELECTED_INGREDIENT_LIST,
+  REMOVE_CURRENT_INGREDIENT, RESET_ORDER_NUMBER
+} from "../../services/actions/types";
 
 export const BurgerIngredients = React.memo(() => {
+  const dispatch = useDispatch();
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
   const currentIngredient = useSelector(
       (state) => state?.currentIngredient.ingredient
@@ -58,6 +64,10 @@ export const BurgerIngredients = React.memo(() => {
     }
   }
 
+  const onClose = useCallback(() => {
+      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+  }, [ currentIngredient]);
+
   return (
     <section className={`${styles.section}`}>
       <h1 className={`${styles.title} text text_type_main-large pt-10 mb-5`}>
@@ -101,7 +111,7 @@ export const BurgerIngredients = React.memo(() => {
         />
       </div>
       {currentIngredient && (
-        <Modal title="Детали ингредиента">
+        <Modal title="Детали ингредиента" onClose={onClose}>
            <IngredientDetails currentIngredient={currentIngredient}/>
         </Modal>
       )}
