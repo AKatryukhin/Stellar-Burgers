@@ -37,12 +37,6 @@ export const BurgerIngredients = React.memo(() => {
     setCurrent(evt);
   }, []);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({ type: GET_INGREDIENTS_REQUEST });
-  }, []);
-
   const bunsRef = useRef();
   const saucesRef = useRef();
   const mainsRef = useRef();
