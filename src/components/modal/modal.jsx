@@ -9,39 +9,39 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CLEAR_INGREDIENT_LIST_COUNT,
   CLEAR_SELECTED_INGREDIENT_LIST,
-  CLOSE_ALL_MODAL, REMOVE_CURRENT_INGREDIENT,
+  REMOVE_CURRENT_INGREDIENT,
   RESET_ORDER_NUMBER
 } from "../../services/actions/types";
 
 const Modal = React.memo(({ title, children }) => {
   const modalRoot = document.getElementById("modals");
-  const isIngredientModalOpen = useSelector(
-    (state) => state?.modal.isIngredientModalOpen
-  );
-  const isOrderModalOpen = useSelector(
-    (state) => state?.modal.isOrderModalOpen
-  );
+
   const dispatch = useDispatch();
+  const order = useSelector(state => state?.order.orderNumber);
+  const currentIngredient = useSelector(
+      (state) => state?.currentIngredient.ingredient
+  );
 
   const onClose = useCallback(() => {
-    if (isIngredientModalOpen) {
-      dispatch({ type: CLOSE_ALL_MODAL });
+    if (currentIngredient) {
       dispatch({ type: REMOVE_CURRENT_INGREDIENT });
     }
-    if (isOrderModalOpen) {
-      dispatch({ type: CLOSE_ALL_MODAL });
+    if (order) {
       dispatch({ type: CLEAR_SELECTED_INGREDIENT_LIST });
       dispatch({ type: CLEAR_INGREDIENT_LIST_COUNT });
       dispatch({ type: RESET_ORDER_NUMBER });
     }
-  }, [dispatch, isIngredientModalOpen, isOrderModalOpen]);
-  const isOpen = isIngredientModalOpen || isOrderModalOpen;
+  }, [dispatch, currentIngredient, order]);
+
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
     (evt) => {
-      isOpen && evt.key === ESC_KEYCODE && onClose();
+      currentIngredient &&
+      evt.key === ESC_KEYCODE && onClose();
+      order &&
+      evt.key === ESC_KEYCODE && onClose();
     },
-    [isOpen, onClose]
+    [order, currentIngredient, onClose]
   );
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Modal = React.memo(({ title, children }) => {
   }, [handleCloseByEsc]);
 
   return createPortal(
-    <section className={`${style.wrap} ${isOpen && style.visible}`}>
+    <section className={`${style.wrap} ${order && style.visible} ${currentIngredient && style.visible}`}>
       <ModalOverlay onClose={onClose} />
       <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>

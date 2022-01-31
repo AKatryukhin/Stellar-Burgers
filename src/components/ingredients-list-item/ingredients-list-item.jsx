@@ -11,7 +11,6 @@ import {
   ADD_CURRENT_INGREDIENT,
   ADD_SELECTED_INGREDIENT,
   INCREASE_COUNT,
-  OPEN_INGREDIENT_MODAL,
 } from "../../services/actions/types";
 import { useDrag } from "react-dnd";
 
@@ -57,7 +56,6 @@ export const IngredientsItem = ({ ingredient }) => {
       type: ADD_CURRENT_INGREDIENT,
       ingredient: ingredient,
     });
-    dispatch({ type: OPEN_INGREDIENT_MODAL });
   };
 
   const { image, name, price } = ingredient;

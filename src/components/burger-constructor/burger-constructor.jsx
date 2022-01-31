@@ -26,7 +26,8 @@ export const BurgerConstructor = React.memo(() => {
   const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
   );
-  const isOpen = useSelector((state) => state?.modal.isOrderModalOpen);
+  // const isOpen = useSelector((state) => state?.modal.isOrderModalOpen);
+  const order = useSelector(state => state?.order.orderNumber)
   const bun = useMemo(
     () => selectedIngredients.find((i) => i.type === "bun"),
     [selectedIngredients]
@@ -63,7 +64,7 @@ export const BurgerConstructor = React.memo(() => {
           Оформить заказ
         </Button>
       </div>
-      {isOpen && (
+      {order && (
         <Modal>
           <OrderDetails />
         </Modal>

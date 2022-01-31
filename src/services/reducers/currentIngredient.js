@@ -16,7 +16,9 @@ export const currentIngredientReducer = (state = initialState, action) => {
       };
     }
     case REMOVE_CURRENT_INGREDIENT: {
-      return initialState;
+      return {
+        ingredient: null
+      };
     }
     default:
       return state;

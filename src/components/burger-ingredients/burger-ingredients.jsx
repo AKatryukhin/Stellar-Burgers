@@ -2,7 +2,6 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  useEffect,
   useRef,
 } from "react";
 
@@ -15,6 +14,9 @@ import { useSelector } from "react-redux";
 
 export const BurgerIngredients = React.memo(() => {
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
+  const currentIngredient = useSelector(
+      (state) => state?.currentIngredient.ingredient
+  );
   const [current, setCurrent] = useState("Булки");
   const buns = useMemo(
     () => ingredients.filter((i) => i.type === "bun"),
@@ -28,10 +30,7 @@ export const BurgerIngredients = React.memo(() => {
     () => ingredients.filter((i) => i.type === "main"),
     [ingredients]
   );
-  const isOpen = useSelector((state) => state?.modal.isIngredientModalOpen);
-  const currentIngredient = useSelector(
-    (state) => state?.currentIngredient.ingredient
-  );
+
   const handleCurrent = useCallback((evt) => {
     setCurrent(evt);
   }, []);
@@ -101,9 +100,9 @@ export const BurgerIngredients = React.memo(() => {
           ref={mainsRef}
         />
       </div>
-      {isOpen && (
+      {currentIngredient && (
         <Modal title="Детали ингредиента">
-          {currentIngredient && <IngredientDetails />}
+           <IngredientDetails currentIngredient={currentIngredient}/>
         </Modal>
       )}
     </section>
