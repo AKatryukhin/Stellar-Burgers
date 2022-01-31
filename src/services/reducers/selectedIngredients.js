@@ -4,20 +4,17 @@ import {
   CLEAR_SELECTED_INGREDIENT_LIST,
   DELETE_SELECTED_INGREDIENT,
   MOVE_INGREDIENT,
-  RESET_TOTAL_PRICE,
-  SET_TOTAL_PRICE,
 } from "../actions/types";
 
 const initialState = {
   selectedIngredients: [],
-  totalPrice: null,
 };
 export const selectedIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVE_INGREDIENT: {
       return {
         ...state,
-        selectedIngredients: action.payload
+        selectedIngredients: action.payload,
       };
     }
     case ADD_SELECTED_INGREDIENT: {
@@ -41,16 +38,6 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
         selectedIngredients: [...state.selectedIngredients].filter(
           (i) => i.key !== action.payload.key
         ),
-      };
-    case SET_TOTAL_PRICE:
-      return {
-        ...state,
-        totalPrice: action.payload,
-      };
-    case RESET_TOTAL_PRICE:
-      return {
-        ...state,
-        totalPrice: null,
       };
     case CLEAR_SELECTED_INGREDIENT_LIST: {
       return initialState;

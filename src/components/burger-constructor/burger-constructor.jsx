@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import styles from "./burger-constructor.module.css";
 import {
-  CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
@@ -10,8 +9,6 @@ import { OrderDetails } from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GET_ORDER_REQUEST,
-  OPEN_ORDER_MODAL,
-  SET_TOTAL_PRICE,
 } from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 
@@ -38,27 +35,20 @@ export const BurgerConstructor = React.memo(() => {
     () => selectedIngredients.filter((i) => i.type !== "bun"),
     [selectedIngredients]
   );
-  const totalPrice = useSelector(
-    (state) => state?.selectedIngredients.totalPrice
-  );
 
-  useEffect(() => {
+  const totalPrice = useMemo(() => {
     if (bun) {
-      const totalSum = (() => {
-        const bunSum = bun.price * 2;
-        const otherIngredientsSum = otherIngredients.reduce(
+      const bunSum = bun.price * 2;
+      const otherIngredientsSum = otherIngredients.reduce(
           (acc, i) => acc + i.price,
           0
-        );
-        return bunSum + otherIngredientsSum;
-      })();
-      dispatch({ type: SET_TOTAL_PRICE, payload: totalSum });
+      );
+      return bunSum + otherIngredientsSum;
     } else {
-      const totalSum = otherIngredients.reduce((acc, i) => acc + i.price, 0);
-      dispatch({ type: SET_TOTAL_PRICE, payload: totalSum });
+      return  otherIngredients.reduce((acc, i) => acc + i.price, 0);
     }
-  }, [bun, otherIngredients, dispatch]);
 
+  },[otherIngredients, bun]);
   return (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
