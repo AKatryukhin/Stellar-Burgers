@@ -40,46 +40,48 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case INCREASE_COUNT: {
       const item = action.ingredient;
-      // const index = state.ingredients.indexOf(item);
-      // console.log(index)
-      // const newIngredients = [...state.ingredients].splice(index, 1, { ...item, count: action.count })
-          // (i) => i._id !== item._id
-      const newIngredients = state.ingredients.filter(
-        (i) => i._id !== item._id
-      );
+      const index = state.ingredients.indexOf(item);
+      const copyIngredients = [...state.ingredients];
+      copyIngredients.splice(index, 1, { ...item, count: action.count })
       return {
         ...state,
-        ingredients: [...newIngredients, { ...item, count: action.count }],
+        ingredients: copyIngredients,
       };
     }
     case DECREASE_COUNT: {
       const item = state.ingredients.find(
         (i) => i._id === action.ingredient._id
       );
-      const newIngredients = state.ingredients.filter(
-        (i) => i._id !== item._id
-      );
+      const index = state.ingredients.indexOf(item);
+      const copyIngredients = [...state.ingredients];
+      // const newIngredients = state.ingredients.filter(
+      //   (i) => i._id !== item._id
+      // );
       if (item.type === "bun") {
+      copyIngredients.splice(index, 1, { ...item, count: null })
         return {
           ...state,
-          ingredients: [...newIngredients, { ...item, count: null }],
+          ingredients: copyIngredients,
         };
       }
       if (item.count > 1) {
+        copyIngredients.splice(index, 1, { ...item, count: item.count - 1 })
         return {
           ...state,
-          ingredients: [...newIngredients, { ...item, count: item.count - 1 }],
+          ingredients: copyIngredients,
         };
       }
       if (item.count === 1) {
+        copyIngredients.splice(index, 1, { ...item, count: null })
         return {
           ...state,
-          ingredients: [...newIngredients, { ...item, count: null }],
+          ingredients: copyIngredients,
         };
       }
+      copyIngredients.splice(index, 1, { ...item, count: null })
       return {
         ...state,
-        ingredients: [...newIngredients, { ...item, count: null }],
+        ingredients: copyIngredients,
       };
     }
     case CLEAR_INGREDIENT_LIST_COUNT: {
