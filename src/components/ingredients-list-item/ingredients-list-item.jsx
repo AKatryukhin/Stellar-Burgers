@@ -16,7 +16,6 @@ import {
 import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
-
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
@@ -72,10 +71,10 @@ export const IngredientsItem = ({ ingredient }) => {
       {ingredient?.count && <Counter count={ingredient.count} size="default" />}
       <img src={image} alt={name} className="mb-1" />
       <div className={`${styles.priceWrap} mb-1`}>
-        <p className={`${styles.price} mr-2 text text_type_digits-medium`}>
+        <p className={`${styles.price} mr-2 text text_type_digits-default`}>
           {price}
         </p>
-        <CurrencyIcon type="secondary" />
+        <CurrencyIcon type="primary" />
       </div>
       <p className={`${styles.name} text text_type_main-small`}>{name}</p>
     </article>

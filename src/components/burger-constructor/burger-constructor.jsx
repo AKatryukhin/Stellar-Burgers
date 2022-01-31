@@ -12,6 +12,7 @@ import {
   OPEN_ORDER_MODAL,
   SET_TOTAL_PRICE,
 } from "../../services/actions/types";
+import bigIconPrice from '../../images/bigIconPrice.svg';
 
 export const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
@@ -55,15 +56,12 @@ export const BurgerConstructor = React.memo(() => {
   return (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
-        <BurgerConstructorList
-          bun={bun}
-          otherIngredients={otherIngredients}
-        />
+        <BurgerConstructorList bun={bun} otherIngredients={otherIngredients} />
       </div>
       <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
-          <p className="text text_type_main-medium mr-2">{totalPrice}</p>
-          <CurrencyIcon type="primary" />
+          <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
+          <img src={bigIconPrice} alt="Иконка стоимости" />
         </span>
         <Button type="primary" size="medium" onClick={handleClick}>
           Оформить заказ
@@ -77,5 +75,3 @@ export const BurgerConstructor = React.memo(() => {
     </section>
   );
 });
-
-
