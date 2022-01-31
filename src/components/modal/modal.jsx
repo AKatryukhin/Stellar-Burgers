@@ -50,7 +50,7 @@ const Modal = React.memo(({ title, children }) => {
     return () => {
       window.removeEventListener("keydown", handleCloseByEsc);
     };
-  }, [isOpen, onClose, handleCloseByEsc]);
+  }, [handleCloseByEsc]);
 
   return createPortal(
     <section className={`${style.wrap} ${isOpen && style.visible}`}>
