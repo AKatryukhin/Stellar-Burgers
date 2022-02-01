@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CLEAR_INGREDIENT_LIST_COUNT,
   CLEAR_SELECTED_INGREDIENT_LIST,
-  GET_ORDER_REQUEST, REMOVE_CURRENT_INGREDIENT, RESET_ORDER_NUMBER,
+  GET_ORDER_REQUEST, RESET_ORDER_NUMBER,
 } from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 
