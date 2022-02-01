@@ -14,7 +14,7 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
     case MOVE_INGREDIENT: {
       return {
         ...state,
-        selectedIngredients: action.payload,
+        selectedIngredients: [...action.ingredients, ... action.buns]
       };
     }
     case ADD_SELECTED_INGREDIENT: {

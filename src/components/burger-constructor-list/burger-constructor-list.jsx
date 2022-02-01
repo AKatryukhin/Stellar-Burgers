@@ -90,9 +90,14 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 
   const moveItems = useCallback(
     (dragIndex, hoverIndex) => {
-      const newCards = [...selectedIngredients];
-      newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
-      dispatch({ type: MOVE_INGREDIENT, payload: newCards });
+      const newIngredients = [...selectedIngredients].filter(i => i.type !== 'bun');
+      const newBuns = [...selectedIngredients].filter(i => i.type === 'bun');
+      newIngredients.splice(
+        hoverIndex,
+        0,
+        newIngredients.splice(dragIndex, 1)[0]
+      );
+      dispatch({ type: MOVE_INGREDIENT, ingredients: newIngredients, buns: newBuns});
     },
     [selectedIngredients, dispatch]
   );
