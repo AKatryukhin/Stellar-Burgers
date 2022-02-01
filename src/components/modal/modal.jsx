@@ -1,32 +1,33 @@
-import React, { useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import style from './modal.module.css';
-import closeIcon from '../../images/closeIcon.svg';
-import ModalOverlay from '../modal-overlay/modal-overlay';
-import { ESC_KEYCODE } from '../../utils/constants';
-import PropTypes from 'prop-types';
+import React, { useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
+import style from "./modal.module.css";
+import closeIcon from "../../images/closeIcon.svg";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import { ESC_KEYCODE } from "../../utils/constants";
+import PropTypes from "prop-types";
 
-const Modal = React.memo(({ isOpen, title, children, onClose }) => {
-  const modalRoot = document.getElementById('modals');
+
+const Modal = React.memo(({ title, children, onClose }) => {
+  const modalRoot = document.getElementById("modals");
+
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
     (evt) => {
-      isOpen && evt.key === ESC_KEYCODE && onClose();
+      evt.key === ESC_KEYCODE && onClose();
     },
-    [isOpen, onClose]
+    [onClose]
   );
 
   useEffect(() => {
-    window.addEventListener('keydown', handleCloseByEsc);
+    window.addEventListener("keydown", handleCloseByEsc);
 
     return () => {
-      window.removeEventListener('keydown', handleCloseByEsc);
+      window.removeEventListener("keydown", handleCloseByEsc);
     };
-  }, [isOpen, onClose, handleCloseByEsc]);
+  }, [handleCloseByEsc]);
 
   return createPortal(
-    (
-    <section className={`${style.wrap} ${isOpen && style.visible}`}>
+    <section>
       <ModalOverlay onClose={onClose} />
       <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>
@@ -36,13 +37,13 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
           <img
             onClick={onClose}
             src={closeIcon}
-            alt='Кнопка закрытия'
+            alt="Кнопка закрытия"
             className={style.icon}
           />
         </div>
         {children}
       </div>
-    </section>),
+    </section>,
     modalRoot
   );
 });
@@ -50,8 +51,7 @@ const Modal = React.memo(({ isOpen, title, children, onClose }) => {
 export default Modal;
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   title: PropTypes.string,
   children: PropTypes.element,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };

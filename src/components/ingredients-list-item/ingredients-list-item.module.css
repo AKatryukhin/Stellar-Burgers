@@ -5,6 +5,10 @@
   position: relative;
 }
 
+.cardTransparent {
+  opacity: 0.5;
+}
+
 .priceWrap {
   display: flex;
   align-items: center;

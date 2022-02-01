@@ -1,24 +1,16 @@
-import React from 'react';
-import styles from './ingredient-details.module.css';
-import { itemPropTypes } from '../../utils/types';
+import React from "react";
+import styles from "./ingredient-details.module.css";
+import { useSelector } from "react-redux";
 
-export const IngredientDetails = React.memo(({ ingredient }) => {
-  const {
-    name,
-    image_large,
-    calories,
-    proteins,
-    fat,
-    carbohydrates
-  } = ingredient;
+export const IngredientDetails = React.memo(({ currentIngredient }) => {
+
+  const { name, image_large, calories, proteins, fat, carbohydrates } =
+    currentIngredient;
 
   return (
-    (
     <article className={styles.card}>
-      <img src={image_large} alt={name} className='mb-4 mr-5 ml-5'/>
-      <p className={`${styles.name} text text_type_main-medium mb-8`}>
-        {name}
-      </p>
+      <img src={image_large} alt={name} className="mb-4 mr-5 ml-5" />
+      <p className={`${styles.name} text text_type_main-medium mb-8`}>{name}</p>
       <div className={styles.infoWrap}>
         <div className={`${styles.infoContainer}`}>
           <p
@@ -69,11 +61,6 @@ export const IngredientDetails = React.memo(({ ingredient }) => {
           </p>
         </div>
       </div>
-      </article>
-    )
+    </article>
   );
 });
-
-IngredientDetails.propTypes = {
-  ingredient: itemPropTypes.isRequired,
-};
