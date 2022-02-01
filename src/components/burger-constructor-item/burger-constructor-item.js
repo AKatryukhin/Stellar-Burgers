@@ -7,19 +7,17 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { MOVE_INGREDIENT } from "../../services/actions/types";
 
 const BurgerConstructorItem = ({
-                                 index,
-                                 text,
-                                 price,
-                                 thumbnail,
-                                 handleClose,
-                                 isHover,
-                                 id,
-                                 moveItems
-                               }) => {
-
+  index,
+  text,
+  price,
+  thumbnail,
+  handleClose,
+  isHover,
+  id,
+  moveItems,
+}) => {
   const ref = useRef(null);
 
   const [{ isDrag }, dragItem] = useDrag({
@@ -50,7 +48,7 @@ const BurgerConstructorItem = ({
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -59,7 +57,6 @@ const BurgerConstructorItem = ({
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      console.log(dragIndex,hoverIndex)
       moveItems(dragIndex, hoverIndex);
       item.index = hoverIndex;
     },
@@ -68,24 +65,24 @@ const BurgerConstructorItem = ({
   dragItem(dropItem(ref));
 
   return (
-      <li ref={ref}
-          className={`${styles.itemWrap} ${isHover && styles.onDrop} ${
-              isDrag && styles.onDrop
-          }`}
-          style={{ opacity }}>
-
-        <span className="mr-3">
-          <DragIcon type="primary" className="mr-6" />
-        </span>
-        <ConstructorElement
-            text={text}
-            price={price}
-            thumbnail={thumbnail}
-            handleClose={handleClose}
-            isHover={isHover}
-        />
-
-      </li>
+    <li
+      ref={ref}
+      className={`${styles.itemWrap} ${isHover && styles.onDrop} ${
+        isDrag && styles.onDrop
+      }`}
+      style={{ opacity }}
+    >
+      <span className="mr-3">
+        <DragIcon type="primary" className="mr-6" />
+      </span>
+      <ConstructorElement
+        text={text}
+        price={price}
+        thumbnail={thumbnail}
+        handleClose={handleClose}
+        isHover={isHover}
+      />
+    </li>
   );
 };
 
