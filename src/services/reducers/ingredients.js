@@ -59,7 +59,9 @@ export const ingredientsReducer = (state = initialState, action) => {
           ingredients: copyIngredients,
         };
       }
-      if (item.count > 1) {
+      if (item.count > 1
+          && item.type !== "bun"
+      )  {
         copyIngredients.splice(index, 1, { ...item, count: item.count - 1 })
         return {
           ...state,
