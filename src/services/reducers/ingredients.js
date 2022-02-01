@@ -4,7 +4,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-  INCREASE_COUNT,
+  INCREASE_COUNT, RESET_INGREDIENTS,
   UPDATE_TYPE,
 } from "../actions/types";
 
@@ -33,7 +33,12 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_FAILED: {
       return {
         ...initialState,
-        itemsFailed: true,
+        ingredientsFailed: true,
+      };
+    }
+    case RESET_INGREDIENTS: {
+      return {
+        ...initialState
       };
     }
     case INCREASE_COUNT: {

@@ -19,6 +19,8 @@ export const BurgerConstructor = React.memo(() => {
   const orderIngredientsArr = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
+  const orderRequest = useSelector(state => state?.order.orderNumberRequest);
+  const orderFailed = useSelector(state => state?.order.orderNumberFailed);
 
   const handleClick = () =>
     bun &&
@@ -69,7 +71,13 @@ export const BurgerConstructor = React.memo(() => {
           <img src={bigIconPrice} alt="Иконка стоимости" />
         </span>
         <Button type="primary" size="medium" onClick={handleClick}>
-          Оформить заказ
+          {orderRequest
+              ? "Отправка..."
+              : orderFailed
+                  ? "Что-то пошло не так :("
+                  : bun
+                      ? "Оформить заказ"
+                      : "Необходимо добавить булку!"}
         </Button>
       </div>
       {order && (

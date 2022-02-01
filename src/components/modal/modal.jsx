@@ -7,12 +7,14 @@ import { ESC_KEYCODE } from "../../utils/constants";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
+
 const Modal = React.memo(({ title, children, onClose }) => {
   const modalRoot = document.getElementById("modals");
-  const order = useSelector(state => state?.order.orderNumber);
+  const order = useSelector((state) => state?.order.orderNumber);
   const currentIngredient = useSelector(
-      (state) => state?.currentIngredient.ingredient
+    (state) => state?.currentIngredient.ingredient
   );
+  const ingredientsFailed = useSelector((state) => state?.ingredients.ingredientsFailed);
 
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
@@ -31,7 +33,11 @@ const Modal = React.memo(({ title, children, onClose }) => {
   }, [handleCloseByEsc]);
 
   return createPortal(
-    <section className={`${style.wrap} ${order && style.visible} ${currentIngredient && style.visible}`}>
+    <section
+      className={`${style.wrap} ${order && style.visible} ${
+        currentIngredient && style.visible
+      } ${ingredientsFailed && style.visible}`}
+    >
       <ModalOverlay onClose={onClose} />
       <div className={`${style.modal} pt-10 pl-10 pr-10 pb-10`}>
         <div className={style.header}>

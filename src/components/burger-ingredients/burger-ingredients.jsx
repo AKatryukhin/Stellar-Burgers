@@ -1,27 +1,22 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
-import {
-  CLEAR_INGREDIENT_LIST_COUNT,
-  CLEAR_SELECTED_INGREDIENT_LIST,
-  REMOVE_CURRENT_INGREDIENT, RESET_ORDER_NUMBER
-} from "../../services/actions/types";
+import { useDispatch, useSelector } from "react-redux";
+import {REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS} from "../../services/actions/types";
+import noBurger from "../../images/no-burger.png";
 
 export const BurgerIngredients = React.memo(() => {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
+  const ingredientsFailed = useSelector(
+    (state) => state?.ingredients.ingredientsFailed
+  );
   const currentIngredient = useSelector(
-      (state) => state?.currentIngredient.ingredient
+    (state) => state?.currentIngredient.ingredient
   );
   const [current, setCurrent] = useState("Булки");
   const buns = useMemo(
@@ -65,8 +60,10 @@ export const BurgerIngredients = React.memo(() => {
   }
 
   const onClose = useCallback(() => {
-      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
-  }, [ currentIngredient]);
+    dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+    ingredientsFailed &&
+    dispatch({ type: RESET_INGREDIENTS });
+  }, [currentIngredient, ingredientsFailed]);
 
   return (
     <section className={`${styles.section}`}>
@@ -112,7 +109,15 @@ export const BurgerIngredients = React.memo(() => {
       </div>
       {currentIngredient && (
         <Modal title="Детали ингредиента" onClose={onClose}>
-           <IngredientDetails currentIngredient={currentIngredient}/>
+          <IngredientDetails currentIngredient={currentIngredient} />
+        </Modal>
+      )}
+      {ingredientsFailed && (
+        <Modal
+          title="При загрузке ингредиентов произошла ошибка:("
+          onClose={onClose}
+        >
+          <img src={noBurger} alt='Катринка - нет бургеров' style={{width: 635}} className='mt-10'/>
         </Modal>
       )}
     </section>
