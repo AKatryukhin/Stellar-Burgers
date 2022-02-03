@@ -1,0 +1,19 @@
+.wrap {
+  margin: 180px auto 0;
+}
+
+.form {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.inputError {
+  display: block;
+  width: 100%;
+  color: rgb(255,0,0);
+}
+

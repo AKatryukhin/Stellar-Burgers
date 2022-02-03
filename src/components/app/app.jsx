@@ -4,6 +4,8 @@ import { AppHeader } from "../app-header/app-header";
 import {GET_INGREDIENTS_REQUEST} from "../../services/actions/types";
 import {useDispatch} from "react-redux";
 import Main from "../main/main";
+// import { Register } from "../../pages/register";
+// import { Register } from "../../pages/login;
 
 
 export const App = () => {
@@ -15,6 +17,7 @@ export const App = () => {
 
   return (
     <div className={styles.page}>
+      {/*<Register />*/}
       <AppHeader />
       <Main/>
     </div>
