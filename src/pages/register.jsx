@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./register.module.css";
+import styles from "./register-login.module.css";
 import {
   Button,
   Input,
@@ -27,7 +27,7 @@ export const Register = () => {
 
   return (
     <div className={styles.wrap}>
-      <form className={styles.form} onSubmit={handleSubmit} name="sign_form">
+      <form className={styles.form} onSubmit={handleSubmit} name="sign-form">
         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
         <div className={`mb-6 ${styles.inputWrap}`}>
