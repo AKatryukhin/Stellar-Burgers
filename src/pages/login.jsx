@@ -13,24 +13,24 @@ export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
 
-  const { name, email, password } = values;
+  const { email, password } = values;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid &&
-    handleRegister({ name, email, password }, () => {
+    handleLogin({ email, password }, () => {
       setValues({});
     });
   };
 
-  const handleRegister = () => {};
+  const handleLogin = () => {};
 
   return (
     <div className={styles.wrap}>
       <form className={styles.form} onSubmit={handleSubmit} name="sign_form">
-        <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
+        <h1 className="text text_type_main-medium mb-6">Вход</h1>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
-        <div className="mb-6">
+        <div className={`mb-6 ${styles.inputWrap}`}>
           <EmailInput
             type={"email"}
             placeholder={"E-mail"}
@@ -42,7 +42,7 @@ export const Login = () => {
           />
         </div>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.password}</span>*/}
-        <div className="mb-6">
+        <div className={`mb-6 ${styles.inputWrap}`}>
           <PasswordInput
             value={password || ""}
             name={"password"}
@@ -58,15 +58,15 @@ export const Login = () => {
             Войти
           </Button>
         </div>
-        <p className="text text_type_main-default text_color_inactive">
+        <p className="text text_type_main-default text_color_inactive mb-4">
           Вы — новый пользователь?{" "}
-          <Link to={"/login"} className={"text_color_link"}>
+          <Link to={"/register"} className={"text_color_link"}>
             Зарегистрироваться
           </Link>
         </p>
         <p className="text text_type_main-default text_color_inactive">
           Забыли пароль?{" "}
-          <Link to={"/login"} className={"text_color_link"}>
+          <Link to={"/"} className={"text_color_link"}>
             Восстановить пароль
           </Link>
         </p>

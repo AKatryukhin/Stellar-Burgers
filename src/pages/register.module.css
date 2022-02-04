@@ -10,6 +10,11 @@
   align-items: center;
 }
 
+.inputWrap,
+.inputWrap > div,
+.inputWrap > div > div {
+  width: 100%;
+}
 
 .inputError {
   display: block;

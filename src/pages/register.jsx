@@ -30,7 +30,7 @@ export const Register = () => {
       <form className={styles.form} onSubmit={handleSubmit} name="sign_form">
         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
-        <div className="mb-6">
+        <div className={`mb-6 ${styles.inputWrap}`}>
           <Input
             type={"text"}
             placeholder={"Имя"}
@@ -42,7 +42,7 @@ export const Register = () => {
           />
         </div>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.email}</span>*/}
-        <div className="mb-6">
+        <div className={`mb-6 ${styles.inputWrap}`}>
           <EmailInput
             type={"email"}
             placeholder={"E-mail"}
@@ -54,7 +54,7 @@ export const Register = () => {
           />
         </div>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.password}</span>*/}
-        <div className="mb-6">
+        <div className={`mb-6 ${styles.inputWrap}`}>
           <PasswordInput
             value={password || ""}
             name={"password"}
