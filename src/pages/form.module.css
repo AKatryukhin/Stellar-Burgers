@@ -22,3 +22,13 @@
   color: rgb(255,0,0);
 }
 
+.link {
+  color: #4C4CFF;
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+
+.link:hover {
+  opacity: .6;
+}
+

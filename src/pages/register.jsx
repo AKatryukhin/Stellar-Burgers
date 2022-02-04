@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./register-login.module.css";
+import styles from "./form.module.css";
 import {
   Button,
   Input,
@@ -72,7 +72,7 @@ export const Register = () => {
         </div>
         <p className="text text_type_main-default text_color_inactive">
           Уже зарегистрированы?{" "}
-          <Link to={"/login"} className={"text_color_link"}>
+          <Link to={"/login"} className={styles.link}>
             Войти
           </Link>
         </p>

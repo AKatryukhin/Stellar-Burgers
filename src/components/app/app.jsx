@@ -4,7 +4,7 @@ import { AppHeader } from "../app-header/app-header";
 import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
 import { useDispatch } from "react-redux";
 import Main from "../main/main";
-import { Register, Login, NotFound, Profile } from "../../pages";
+import { Register, Login, NotFound, Profile, ForgotPassword, ResetPassword, Ingredient } from "../../pages";
 import { Routes, Route } from "react-router-dom";
 
 export const App = () => {
@@ -23,6 +23,9 @@ export const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="ingredients/:id" element={<Ingredient />} />
       </Routes>
     </div>
   );
