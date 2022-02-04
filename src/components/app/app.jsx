@@ -4,8 +4,7 @@ import { AppHeader } from "../app-header/app-header";
 import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
 import { useDispatch } from "react-redux";
 import Main from "../main/main";
-import { Register } from "../../pages/register";
-import { Login } from "../../pages/login";
+import { Register, Login, NotFound } from "../../pages";
 import { Routes, Route } from "react-router-dom";
 
 export const App = () => {
@@ -19,9 +18,11 @@ export const App = () => {
     <div className={styles.page}>
       <AppHeader />
       <Routes>
+        <Route path="/" element={<AppHeader />} />
         <Route path="/" element={<Main />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
