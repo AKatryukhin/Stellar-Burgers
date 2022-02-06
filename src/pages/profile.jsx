@@ -2,9 +2,7 @@ import styles from "./profile.module.css";
 import {
   Link,
   useNavigate,
-  useRouteMatch,
-  Navigate,
-  useMatch,
+  useLocation
 } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
@@ -15,9 +13,9 @@ export const Profile = () => {
 
   const { name, email, password } = values;
 
+  const location = useLocation();
+  console.log(location);
   // const navigate = useNavigate();
-  // const { path } = useMatch(path);
-
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -33,8 +31,7 @@ export const Profile = () => {
           <ul className={styles.list}>
             <li className="pt-6 pb-4">
               <Link to="/profile" className={styles.link}>
-                <p className={`text text_type_main-medium ${styles.textColor}` } >
-                  {/*className={`text text_type_main-medium ${path !== "/profile" && 'text_color_inactive'}`}>*/}
+                  <p className={`text text_type_main-medium ${location.pathname !== "/profile" ? 'text_color_inactive' : `${styles.textColor}`}`}>
                   Профиль
                 </p>
               </Link>
@@ -42,8 +39,7 @@ export const Profile = () => {
             <li className="pt-6 pb-4">
               <Link to="/profile/orders" className={styles.link}>
                 <p
-                  className={`text text_type_main-medium text_color_inactive`}
-                  // className={`text text_type_main-medium ${path !== "/profile/orders" && 'text_color_inactive'}`}
+                  className={`text text_type_main-medium ${location.pathname !== "/profile/orders" ? 'text_color_inactive' : `${styles.textColor}`}`}
                 >
                   История заказов
                 </p>
