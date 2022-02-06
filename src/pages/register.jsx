@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./form.module.css";
 import {
   Button,
@@ -7,23 +7,37 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GET_REGISTRATION_REQUEST } from "../services/actions/types";
 
 export const Register = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
 
   const { name, email, password } = values;
+  // const navigate = useNavigate;
+  const isRegisterSuccess = useSelector(state => state?.auth.isRegisterSuccess);
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   isRegisterSuccess && navigate('/');
+  // }, [isRegisterSuccess])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid &&
-      handleRegister({ name, email, password }, () => {
-        setValues({});
-      });
+      handleRegister({ name, email, password })
   };
+  const handleRegister = ( { name, email, password } ) => {
+    dispatch({
+      type: GET_REGISTRATION_REQUEST,
+      name: name,
+      email: email,
+      password: password
+    });
 
-  const handleRegister = () => {};
+    setValues({});
+  };
 
   return (
     <div className={styles.wrap}>

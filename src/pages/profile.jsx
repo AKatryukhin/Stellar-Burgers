@@ -2,22 +2,33 @@ import styles from "./profile.module.css";
 import {
   Link,
   useNavigate,
-  useLocation
+  useLocation,
+  useMatch
 } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
+import { CHANGE_PASSWORD_REQUEST } from "../services/actions/types";
+import { useDispatch } from "react-redux";
+// import { useMatch } from "react-location";
 
 export const Profile = () => {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
 
   const { name, email, password } = values;
-
+  const dispatch = useDispatch();
   const location = useLocation();
   console.log(location);
-  // const navigate = useNavigate();
+  // const { url } = useMatch(url);
+  // console.log(url)
+  const navigate = useNavigate();
+  console.log(navigate)
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch({
+      type: CHANGE_PASSWORD_REQUEST,
+      payload: email,
+    });
   };
   const onReset = (e) => {
     e.preventDefault();

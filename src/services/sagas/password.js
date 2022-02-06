@@ -20,7 +20,7 @@ function* workPasswordReset(action) {
 
 function* workPasswordChange(action) {
   try {
-    const data =  yield call(passwordChange, action.payload);
+    yield call(passwordChange, action.password, action.token);
     yield put({ type: CHANGE_PASSWORD_SUCCESS });
   } catch (err) {
     console.log(err);

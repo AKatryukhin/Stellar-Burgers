@@ -32,7 +32,7 @@ export const passwordChange = ({ password, token }) => {
   }).then(handleResponse);
 };
 
-export const userRegister = ({ name, email, password }) => {
+export const userRegister = (name, email, password) => {
   return fetch(USER_REGISTER_URL, {
     method: "POST",
     headers: {
