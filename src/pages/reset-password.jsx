@@ -3,16 +3,23 @@ import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-de
 import { Link } from "react-router-dom";
 import React from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
+import { useDispatch } from "react-redux";
+import { RESET_PASSWORD_REQUEST } from "../services/actions/types";
 
 
 export const ResetPassword = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
 
+  const dispatch = useDispatch();
+
+
   const { password } = values;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
   };
 
   return (
