@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./form.module.css";
 import {
   Button,
@@ -7,23 +7,37 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../utils/cookie";
+import { GET_LOGIN_REQUEST, GET_REGISTRATION_REQUEST } from "../services/actions/types";
 
 export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { email, password } = values;
+  const token = getCookie("accessToken");
+
+  useEffect(() => {
+    token && navigate('/');
+  }, [token])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid &&
-    handleLogin({ email, password }, () => {
-      setValues({});
-    });
+    handleLogin({ email, password });
+    setValues({});
   };
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    dispatch({
+      type: GET_LOGIN_REQUEST,
+      email: email,
+      password: password,
+    });
+  };
 
   return (
     <div className={styles.wrap}>

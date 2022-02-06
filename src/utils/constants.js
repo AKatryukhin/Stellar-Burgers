@@ -3,4 +3,7 @@ export const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 export const PASSWORD_RESET_URL = 'https://norma.nomoreparties.space/api/password-reset';
 export const PASSWORD_CHANGE_URL = 'https://norma.nomoreparties.space/api/password-reset/reset';
 export const USER_REGISTER_URL = 'https://norma.nomoreparties.space/api/auth/register';
+export const USER_LOGIN_URL = 'https://norma.nomoreparties.space/api/auth/login';
+export const USER_LOGUT_URL = 'https://norma.nomoreparties.space/api/auth/logout';
+export const USER_UPDATE_TOKEN_URL = 'https://norma.nomoreparties.space/api/auth/token';
 export const ESC_KEYCODE = 'Escape';

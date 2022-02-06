@@ -1,7 +1,7 @@
 import {
   GET_REGISTRATION_REQUEST,
   GET_REGISTRATION_SUCCESS,
-  GET_REGISTRATION_FAILED,
+  GET_REGISTRATION_FAILED, GET_LOGIN_REQUEST, GET_LOGIN_SUCCESS, GET_LOGIN_FAILED
 } from "../actions/types";
 
 const initialState = {
@@ -51,27 +51,30 @@ export const auth = (state = initialState, action) => {
         registerFailed: true,
       };
     }
-    // case CHANGE_PASSWORD_REQUEST: {
-    //   return {
-    //     ...state,
-    //     changePasswordRequest: true
-    //   };
-    // }
-    // case CHANGE_PASSWORD_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     changePasswordFailed: false,
-    //     changePasswordRequest: false,
-    //     isChangePasswordSuccess: true,
-    //   };
-    // }
-    //
-    // case CHANGE_PASSWORD_FAILED: {
-    //   return {
-    //     ...state,
-    //     changePasswordFailed: true,
-    //   };
-    // }
+    case GET_LOGIN_REQUEST: {
+      return {
+        ...state,
+        loginRequest: true
+      };
+    }
+    case GET_LOGIN_SUCCESS: {
+      return {
+        ...state,
+        loginFailed: false,
+        loginRequest: false,
+        name: action.name,
+        email: action.email,
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken
+      };
+    }
+
+    case GET_LOGIN_FAILED: {
+      return {
+        ...state,
+        loginFailed: true,
+      };
+    }
     default:
       return state;
   }

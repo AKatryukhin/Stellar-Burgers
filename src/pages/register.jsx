@@ -10,32 +10,37 @@ import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_REGISTRATION_REQUEST } from "../services/actions/types";
+import { getCookie, setCookie } from "../utils/cookie";
 
 export const Register = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
-
   const { name, email, password } = values;
-  // const navigate = useNavigate;
-  const isRegisterSuccess = useSelector(state => state?.auth.isRegisterSuccess);
+  const navigate = useNavigate();
+  const { isRegisterSuccess, refreshToken, accessToken } = useSelector(
+    (state) => state?.auth
+  );
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   isRegisterSuccess && navigate('/');
-  // }, [isRegisterSuccess])
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      setCookie("refreshToken", refreshToken);
+      setCookie("accessToken", accessToken);
+      navigate("/login");
+    }
+  }, [isRegisterSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    isValid &&
-      handleRegister({ name, email, password })
+    isValid && handleRegister({ name, email, password });
   };
-  const handleRegister = ( { name, email, password } ) => {
+
+  const handleRegister = ({ name, email, password }) => {
     dispatch({
       type: GET_REGISTRATION_REQUEST,
       name: name,
       email: email,
-      password: password
+      password: password,
     });
-
     setValues({});
   };
 
