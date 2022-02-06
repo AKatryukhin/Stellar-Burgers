@@ -6,11 +6,11 @@ import {
   Navigate,
   useMatch,
 } from "react-router-dom";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
 export const Profile = () => {
-  const { values, handleChange, errors, isValid, setValues } =
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
 
   const { name, email, password } = values;
@@ -18,7 +18,13 @@ export const Profile = () => {
   // const navigate = useNavigate();
   // const { path } = useMatch(path);
 
-  const onSubmit = () => {};
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+  const onReset = (e) => {
+    e.preventDefault();
+    resetForm();
+  }
 
   return (
     <section className={styles.wrap}>
@@ -106,6 +112,10 @@ export const Profile = () => {
             errorText={"Ошибка"}
             size={"default"}
           />
+        </div>
+        <div className={`${styles.buttons} mt-6`}>
+          <Button type="primary" size="medium" onClick={onReset}>Отмена</Button>
+          <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
         </div>
       </form>
     </section>
