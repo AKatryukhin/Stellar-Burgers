@@ -1,10 +1,10 @@
 import styles from "./form.module.css";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { useDispatch } from "react-redux";
-import { RESET_PASSWORD_REQUEST } from "../services/actions/types";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS } from "../services/actions/types";
 
 
 export const ResetPassword = () => {
@@ -12,14 +12,27 @@ export const ResetPassword = () => {
     useFormAndValidation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-
-  const { password } = values;
+  const { password, code } = values;
+  const changePasswordFailed = useSelector(
+    (state) => state?.password.changePasswordFailed
+  );
+  const isChangePasswordSuccess = useSelector(
+    (state) => state?.password.isChangePasswordSuccess
+  );
+  useEffect(() => {
+    changePasswordFailed && navigate("/forgot-password");
+    isChangePasswordSuccess && navigate("/");
+  }, [changePasswordFailed, isChangePasswordSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
+    dispatch({
+      type: CHANGE_PASSWORD_REQUEST,
+      password: password,
+      code: code
+    });
   };
 
   return (
@@ -42,8 +55,8 @@ export const ResetPassword = () => {
           <Input
             type={"text"}
             placeholder={"Введите код из письма"}
-            value={""}
-            name={"name"}
+            value={code || ""}
+            name={"code"}
             error={false}
             errorText={"Введите корректное значение"}
             onChange={handleChange}

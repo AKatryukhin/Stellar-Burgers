@@ -1,4 +1,4 @@
-import { PASSWORD_RESET_URL } from "./constants";
+import { PASSWORD_CHANGE_URL, PASSWORD_RESET_URL, USER_REGISTER_URL } from "./constants";
 
 const handleResponse = (res) => {
   if (!res.ok) {
@@ -15,6 +15,33 @@ export const passwordReset = ({ email }) => {
     },
     body: JSON.stringify({
       email: email,
+    }),
+  }).then(handleResponse);
+};
+
+export const passwordChange = ({ password, token }) => {
+  return fetch(PASSWORD_CHANGE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token
+    }),
+  }).then(handleResponse);
+};
+
+export const userRegister = ({ name, email, password }) => {
+  return fetch(USER_REGISTER_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      name: name,
+      email: email
     }),
   }).then(handleResponse);
 };

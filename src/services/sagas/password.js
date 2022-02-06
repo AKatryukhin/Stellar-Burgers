@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { passwordReset } from "../../utils/AuthApi";
+import { passwordChange, passwordReset } from "../../utils/AuthApi";
 import {
+  CHANGE_PASSWORD_FAILED,
+  CHANGE_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILED,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS
@@ -16,6 +18,17 @@ function* workPasswordReset(action) {
   }
 }
 
+function* workPasswordChange(action) {
+  try {
+    const data =  yield call(passwordChange, action.payload);
+    yield put({ type: CHANGE_PASSWORD_SUCCESS });
+  } catch (err) {
+    console.log(err);
+    yield put({ type: CHANGE_PASSWORD_FAILED });
+  }
+}
+
 export function* watchPasswordActions() {
   yield takeEvery("RESET_PASSWORD_REQUEST", workPasswordReset);
+  yield takeEvery("CHANGE_PASSWORD_REQUEST", workPasswordChange);
 }

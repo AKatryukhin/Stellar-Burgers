@@ -8,15 +8,22 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  resetPasswordRequest: false,
-  resetPasswordFailed: false,
-  changePasswordRequest: false,
-  changePasswordFailed: false,
-  isResetPasswordSuccess: false,
-  isChangePasswordSuccess: false,
-};
+  name: "",
+  email: "",
+  registerRequest: false,
+  registerFailed: false,
+  isRegisterSuccess: false,
+  loginRequest: false,
+  loginFailed: false,
+  logoutRequest: false,
+  logoutFailed: false,
+  getUserRequest: false,
+  getUserFailed: false,
+  updateUserRequest: false,
+  updateUserFailed: false,
+}
 
-export const password = (state = initialState, action) => {
+export const auth = (state = initialState, action) => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {
       return {
