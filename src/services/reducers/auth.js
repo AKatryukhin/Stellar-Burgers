@@ -10,7 +10,12 @@ import {
   GET_LOGOUT_REQUEST,
   GET_TOKEN_UPDATE_REQUEST,
   GET_TOKEN_UPDATE_SUCCESS,
-  GET_TOKEN_UPDATE_FAILED, GET_USER_INFO_REQUEST, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED
+  GET_TOKEN_UPDATE_FAILED,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAILED,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_FAILED
 } from "../actions/types";
 
 const initialState = {
@@ -155,6 +160,27 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         getUserInfoFailed: true,
+      };
+    }
+    case UPDATE_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        updateUserRequest: true,
+      };
+    }
+    case UPDATE_USER_INFO_SUCCESS: {
+      return {
+        ...state,
+        updateUserFailed: false,
+        updateUserRequest: false,
+        name: action.name,
+        email: action.email,
+      };
+    }
+    case UPDATE_USER_INFO_FAILED: {
+      return {
+        ...state,
+        updateUserFailed: true,
       };
     }
     default:

@@ -11,7 +11,7 @@ import {
   CHANGE_PASSWORD_REQUEST,
   GET_LOGIN_REQUEST,
   GET_LOGOUT_REQUEST,
-  GET_USER_INFO_REQUEST
+  GET_USER_INFO_REQUEST, UPDATE_USER_INFO_REQUEST
 } from "../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
@@ -43,11 +43,11 @@ export const Profile = () => {
     );
   }, [stateName, stateEmail]);
 
-  useEffect(() => {
-    tokenUpdateSuccess &&
-    setCookie("refreshToken", refreshToken);
-    setCookie("accessToken", accessToken);
-  }, [tokenUpdateSuccess]);
+  // useEffect(() => {
+  //   tokenUpdateSuccess &&
+  //   setCookie("refreshToken", refreshToken);
+  //   setCookie("accessToken", accessToken);
+  // }, [tokenUpdateSuccess]);
 
   useEffect(() => {
     dispatch({
@@ -61,8 +61,11 @@ export const Profile = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({
-      type: CHANGE_PASSWORD_REQUEST,
-      payload: email,
+      type: UPDATE_USER_INFO_REQUEST,
+      email: email,
+      name: name,
+      accessToken: accessToken,
+      refreshToken: refreshToken
     });
   };
   const onReset = (e) => {
@@ -158,7 +161,7 @@ export const Profile = () => {
             value={password || ""}
             name={"name"}
             error={false}
-            disabled={true}
+            disabled={false}
             errorText={"Ошибка"}
             size={"default"}
           />

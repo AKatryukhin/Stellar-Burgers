@@ -32,10 +32,6 @@ export const Login = () => {
       }
   }, [isLoginSuccess])
 
-  useEffect(() => {
-    token && navigate('/');
-  }, [token])
-
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid &&
