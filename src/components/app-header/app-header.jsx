@@ -3,6 +3,7 @@ import styles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Nav } from '../nav/nav';
 import { NavItem } from '../nav-item/nav-item';
+import { Link } from "react-router-dom";
 
 export const AppHeader = () => {
   return (
@@ -15,7 +16,10 @@ export const AppHeader = () => {
         <span className={styles.logo}>
           <Logo />
         </span>
-        <NavItem text='Личный кабинет' styleInactive='text_color_inactive'><ProfileIcon type="secondary" /></NavItem>
+        <Link to="/profile">
+          <NavItem text='Личный кабинет' styleInactive='text_color_inactive'><ProfileIcon type="secondary" /></NavItem>
+        </Link>
+
       </Nav>
     </header>
   )

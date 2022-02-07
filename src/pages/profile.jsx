@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { CHANGE_PASSWORD_REQUEST } from "../services/actions/types";
-import { useDispatch } from "react-redux";
+import { CHANGE_PASSWORD_REQUEST, GET_LOGOUT_REQUEST } from "../services/actions/types";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCookie, getCookie } from "../utils/cookie";
 // import { useMatch } from "react-location";
 
 export const Profile = () => {
@@ -19,10 +20,11 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location);
-  // const { url } = useMatch(url);
-  // console.log(url)
-  const navigate = useNavigate();
-  console.log(navigate)
+  // const navigate = useNavigate();
+  // console.log(navigate)
+  // const refreshToken = useSelector(state => state?.auth.refreshToken);
+  const refreshToken = getCookie('refreshToken');
+  console.log(refreshToken);
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({
@@ -34,6 +36,14 @@ export const Profile = () => {
     e.preventDefault();
     resetForm();
   }
+  const handleLogout = () => {
+    dispatch({
+      type: GET_LOGOUT_REQUEST,
+      token: refreshToken,
+    });
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken")
+  };
 
   return (
     <section className={styles.wrap}>
@@ -59,7 +69,7 @@ export const Profile = () => {
             <li className="pt-6 pb-4">
               <Link to="/profile" className={styles.link}>
                 <p
-                  // onClick={}
+                  onClick={handleLogout}
                   className={`text text_type_main-medium text_color_inactive`}
                 >
                   Выход
@@ -120,10 +130,14 @@ export const Profile = () => {
             size={"default"}
           />
         </div>
-        <div className={`${styles.buttons} mt-6`}>
-          <Button type="primary" size="medium" onClick={onReset}>Отмена</Button>
-          <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
-        </div>
+        {
+          isValid &&
+          <div className={`${styles.buttons} mt-6`}>
+            <Button type="primary" size="medium" onClick={onReset}>Отмена</Button>
+            <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
+          </div>
+        }
+
       </form>
     </section>
   );
