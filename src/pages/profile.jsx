@@ -7,9 +7,15 @@ import {
 } from "react-router-dom";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { CHANGE_PASSWORD_REQUEST, GET_LOGOUT_REQUEST } from "../services/actions/types";
+import {
+  CHANGE_PASSWORD_REQUEST,
+  GET_LOGIN_REQUEST,
+  GET_LOGOUT_REQUEST,
+  GET_USER_INFO_REQUEST
+} from "../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCookie, getCookie } from "../utils/cookie";
+import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
+import { useEffect } from "react";
 // import { useMatch } from "react-location";
 
 export const Profile = () => {
@@ -22,9 +28,36 @@ export const Profile = () => {
   console.log(location);
   // const navigate = useNavigate();
   // console.log(navigate)
-  // const refreshToken = useSelector(state => state?.auth.refreshToken);
+
   const refreshToken = getCookie('refreshToken');
-  console.log(refreshToken);
+  const accessToken = getCookie('accessToken');
+  const { tokenUpdateSuccess } = useSelector(state => state?.auth);
+  const stateName = useSelector(state => state?.auth.name);
+  const stateEmail = useSelector(state => state?.auth.email);
+  useEffect(() => {
+    setValues(
+      {
+        name: stateName,
+        email: stateEmail
+      }
+    );
+  }, [stateName, stateEmail]);
+
+  useEffect(() => {
+    tokenUpdateSuccess &&
+    setCookie("refreshToken", refreshToken);
+    setCookie("accessToken", accessToken);
+  }, [tokenUpdateSuccess]);
+
+  useEffect(() => {
+    dispatch({
+      type: GET_USER_INFO_REQUEST,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch({

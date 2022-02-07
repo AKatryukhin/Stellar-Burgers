@@ -7,7 +7,10 @@ import {
   GET_LOGIN_FAILED,
   GET_LOGOUT_SUCCESS,
   GET_LOGOUT_FAILED,
-  GET_LOGOUT_REQUEST, GET_TOKEN_UPDATE_REQUEST, GET_TOKEN_UPDATE_SUCCESS, GET_TOKEN_UPDATE_FAILED
+  GET_LOGOUT_REQUEST,
+  GET_TOKEN_UPDATE_REQUEST,
+  GET_TOKEN_UPDATE_SUCCESS,
+  GET_TOKEN_UPDATE_FAILED, GET_USER_INFO_REQUEST, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED
 } from "../actions/types";
 
 const initialState = {
@@ -26,8 +29,8 @@ const initialState = {
   tokenUpdateRequest: false,
   tokenUpdateFailed: false,
   tokenUpdateSuccess: false,
-  getUserRequest: false,
-  getUserFailed: false,
+  getUserInfoRequest: false,
+  getUserInfoFailed: false,
   updateUserRequest: false,
   updateUserFailed: false,
 };
@@ -126,11 +129,32 @@ export const auth = (state = initialState, action) => {
         refreshToken: action.refreshToken,
       };
     }
-
     case GET_TOKEN_UPDATE_FAILED: {
       return {
         ...state,
         tokenUpdateFailed: true,
+      };
+    }
+    case GET_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        getUserInfoRequest: true,
+      };
+    }
+    case GET_USER_INFO_SUCCESS: {
+      return {
+        ...state,
+        getUserInfoFailed: false,
+        getUserInfoRequest: false,
+        name: action.name,
+        email: action.email,
+      };
+    }
+
+    case GET_USER_INFO_FAILED: {
+      return {
+        ...state,
+        getUserInfoFailed: true,
       };
     }
     default:

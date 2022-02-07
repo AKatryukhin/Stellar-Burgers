@@ -1,5 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { userRegister, userLogin, userLogout, userRefreshToken } from "../../utils/AuthApi";
+import {
+  userRegister,
+  userLogin,
+  userLogout,
+  userRefreshToken,
+  getUserInfo,
+} from "../../utils/AuthApi";
 import {
   GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
@@ -9,7 +15,13 @@ import {
   GET_LOGOUT_SUCCESS,
   GET_REGISTRATION_FAILED,
   GET_REGISTRATION_REQUEST,
-  GET_REGISTRATION_SUCCESS, GET_TOKEN_UPDATE_FAILED, GET_TOKEN_UPDATE_REQUEST, GET_TOKEN_UPDATE_SUCCESS
+  GET_REGISTRATION_SUCCESS,
+  GET_TOKEN_UPDATE_FAILED,
+  GET_TOKEN_UPDATE_REQUEST,
+  GET_TOKEN_UPDATE_SUCCESS,
+  GET_USER_INFO_FAILED,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
 } from "../actions/types";
 
 function* workCreateUser(action) {
@@ -43,7 +55,6 @@ function* workSignIn(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
-
   } catch (err) {
     console.log(err);
     yield put({ type: GET_LOGIN_FAILED });
@@ -58,7 +69,6 @@ function* workTokenUpdate(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
-
   } catch (err) {
     console.log(err);
     yield put({ type: GET_TOKEN_UPDATE_FAILED });
@@ -77,9 +87,39 @@ function* workSignOut(action) {
   }
 }
 
+function* workGetUserInfo(action) {
+  try {
+    const data = yield call(
+      getUserInfo,
+      action.accessToken,
+    );
+    yield put({
+      type: GET_USER_INFO_SUCCESS,
+      name: data.user.name,
+      email: data.user.email,
+    });
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      yield put({
+        type: GET_TOKEN_UPDATE_REQUEST,
+        token: action.refreshToken,
+      });
+      yield put({
+        type: GET_USER_INFO_REQUEST,
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken
+      });
+    } else {
+      console.log(err);
+      yield put({ type: GET_USER_INFO_FAILED });
+    }
+  }
+}
+
 export function* watchAuthActions() {
   yield takeEvery(GET_REGISTRATION_REQUEST, workCreateUser);
   yield takeEvery(GET_LOGIN_REQUEST, workSignIn);
   yield takeEvery(GET_LOGOUT_REQUEST, workSignOut);
   yield takeEvery(GET_TOKEN_UPDATE_REQUEST, workTokenUpdate);
+  yield takeEvery(GET_USER_INFO_REQUEST, workGetUserInfo);
 }
