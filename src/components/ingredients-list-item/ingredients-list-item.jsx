@@ -5,6 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
@@ -15,6 +16,10 @@ import {
 import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
+  const location = useLocation();
+
+  const ingredientId = ingredient["_id"];
+
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
@@ -61,21 +66,32 @@ export const IngredientsItem = ({ ingredient }) => {
   const { image, name, price } = ingredient;
 
   return (
-    <article
-      ref={drag}
-      onClick={handleClick}
-      className={`${styles.card} ${isDrag && styles.cardTransparent}`}
+    <Link
+      key={ingredientId}
+      to={{
+        pathname: `/ingredients/${ingredientId}`,
+        state: { background: location },
+      }}
+      className={styles.link}
     >
-      {ingredient?.count && <Counter count={ingredient.count} size="default" />}
-      <img src={image} alt={name} className="mb-1" />
-      <div className={`${styles.priceWrap} mb-1`}>
-        <p className={`${styles.price} mr-2 text text_type_digits-default`}>
-          {price}
-        </p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p className={`${styles.name} text text_type_main-small`}>{name}</p>
-    </article>
+      <article
+        ref={drag}
+        onClick={handleClick}
+        className={`${styles.card} ${isDrag && styles.cardTransparent}`}
+      >
+        {ingredient?.count && (
+          <Counter count={ingredient.count} size="default" />
+        )}
+        <img src={image} alt={name} className="mb-1" />
+        <div className={`${styles.priceWrap} mb-1`}>
+          <p className={`${styles.price} mr-2 text text_type_digits-default`}>
+            {price}
+          </p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={`${styles.name} text text_type_main-small`}>{name}</p>
+      </article>
+    </Link>
   );
 };
 
