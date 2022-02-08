@@ -58,6 +58,7 @@ export const Register = () => {
             error={false}
             errorText={"Введите корректное значение"}
             onChange={handleChange}
+
           />
         </div>
         {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.email}</span>*/}

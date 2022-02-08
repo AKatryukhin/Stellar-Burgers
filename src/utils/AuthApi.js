@@ -5,13 +5,19 @@ import {
   USER_LOGOUT_URL,
   USER_REGISTER_URL, USER_UPDATE_DATA_URL, USER_UPDATE_TOKEN_URL
 } from "./constants";
-import { setCookie } from "./cookie";
 
 const handleResponse = (res) => {
   if (!res.ok) {
     return Promise.reject(`Error: ${res.status}`);
   }
   return res.json();
+};
+
+const handleResponseJWT = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return res.json().then((err) => Promise.reject(err))
 };
 
 // export const fetchWithRefresh = async (url, options) => {
@@ -141,11 +147,11 @@ export const getUserInfo = (accessToken) => {
     credentials: 'same-origin',
     headers: {
       "Content-Type": "application/json",
-      Authorization: accessToken,
+      authorization: accessToken,
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-  }).then(handleResponse);
+  }).then(handleResponseJWT);
 }
 
 export const updateUserInfo = (name, email, accessToken) => {
@@ -156,7 +162,7 @@ export const updateUserInfo = (name, email, accessToken) => {
     credentials: 'same-origin',
     headers: {
       "Content-Type": "application/json",
-      Authorization: accessToken,
+      authorization: accessToken,
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
@@ -164,5 +170,5 @@ export const updateUserInfo = (name, email, accessToken) => {
       name: name,
       email: email
     }),
-  }).then(handleResponse);
+  }).then(handleResponseJWT);
 }

@@ -9,7 +9,6 @@ import {
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie, setCookie } from "../utils/cookie";
 import { GET_LOGIN_REQUEST } from "../services/actions/types";
 
 export const Login = () => {
@@ -18,24 +17,16 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { email, password } = values;
-  const token = getCookie("accessToken");
 
-  const { isLoginSuccess, refreshToken, accessToken } = useSelector(
-    (state) => state?.auth
-  );
+  const { accessToken } = useSelector((state) => state?.auth);
 
   useEffect(() => {
-    if (isLoginSuccess) {
-      setCookie("refreshToken", refreshToken);
-      setCookie("accessToken", accessToken);
-      navigate('/')
-      }
-  }, [isLoginSuccess])
+    accessToken && navigate("/");
+  }, [accessToken]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    isValid &&
-    handleLogin({ email, password });
+    isValid && handleLogin({ email, password });
     setValues({});
   };
 

@@ -18,11 +18,14 @@ import {
   UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_FAILED
 } from "../actions/types";
 
+const localAccessToken = localStorage.getItem('accessToken');
+const localRefreshToken = localStorage.getItem('refreshToken');
+
 const initialState = {
   name: "",
   email: "",
-  accessToken: "",
-  refreshToken: "",
+  accessToken: localAccessToken || "",
+  refreshToken: localRefreshToken || "",
   registerRequest: false,
   registerFailed: false,
   isRegisterSuccess: false,

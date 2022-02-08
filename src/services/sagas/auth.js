@@ -27,7 +27,7 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS,
 } from "../actions/types";
-import { getCookie, setCookie } from "../../utils/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 
 function* workCreateUser(action) {
   try {
@@ -44,6 +44,10 @@ function* workCreateUser(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
+    call(localStorage.setItem, "accessToken", data.accessToken);
+    call(localStorage.setItem, "refreshToken", data.refreshToken);
+    call(setCookie, "accessToken", data.accessToken);
+    call(setCookie, "refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
     yield put({ type: GET_REGISTRATION_FAILED });
@@ -60,6 +64,10 @@ function* workSignIn(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
+    call(localStorage.setItem, "accessToken", data.accessToken);
+    call(localStorage.setItem, "refreshToken", data.refreshToken);
+    call(setCookie, "accessToken", data.accessToken);
+    call(setCookie, "refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
     yield put({ type: GET_LOGIN_FAILED });
@@ -68,12 +76,15 @@ function* workSignIn(action) {
 
 function* workTokenUpdate(action) {
   try {
+    console.log(action.token);
     const data = yield call(userRefreshToken, action.token);
     yield put({
       type: GET_TOKEN_UPDATE_SUCCESS,
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
+    call(localStorage.setItem, "accessToken", data.accessToken);
+    call(localStorage.setItem, "refreshToken", data.refreshToken);
     call(setCookie, "accessToken", data.accessToken);
     call(setCookie, "refreshToken", data.refreshToken);
   } catch (err) {
@@ -88,6 +99,10 @@ function* workSignOut(action) {
     yield put({
       type: GET_LOGOUT_SUCCESS,
     });
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken");
   } catch (err) {
     console.log(err);
     yield put({ type: GET_LOGOUT_FAILED });
@@ -102,7 +117,6 @@ function* workGetUserInfo(action) {
       name: data.user.name,
       email: data.user.email,
     });
-
   } catch (err) {
     if (err.message === "jwt expired") {
       yield put({
@@ -126,9 +140,9 @@ function* workUpdateUserInfo(action) {
   try {
     const data = yield call(
       updateUserInfo,
-      action.accessToken,
       action.name,
-      action.email
+      action.email,
+      action.accessToken,
     );
     yield put({
       type: UPDATE_USER_INFO_SUCCESS,
@@ -141,11 +155,11 @@ function* workUpdateUserInfo(action) {
         type: GET_TOKEN_UPDATE_REQUEST,
         token: action.refreshToken,
       });
-      yield put({
-        type: UPDATE_USER_INFO_REQUEST,
-        accessToken: getCookie("accessToken"),
-        refreshToken: getCookie("refreshToken"),
-      });
+      // yield put({
+      //   type: UPDATE_USER_INFO_REQUEST,
+      //   accessToken: getCookie("accessToken"),
+      //   refreshToken: getCookie("refreshToken"),
+      // });
     } else {
       console.log(err);
       yield put({ type: UPDATE_USER_INFO_FAILED });

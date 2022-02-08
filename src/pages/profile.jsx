@@ -1,17 +1,16 @@
 import styles from "./profile.module.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
-  Link,
-  useNavigate,
-  useLocation,
-  useMatch
-} from "react-router-dom";
-import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+  Button,
+  Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import {
   CHANGE_PASSWORD_REQUEST,
   GET_LOGIN_REQUEST,
   GET_LOGOUT_REQUEST,
-  GET_USER_INFO_REQUEST, UPDATE_USER_INFO_REQUEST
+  GET_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_REQUEST,
 } from "../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
@@ -26,22 +25,23 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location);
-  // const navigate = useNavigate();
-  // console.log(navigate)
 
-  const refreshToken = getCookie('refreshToken');
-  const accessToken = getCookie('accessToken');
-  const { tokenUpdateSuccess } = useSelector(state => state?.auth);
-  const stateName = useSelector(state => state?.auth.name);
-  const stateEmail = useSelector(state => state?.auth.email);
+  const { accessToken, refreshToken } = useSelector((state) => state?.auth);
+
+  const navigate = useNavigate();
+  const stateName = useSelector((state) => state?.auth.name);
+  const stateEmail = useSelector((state) => state?.auth.email);
   useEffect(() => {
-    setValues(
-      {
-        name: stateName,
-        email: stateEmail
-      }
-    );
+    setValues({
+      name: stateName,
+      email: stateEmail,
+    });
   }, [stateName, stateEmail]);
+
+  useEffect(() => {
+    !accessToken && navigate("/login", { replace: true })
+  }, [accessToken])
+
 
   // useEffect(() => {
   //   tokenUpdateSuccess &&
@@ -49,36 +49,39 @@ export const Profile = () => {
   //   setCookie("accessToken", accessToken);
   // }, [tokenUpdateSuccess]);
 
-  useEffect(() => {
-    dispatch({
-      type: GET_USER_INFO_REQUEST,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: GET_USER_INFO_REQUEST,
+  //     accessToken: accessToken,
+  //     refreshToken: refreshToken,
+  //   });
+  // }, [accessToken, refreshToken]);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(accessToken);
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
       email: email,
       name: name,
       accessToken: accessToken,
-      refreshToken: refreshToken
+      refreshToken: refreshToken,
     });
   };
   const onReset = (e) => {
     e.preventDefault();
     resetForm();
-  }
+  };
   const handleLogout = () => {
     dispatch({
       type: GET_LOGOUT_REQUEST,
       token: refreshToken,
     });
-    deleteCookie("accessToken");
-    deleteCookie("refreshToken")
+
+    // localStorage.removeItem("accessToken");
+    // localStorage.removeItem("refreshToken");
+    // deleteCookie("accessToken");
+    // deleteCookie("refreshToken");
   };
 
   return (
@@ -88,7 +91,13 @@ export const Profile = () => {
           <ul className={styles.list}>
             <li className="pt-6 pb-4">
               <Link to="/profile" className={styles.link}>
-                  <p className={`text text_type_main-medium ${location.pathname !== "/profile" ? 'text_color_inactive' : `${styles.textColor}`}`}>
+                <p
+                  className={`text text_type_main-medium ${
+                    location.pathname !== "/profile"
+                      ? "text_color_inactive"
+                      : `${styles.textColor}`
+                  }`}
+                >
                   Профиль
                 </p>
               </Link>
@@ -96,7 +105,11 @@ export const Profile = () => {
             <li className="pt-6 pb-4">
               <Link to="/profile/orders" className={styles.link}>
                 <p
-                  className={`text text_type_main-medium ${location.pathname !== "/profile/orders" ? 'text_color_inactive' : `${styles.textColor}`}`}
+                  className={`text text_type_main-medium ${
+                    location.pathname !== "/profile/orders"
+                      ? "text_color_inactive"
+                      : `${styles.textColor}`
+                  }`}
                 >
                   История заказов
                 </p>
@@ -166,14 +179,16 @@ export const Profile = () => {
             size={"default"}
           />
         </div>
-        {
-          isValid &&
+        {isValid && (
           <div className={`${styles.buttons} mt-6`}>
-            <Button type="primary" size="medium" onClick={onReset}>Отмена</Button>
-            <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
+            <Button type="primary" size="medium" onClick={onReset}>
+              Отмена
+            </Button>
+            <Button type="primary" size="medium" onClick={onSubmit}>
+              Сохранить
+            </Button>
           </div>
-        }
-
+        )}
       </form>
     </section>
   );
