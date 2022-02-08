@@ -20,11 +20,9 @@ export const Profile = () => {
   const { name, email, password } = values;
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
 
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
-  console.log(accessToken)
   const navigate = useNavigate();
   const stateName = useSelector((state) => state?.auth.name);
   const stateEmail = useSelector((state) => state?.auth.email);
@@ -59,7 +57,11 @@ export const Profile = () => {
   };
   const onReset = (e) => {
     e.preventDefault();
-    resetForm();
+    setValues({
+      name: stateName,
+      email: stateEmail,
+      password: "",
+    });
   };
   const handleLogout = () => {
     dispatch({
