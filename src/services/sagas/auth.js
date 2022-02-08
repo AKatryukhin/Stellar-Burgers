@@ -104,7 +104,6 @@ function* workSignOut(action) {
 function* workGetUserInfo(action) {
   try {
     const data = yield call(getUserInfo, action.accessToken);
-    console.log(data)
     yield put({
       type: GET_USER_INFO_SUCCESS,
       name: data.user.name,

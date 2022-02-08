@@ -10,8 +10,7 @@ import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_LOGIN_REQUEST } from "../services/actions/types";
-import { call } from "redux-saga/effects";
-import { setCookie } from "../utils/cookie";
+
 
 export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =

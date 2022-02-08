@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS } from "../services/actions/types";
+import { CHANGE_PASSWORD_REQUEST } from "../services/actions/types";
 
 
 export const ResetPassword = () => {
