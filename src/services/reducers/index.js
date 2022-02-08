@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     currentIngredient: currentIngredientReducer,
     order: order,
     password: password,
-    auth: auth
+    auth: auth,
 })
 
 export default  rootReducer;

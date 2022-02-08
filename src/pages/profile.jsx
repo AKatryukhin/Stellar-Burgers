@@ -6,16 +6,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import {
-  CHANGE_PASSWORD_REQUEST,
-  GET_LOGIN_REQUEST,
-  GET_LOGOUT_REQUEST,
-  GET_USER_INFO_REQUEST,
-  UPDATE_USER_INFO_REQUEST,
+  GET_LOGOUT_REQUEST, GET_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_REQUEST
 } from "../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCookie, getCookie, setCookie } from "../utils/cookie";
 import { useEffect } from "react";
-// import { useMatch } from "react-location";
+import { getCookie } from "../utils/cookie";
 
 export const Profile = () => {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
@@ -26,8 +22,9 @@ export const Profile = () => {
   const location = useLocation();
   console.log(location);
 
-  const { accessToken, refreshToken } = useSelector((state) => state?.auth);
-
+  const refreshToken = getCookie("refreshToken");
+  const accessToken = getCookie("accessToken");
+  console.log(accessToken)
   const navigate = useNavigate();
   const stateName = useSelector((state) => state?.auth.name);
   const stateEmail = useSelector((state) => state?.auth.email);
@@ -39,27 +36,19 @@ export const Profile = () => {
   }, [stateName, stateEmail]);
 
   useEffect(() => {
-    !accessToken && navigate("/login", { replace: true })
-  }, [accessToken])
+    dispatch({
+      type: GET_USER_INFO_REQUEST,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  }, []);
 
-
-  // useEffect(() => {
-  //   tokenUpdateSuccess &&
-  //   setCookie("refreshToken", refreshToken);
-  //   setCookie("accessToken", accessToken);
-  // }, [tokenUpdateSuccess]);
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: GET_USER_INFO_REQUEST,
-  //     accessToken: accessToken,
-  //     refreshToken: refreshToken,
-  //   });
-  // }, [accessToken, refreshToken]);
+  useEffect(() => {
+    !accessToken && navigate("/login", { replace: true });
+  }, [accessToken]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(accessToken);
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
       email: email,
@@ -77,11 +66,6 @@ export const Profile = () => {
       type: GET_LOGOUT_REQUEST,
       token: refreshToken,
     });
-
-    // localStorage.removeItem("accessToken");
-    // localStorage.removeItem("refreshToken");
-    // deleteCookie("accessToken");
-    // deleteCookie("refreshToken");
   };
 
   return (
@@ -172,7 +156,7 @@ export const Profile = () => {
             onChange={handleChange}
             icon={"EditIcon"}
             value={password || ""}
-            name={"name"}
+            name={"password"}
             error={false}
             disabled={false}
             errorText={"Ошибка"}

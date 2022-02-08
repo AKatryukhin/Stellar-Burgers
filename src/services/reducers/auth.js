@@ -17,15 +17,16 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_FAILED
 } from "../actions/types";
+import { getCookie } from "../../utils/cookie";
 
-const localAccessToken = localStorage.getItem('accessToken');
-const localRefreshToken = localStorage.getItem('refreshToken');
+const refreshTokenCurrent = getCookie("refreshToken");
+const accessTokenCurrent = getCookie("accessToken");
 
 const initialState = {
   name: "",
   email: "",
-  accessToken: localAccessToken || "",
-  refreshToken: localRefreshToken || "",
+  accessToken: accessTokenCurrent,
+  refreshToken: refreshTokenCurrent,
   registerRequest: false,
   registerFailed: false,
   isRegisterSuccess: false,

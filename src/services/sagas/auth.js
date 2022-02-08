@@ -44,10 +44,8 @@ function* workCreateUser(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
-    call(localStorage.setItem, "accessToken", data.accessToken);
-    call(localStorage.setItem, "refreshToken", data.refreshToken);
-    call(setCookie, "accessToken", data.accessToken);
-    call(setCookie, "refreshToken", data.refreshToken);
+    setCookie("accessToken", data.accessToken);
+    setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
     yield put({ type: GET_REGISTRATION_FAILED });
@@ -64,10 +62,8 @@ function* workSignIn(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
-    call(localStorage.setItem, "accessToken", data.accessToken);
-    call(localStorage.setItem, "refreshToken", data.refreshToken);
-    call(setCookie, "accessToken", data.accessToken);
-    call(setCookie, "refreshToken", data.refreshToken);
+    setCookie("accessToken", data.accessToken);
+    setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
     yield put({ type: GET_LOGIN_FAILED });
@@ -83,10 +79,8 @@ function* workTokenUpdate(action) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
     });
-    call(localStorage.setItem, "accessToken", data.accessToken);
-    call(localStorage.setItem, "refreshToken", data.refreshToken);
-    call(setCookie, "accessToken", data.accessToken);
-    call(setCookie, "refreshToken", data.refreshToken);
+    setCookie("accessToken", data.accessToken);
+    setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
     yield put({ type: GET_TOKEN_UPDATE_FAILED });
@@ -99,8 +93,6 @@ function* workSignOut(action) {
     yield put({
       type: GET_LOGOUT_SUCCESS,
     });
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
   } catch (err) {
@@ -112,6 +104,7 @@ function* workSignOut(action) {
 function* workGetUserInfo(action) {
   try {
     const data = yield call(getUserInfo, action.accessToken);
+    console.log(data)
     yield put({
       type: GET_USER_INFO_SUCCESS,
       name: data.user.name,
@@ -155,11 +148,11 @@ function* workUpdateUserInfo(action) {
         type: GET_TOKEN_UPDATE_REQUEST,
         token: action.refreshToken,
       });
-      // yield put({
-      //   type: UPDATE_USER_INFO_REQUEST,
-      //   accessToken: getCookie("accessToken"),
-      //   refreshToken: getCookie("refreshToken"),
-      // });
+      yield put({
+        type: UPDATE_USER_INFO_REQUEST,
+        accessToken: getCookie("accessToken"),
+        refreshToken: getCookie("refreshToken"),
+      });
     } else {
       console.log(err);
       yield put({ type: UPDATE_USER_INFO_FAILED });

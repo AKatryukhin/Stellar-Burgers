@@ -10,6 +10,8 @@ import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_LOGIN_REQUEST } from "../services/actions/types";
+import { call } from "redux-saga/effects";
+import { setCookie } from "../utils/cookie";
 
 export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =
@@ -18,7 +20,8 @@ export const Login = () => {
   const navigate = useNavigate();
   const { email, password } = values;
 
-  const { accessToken } = useSelector((state) => state?.auth);
+  const { accessToken, refreshToken } = useSelector((state) => state?.auth);
+  console.log(accessToken);
 
   useEffect(() => {
     accessToken && navigate("/");
@@ -42,7 +45,6 @@ export const Login = () => {
     <div className={styles.wrap}>
       <form className={styles.form} onSubmit={handleSubmit} name="login-form">
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
-        {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
         <div className={`mb-6 ${styles.inputWrap}`}>
           <EmailInput
             type={"email"}
@@ -54,7 +56,6 @@ export const Login = () => {
             onChange={handleChange}
           />
         </div>
-        {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.password}</span>*/}
         <div className={`mb-6 ${styles.inputWrap}`}>
           <PasswordInput
             value={password || ""}

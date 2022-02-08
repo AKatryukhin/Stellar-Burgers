@@ -23,9 +23,17 @@ export const ForgotPassword = () => {
     (state) => state?.password.isResetPasswordSuccess
   );
 
+  const { accessToken } = useSelector(
+    (state) => state?.auth);
+
+
   useEffect(() => {
     isResetPasswordSuccess && navigate("/reset-password");
   }, [isResetPasswordSuccess]);
+
+  useEffect(() => {
+    accessToken && navigate("/");
+  }, [accessToken]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

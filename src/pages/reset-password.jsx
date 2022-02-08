@@ -21,10 +21,17 @@ export const ResetPassword = () => {
   const isChangePasswordSuccess = useSelector(
     (state) => state?.password.isChangePasswordSuccess
   );
+  const { accessToken } = useSelector(
+    (state) => state?.auth);
+
   useEffect(() => {
-    changePasswordFailed && navigate("/forgot-password");
-    isChangePasswordSuccess && navigate("/");
+    changePasswordFailed || !isChangePasswordSuccess && navigate("/forgot-password", { replace: true });
+    isChangePasswordSuccess && navigate("/", { replace: true });
   }, [changePasswordFailed, isChangePasswordSuccess]);
+
+  useEffect(() => {
+    accessToken && navigate("/");
+  }, [accessToken]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

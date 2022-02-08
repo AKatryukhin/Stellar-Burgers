@@ -29,6 +29,10 @@ export const Register = () => {
     }
   }, [isRegisterSuccess]);
 
+  useEffect(() => {
+    accessToken && navigate("/");
+  }, [accessToken]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid && handleRegister({ name, email, password });

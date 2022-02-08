@@ -1,39 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const ProtectedRoute = ({ children, currentUser }) => {
-  return currentUser ? <Navigate to="/login" replace /> : children;
+
+export const ProtectedRoute = ({ children }) => {
+  const token = useSelector(state => state?.auth.accessToken)
+  console.log(token)
+  return !token ? <Navigate to="/login" replace /> : children;
 };
 
-// export const ProtectedRoute = ({ children, ...rest }) => {
-//   let { getUser, ...auth } = useAuth();
-//   const [isUserLoaded, setUserLoaded] = useState(false);
-//
-//   const init = async () => {
-//     await getUser();
-//     setUserLoaded(true);
-//   };
-//
-//   useEffect(() => {
-//     init();
-//   }, []);
-//
-//   if (!isUserLoaded) {
-//     return null;
-//   }
-//
-//   return (
-//     <Route
-//       {...rest}
-//       render={() =>
-//         auth.user ? (
-//           children
-//         ) : (
-//           // Если пользователя нет в хранилище, происходит переадресация на роут /login
-//           <Redirect
-//             to='/login'
-//           />
-//         )
-//       }
-//     />
-//   );
-// }
