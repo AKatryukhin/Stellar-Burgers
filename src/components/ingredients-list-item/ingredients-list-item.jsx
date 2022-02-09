@@ -34,10 +34,7 @@ export const IngredientsItem = ({ ingredient }) => {
     state?.selectedIngredients.selectedIngredients.some((i) => i.type === "bun")
   );
   const handleClick = () => {
-    navigate(
-      `/ingredients/${ingredientId}`,
-      {state: { background: true }},
-    );
+
 
     if (ingredient.type !== "bun") {
       ingredient.count
@@ -67,6 +64,10 @@ export const IngredientsItem = ({ ingredient }) => {
       type: ADD_CURRENT_INGREDIENT,
       ingredient: ingredient,
     });
+    navigate(
+      `/ingredients/${ingredientId}`,
+      {state: { background: true }},
+    );
 
   };
 
