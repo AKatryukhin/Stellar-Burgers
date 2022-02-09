@@ -12,6 +12,7 @@ import noBurger from "../../images/no-burger.png";
 export const BurgerIngredients = React.memo(() => {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
+  console.log(ingredients)
   const ingredientsFailed = useSelector(
     (state) => state?.ingredients.ingredientsFailed
   );

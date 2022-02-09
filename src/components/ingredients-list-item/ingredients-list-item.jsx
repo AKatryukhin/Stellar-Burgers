@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
@@ -16,10 +16,11 @@ import {
 import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
-  const location = useLocation();
+  const ingredients = useSelector((state) => state?.ingredients.ingredients);
+  // const location = useLocation();
   const navigate = useNavigate();
-  const ingredientId = ingredient["_id"];
-
+  // const ingredientId = ingredient["_id"];
+  const { ingredientId } = useParams();
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
@@ -33,6 +34,11 @@ export const IngredientsItem = ({ ingredient }) => {
     state?.selectedIngredients.selectedIngredients.some((i) => i.type === "bun")
   );
   const handleClick = () => {
+    navigate(
+      `/ingredients/${ingredientId}`,
+      {state: { background: true }},
+    );
+
     if (ingredient.type !== "bun") {
       ingredient.count
         ? dispatch({
@@ -61,23 +67,12 @@ export const IngredientsItem = ({ ingredient }) => {
       type: ADD_CURRENT_INGREDIENT,
       ingredient: ingredient,
     });
-    navigate(
-      `/ingredients/${ingredientId}`,
-      {state: { background: true }},
-    );
+
   };
 
   const { image, name, price } = ingredient;
 
   return (
-    <Link
-      key={ingredientId}
-      to={{
-        pathname: `/ingredients/${ingredientId}`,
-        state: { background: location },
-      }}
-      className={styles.link}
-    >
       <article
         ref={drag}
         onClick={handleClick}
@@ -95,7 +90,6 @@ export const IngredientsItem = ({ ingredient }) => {
         </div>
         <p className={`${styles.name} text text_type_main-small`}>{name}</p>
       </article>
-    </Link>
   );
 };
 

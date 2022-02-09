@@ -17,7 +17,6 @@ import {
   Profile,
   ForgotPassword,
   ResetPassword,
-  Ingredient,
 } from "../../pages";
 import {
   Routes,
@@ -45,26 +44,25 @@ export const App = () => {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
   }, []);
 
-  const ModalSwitch = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    console.log(location);
-    console.log(useLocation().state);
-    console.log(navigate);
-    const action = useNavigationType();
-    console.log(action);
-    const background = location.state && location.state.background;
-    console.log(background);
-    const handleModalClose = useCallback(() => {
-      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
-      ingredientsFailed && dispatch({ type: RESET_INGREDIENTS });
-      navigate(-1);
-    }, [currentIngredient, ingredientsFailed]);
+    // const location = useLocation();
+    // const navigate = useNavigate();
+    // console.log(location);
+    // console.log(useLocation().state);
+    // console.log(navigate);
+    // const action = useNavigationType();
+    // console.log(action);
+    // const background = location.state && location.state.background;
+    // console.log(background);
+    // const handleModalClose = useCallback(() => {
+    //   dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+    //   ingredientsFailed && dispatch({ type: RESET_INGREDIENTS });
+    //   navigate(-1);
+    // }, [currentIngredient, ingredientsFailed]);
 
     return (
       <div className={styles.page}>
         <AppHeader />
-        <Routes location={background || location}>
+        <Routes >
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -79,38 +77,15 @@ export const App = () => {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
-          {background && action === "PUSH" && (
-            <Route
-              path="/ingredients/:ingredientId"
-              element={
-                <Modal onClose={handleModalClose} title="Детали ингредиента">
-                  <IngredientDetails currentIngredient={currentIngredient} />
-                </Modal>
-              }
-            />
-          )}
-          {!background && (
-            <Route
-              path="/ingredients/:ingredientId"
-              element={
-                <IngredientDetails currentIngredient={currentIngredient} />
-              }
-            />
-          )}
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <IngredientPage />
+            }
+          />
         </Routes>
-        {/*{background && (*/}
-        {/*  <ProtectedRoute*/}
-        {/*    path='/profile/orders/:orderNumber'*/}
-        {/*    children={*/}
-        {/*      <Modal onClose={handleModalClose}>*/}
-        {/*        <IngredientPage />*/}
-        {/*      </Modal>*/}
-        {/*    }*/}
-        {/*  />*/}
-        {/*)}*/}
       </div>
     );
   };
 
-  return <ModalSwitch />;
-};
+
