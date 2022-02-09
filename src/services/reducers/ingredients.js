@@ -12,6 +12,7 @@ const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  loaded: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -28,6 +29,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredientsFailed: false,
         ingredients: action.ingredients,
         ingredientsRequest: false,
+        loaded: true
       };
     }
     case GET_INGREDIENTS_FAILED: {
@@ -46,6 +48,19 @@ export const ingredientsReducer = (state = initialState, action) => {
       const index = state.ingredients.indexOf(item);
       const copyIngredients = [...state.ingredients];
       copyIngredients.splice(index, 1, { ...item, count: action.count })
+      return {
+        ...state,
+        ingredients: copyIngredients,
+      };
+    }
+    case INCREASE_COUNT: {
+      const item = action.ingredient;
+      const index = state.ingredients.indexOf(item);
+      console.log(index);
+      const copyIngredients = [...state.ingredients];
+      console.log("copy", copyIngredients);
+      copyIngredients.splice(index, 1, { ...item, count: action.count });
+      console.log("copy", copyIngredients);
       return {
         ...state,
         ingredients: copyIngredients,

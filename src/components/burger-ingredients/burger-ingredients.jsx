@@ -19,6 +19,7 @@ export const BurgerIngredients = React.memo(() => {
   const currentIngredient = useSelector(
     (state) => state?.currentIngredient.ingredient
   );
+
   const [current, setCurrent] = useState("Булки");
   const buns = useMemo(
     () => ingredients.filter((i) => i.type === "bun"),

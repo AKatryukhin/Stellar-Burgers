@@ -12,3 +12,4 @@ export * from './modal/modal';
 export * from './ingredient-details/ingredient-details';
 export * from './order-details/order-details';
 export * from './protected-route/protected-route';
+export * from './preloader/preloader';

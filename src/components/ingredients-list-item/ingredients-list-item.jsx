@@ -16,11 +16,7 @@ import {
 import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
-  const ingredients = useSelector((state) => state?.ingredients.ingredients);
-  // const location = useLocation();
   const navigate = useNavigate();
-  // const ingredientId = ingredient["_id"];
-  const { ingredientId } = useParams();
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
@@ -65,10 +61,9 @@ export const IngredientsItem = ({ ingredient }) => {
       ingredient: ingredient,
     });
     navigate(
-      `/ingredients/${ingredientId}`,
-      {state: { background: true }},
+      `/ingredients/${ingredient._id}`,
+      {state: { background: true }, replace: false},
     );
-
   };
 
   const { image, name, price } = ingredient;

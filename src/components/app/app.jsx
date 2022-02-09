@@ -1,13 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
-import {
-  GET_INGREDIENTS_REQUEST,
-  GET_USER_INFO_REQUEST,
-  REMOVE_CURRENT_INGREDIENT,
-  RESET_INGREDIENTS,
-  RESET_ITEM_TO_VIEW,
-} from "../../services/actions/types";
+import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import Main from "../main/main";
 import {
@@ -18,51 +12,27 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "../../pages";
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-  Navigate,
-  useNavigationType,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
+
 import { IngredientPage } from "../../pages/ingredient-page";
+import Preloader from "../preloader/preloader";
 
 export const App = () => {
   const dispatch = useDispatch();
-
-  const currentIngredient = useSelector(
-    (state) => state?.currentIngredient.ingredient
-  );
-  const ingredientsFailed = useSelector(
-    (state) => state?.ingredients.ingredientsFailed
+  const { ingredientsRequest, ingredients, loaded } = useSelector(
+    (state) => state?.ingredients
   );
   useEffect(() => {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
   }, []);
 
-    // const location = useLocation();
-    // const navigate = useNavigate();
-    // console.log(location);
-    // console.log(useLocation().state);
-    // console.log(navigate);
-    // const action = useNavigationType();
-    // console.log(action);
-    // const background = location.state && location.state.background;
-    // console.log(background);
-    // const handleModalClose = useCallback(() => {
-    //   dispatch({ type: REMOVE_CURRENT_INGREDIENT });
-    //   ingredientsFailed && dispatch({ type: RESET_INGREDIENTS });
-    //   navigate(-1);
-    // }, [currentIngredient, ingredientsFailed]);
-
-    return (
-      <div className={styles.page}>
-        <AppHeader />
-        <Routes >
+  return (
+    <div className={styles.page}>
+      <AppHeader />
+      {ingredientsRequest && <Preloader />}
+      {!ingredientsRequest && loaded && (
+        <Routes>
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -79,13 +49,10 @@ export const App = () => {
           <Route path="*" element={<NotFound />} />
           <Route
             path="/ingredients/:ingredientId"
-            element={
-              <IngredientPage />
-            }
+            element={<IngredientPage />}
           />
         </Routes>
-      </div>
-    );
-  };
-
-
+      )}
+    </div>
+  );
+};
