@@ -4,11 +4,11 @@ import { IngredientDetails } from "../components";
 
 import styles from "./ingredient-page.module.css";
 
-export const IngredientPage = () => {
+export const IngredientPage = ({ currentIngredient }) => {
   return (
     <section className={styles.page}>
       <h2 className="text text_type_main-large">Детали ингредиента</h2>
-      <IngredientDetails />
+      <IngredientDetails currentIngredient={currentIngredient}/>
     </section>
   );
 }

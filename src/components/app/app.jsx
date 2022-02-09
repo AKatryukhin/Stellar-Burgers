@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
-import { GET_INGREDIENTS_REQUEST, GET_USER_INFO_REQUEST, RESET_ITEM_TO_VIEW } from "../../services/actions/types";
+import {
+  GET_INGREDIENTS_REQUEST,
+  GET_USER_INFO_REQUEST,
+  REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS,
+  RESET_ITEM_TO_VIEW
+} from "../../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import Main from "../main/main";
 import { Register, Login, NotFound, Profile, ForgotPassword, ResetPassword, Ingredient } from "../../pages";
@@ -14,28 +19,31 @@ import { IngredientPage } from "../../pages/ingredient-page";
 export const App = () => {
   const dispatch = useDispatch();
 
-
+  const currentIngredient = useSelector(state => state?.currentIngredient.ingredient);
+  const ingredientsFailed = useSelector(state => state?.ingredients.ingredientsFailed);
   useEffect(() => {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
   }, []);
 
   const ModalSwitch = () => {
+
     const location = useLocation();
     const navigate = useNavigate();
     console.log(location)
     console.log(location.state)
     console.log(navigate)
-    let background = location.state && location.state.background;
+    const background = location.state && location.state.background;
 
-    const handleModalClose = () => {
-      dispatch({
-        type: RESET_ITEM_TO_VIEW,
-      });
+    const handleModalClose = useCallback(() => {
+      dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+      ingredientsFailed &&
+      dispatch({ type: RESET_INGREDIENTS });
       navigate(-1);
-    };
+    }, [currentIngredient, ingredientsFailed]);
 
 
-  return (
+
+    return (
     <div className={styles.page}>
       <AppHeader />
       <Routes location={background || location}>
@@ -50,30 +58,30 @@ export const App = () => {
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
         {/*<Route path="ingredients/:id" element={<Ingredient />} />*/}
-        <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+        <Route path='/ingredients/:ingredientId' element={<IngredientPage currentIngredient={currentIngredient}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
       {background && (
         <Route
           path='/ingredients/:ingredientId'
-          children={
-            <Modal onClose={handleModalClose}>
-              <IngredientDetails />
+          element={
+            <Modal onClose={handleModalClose} title="Детали ингредиента">
+              <IngredientDetails currentIngredient={currentIngredient}/>
             </Modal>
           }
         />
       )}
-      {background && (
-        <ProtectedRoute
-          path='/profile/orders/:orderNumber'
-          children={
-            <Modal onClose={handleModalClose}>
-              <IngredientPage />
-            </Modal>
-          }
-        />
-      )}
+      {/*{background && (*/}
+      {/*  <ProtectedRoute*/}
+      {/*    path='/profile/orders/:orderNumber'*/}
+      {/*    children={*/}
+      {/*      <Modal onClose={handleModalClose}>*/}
+      {/*        <IngredientPage />*/}
+      {/*      </Modal>*/}
+      {/*    }*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
   };
