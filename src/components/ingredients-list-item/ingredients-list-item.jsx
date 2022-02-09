@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
@@ -17,7 +17,7 @@ import { useDrag } from "react-dnd";
 
 export const IngredientsItem = ({ ingredient }) => {
   const location = useLocation();
-
+  const navigate = useNavigate();
   const ingredientId = ingredient["_id"];
 
   const [{ isDrag }, drag] = useDrag({
@@ -61,6 +61,10 @@ export const IngredientsItem = ({ ingredient }) => {
       type: ADD_CURRENT_INGREDIENT,
       ingredient: ingredient,
     });
+    navigate(
+      `/ingredients/${ingredientId}`,
+      {state: { background: true }},
+    );
   };
 
   const { image, name, price } = ingredient;
