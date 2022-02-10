@@ -13,14 +13,14 @@ import {
   GET_ORDER_REQUEST, RESET_ORDER_NUMBER,
 } from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
+import Preloader from "../preloader/preloader";
 
 export const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
   const orderIngredientsArr = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
-  const orderRequest = useSelector(state => state?.order.orderNumberRequest);
-  const orderFailed = useSelector(state => state?.order.orderNumberFailed);
+  const { orderRequest, orderFailed, orderNumber} = useSelector(state => state?.order);
 
   const handleClick = () =>
     bun &&
@@ -30,8 +30,6 @@ export const BurgerConstructor = React.memo(() => {
   const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
   );
-  // const isOpen = useSelector((state) => state?.modal.isOrderModalOpen);
-  const order = useSelector(state => state?.order.orderNumber)
   const bun = useMemo(
     () => selectedIngredients.find((i) => i.type === "bun"),
     [selectedIngredients]
@@ -80,7 +78,8 @@ export const BurgerConstructor = React.memo(() => {
                       : "Необходимо добавить булку!"}
         </Button>
       </div>
-      {order && (
+      {orderRequest && <Preloader/>}
+      {!orderRequest && orderNumber && (
         <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>
