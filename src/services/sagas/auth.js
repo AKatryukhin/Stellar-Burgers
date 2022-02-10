@@ -83,6 +83,12 @@ function* workTokenUpdate(action) {
   } catch (err) {
     console.log(err);
     yield put({ type: GET_TOKEN_UPDATE_FAILED });
+  } finally {
+    yield put({
+      type: UPDATE_USER_INFO_REQUEST,
+      accessToken: getCookie("accessToken"),
+      refreshToken: getCookie("refreshToken"),
+    });
   }
 }
 
@@ -114,12 +120,6 @@ function* workGetUserInfo(action) {
         type: GET_TOKEN_UPDATE_REQUEST,
         token: action.refreshToken,
       });
-
-      yield put({
-        type: GET_USER_INFO_REQUEST,
-        accessToken: getCookie("accessToken"),
-        refreshToken: getCookie("refreshToken"),
-      });
     } else {
       console.log(err);
       yield put({ type: GET_USER_INFO_FAILED });
@@ -133,7 +133,7 @@ function* workUpdateUserInfo(action) {
       updateUserInfo,
       action.name,
       action.email,
-      action.accessToken,
+      action.accessToken
     );
     yield put({
       type: UPDATE_USER_INFO_SUCCESS,
@@ -145,11 +145,6 @@ function* workUpdateUserInfo(action) {
       yield put({
         type: GET_TOKEN_UPDATE_REQUEST,
         token: action.refreshToken,
-      });
-      yield put({
-        type: UPDATE_USER_INFO_REQUEST,
-        accessToken: getCookie("accessToken"),
-        refreshToken: getCookie("refreshToken"),
       });
     } else {
       console.log(err);
