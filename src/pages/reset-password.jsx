@@ -25,9 +25,12 @@ export const ResetPassword = () => {
     (state) => state?.auth);
 
   useEffect(() => {
-    changePasswordFailed || !isChangePasswordSuccess && navigate("/forgot-password", { replace: true });
+    changePasswordFailed && navigate("/forgot-password", { replace: true });
+  }, [changePasswordFailed]);
+
+  useEffect(() => {
     isChangePasswordSuccess && navigate("/", { replace: true });
-  }, [changePasswordFailed, isChangePasswordSuccess]);
+  }, [isChangePasswordSuccess]);
 
   useEffect(() => {
     accessToken && navigate("/");
@@ -38,7 +41,7 @@ export const ResetPassword = () => {
     dispatch({
       type: CHANGE_PASSWORD_REQUEST,
       password: password,
-      code: code
+      token: code
     });
   };
 
@@ -46,13 +49,12 @@ export const ResetPassword = () => {
     <div className={styles.wrap}>
       <form className={styles.form} onSubmit={handleSubmit} name="login-form">
         <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
-        {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
         <div className={`mb-6 ${styles.inputWrap}`}>
-          <Input
+          <PasswordInput
             type={"text"}
             placeholder={"Введите новый пароль"}
             value={password || ""}
-            name={"name"}
+            name={"password"}
             error={false}
             errorText={"Введите корректное значение"}
             onChange={handleChange}

@@ -49,7 +49,6 @@ export const ForgotPassword = () => {
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
-        {/*<span className={`text text_type_main-default ${styles.inputError}`}>{errors.name}</span>*/}
         <div className={`mb-6 ${styles.inputWrap}`}>
           <EmailInput
             type={"email"}

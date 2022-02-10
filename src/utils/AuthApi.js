@@ -48,7 +48,7 @@ const handleResponseJWT = (res) => {
 //   }
 // };
 
-export const passwordReset = ({ email }) => {
+export const passwordReset = (email) => {
   return fetch(PASSWORD_RESET_URL, {
     method: "POST",
     headers: {
@@ -60,7 +60,7 @@ export const passwordReset = ({ email }) => {
   }).then(handleResponse);
 };
 
-export const passwordChange = ({ password, token }) => {
+export const passwordChange = (password, token) => {
   return fetch(PASSWORD_CHANGE_URL, {
     method: "POST",
     headers: {
