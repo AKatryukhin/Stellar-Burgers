@@ -12,6 +12,15 @@
   margin: 0;
   padding: 0;
 }
+.link {
+  text-decoration: none;
+  color: #fff;
+  transition: all ease 0.3s;
+}
+
+.link:hover {
+  opacity: .6;
+}
 
 .logo {
   position: absolute;
