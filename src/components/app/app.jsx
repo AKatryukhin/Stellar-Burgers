@@ -20,7 +20,7 @@ import Preloader from "../preloader/preloader";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { ingredientsRequest, ingredients, loaded } = useSelector(
+  const { ingredientsRequest, loaded } = useSelector(
     (state) => state?.ingredients
   );
   useEffect(() => {
