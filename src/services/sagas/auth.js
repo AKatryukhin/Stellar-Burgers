@@ -72,7 +72,6 @@ function* workSignIn(action) {
 
 function* workTokenUpdate(action) {
   try {
-    console.log(action.token);
     const data = yield call(userRefreshToken, action.token);
     yield put({
       type: GET_TOKEN_UPDATE_SUCCESS,

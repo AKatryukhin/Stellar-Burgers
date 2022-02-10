@@ -11,16 +11,13 @@ import { REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS } from "../services/action
 export const IngredientPage = () => {
 
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
-  console.log(ingredients)
   const ingredientsFailed = useSelector(
     (state) => state?.ingredients.ingredientsFailed
   );
   const dispatch = useDispatch();
   const action = useNavigationType();
-  console.log(action)
   let { ingredientId } = useParams();
-  console.log(ingredientId)
-  const currentIngredient = ingredients.find(i => i._id == ingredientId);
+  const currentIngredient = ingredients.find(i => i._id === ingredientId);
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
