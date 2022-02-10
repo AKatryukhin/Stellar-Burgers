@@ -85,7 +85,7 @@ function* workTokenUpdate(action) {
     yield put({ type: GET_TOKEN_UPDATE_FAILED });
   } finally {
     yield put({
-      type: UPDATE_USER_INFO_REQUEST,
+      type: GET_USER_INFO_REQUEST,
       accessToken: getCookie("accessToken"),
       refreshToken: getCookie("refreshToken"),
     });
