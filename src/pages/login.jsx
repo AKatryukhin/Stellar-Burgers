@@ -20,7 +20,6 @@ export const Login = () => {
   const { email, password } = values;
 
   const { accessToken, refreshToken } = useSelector((state) => state?.auth);
-  console.log(accessToken);
 
   useEffect(() => {
     accessToken && navigate("/");
@@ -64,6 +63,7 @@ export const Login = () => {
             error={false}
             errorText={"Введите корректное значение"}
             onChange={handleChange}
+            autocomplete="on"
           />
         </div>
         <div className="mb-20">

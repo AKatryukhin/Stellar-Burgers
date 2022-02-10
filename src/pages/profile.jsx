@@ -175,6 +175,7 @@ export const Profile = () => {
                 disabled={false}
                 errorText={"Ошибка"}
                 size={"default"}
+                autocomplete="on"
               />
             </div>
             {isValid && (
