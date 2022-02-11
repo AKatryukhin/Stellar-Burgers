@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_LOGIN_REQUEST } from "../services/actions/types";
 
@@ -18,11 +18,11 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { email, password } = values;
+  const location = useLocation();
 
   const { accessToken, refreshToken } = useSelector((state) => state?.auth);
-
   useEffect(() => {
-    accessToken && navigate("/");
+      accessToken && navigate(location.state.from)
   }, [accessToken]);
 
   const handleSubmit = (e) => {
