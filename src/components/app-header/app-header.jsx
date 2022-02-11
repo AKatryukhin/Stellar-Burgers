@@ -38,9 +38,11 @@ export const AppHeader = () => {
             </li>
           </Link>
         </ul>
+        <Link to="/" className={styles.link}>
         <span className={styles.logo}>
           <Logo />
         </span>
+        </Link>
         <Link to="/profile" className={styles.link}>
           <NavItem text="Личный кабинет" isActive={profileActive}>
             <ProfileIcon type={profileActive ? "primary" : "secondary"} />
