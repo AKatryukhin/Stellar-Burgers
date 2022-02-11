@@ -68,6 +68,10 @@ export const IngredientsItem = ({ ingredient }) => {
     }
 
     if (ingredient.type === "bun" && isBunInOrder && ingredient._id === isBunInOrder._id) {
+      navigate(
+        `/ingredients/${ingredient._id}`,
+        {state: { background: true }, replace: false},
+      );
       return
     }
     dispatch({
