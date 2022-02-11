@@ -11,7 +11,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_LOGIN_REQUEST } from "../services/actions/types";
 
-
 export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
@@ -19,10 +18,11 @@ export const Login = () => {
   const navigate = useNavigate();
   const { email, password } = values;
   const location = useLocation();
-
   const { accessToken, refreshToken } = useSelector((state) => state?.auth);
   useEffect(() => {
-      accessToken && navigate(location.state.from)
+    location.state
+      ? accessToken && navigate(location.state.from)
+      : accessToken && navigate("/");
   }, [accessToken]);
 
   const handleSubmit = (e) => {

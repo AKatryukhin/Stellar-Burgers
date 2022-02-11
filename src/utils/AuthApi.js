@@ -20,34 +20,6 @@ const handleResponseJWT = (res) => {
   return res.json().then((err) => Promise.reject(err))
 };
 
-// export const fetchWithRefresh = async (url, options) => {
-//   const res = await fetch(url, options);
-//
-//   if (res.ok) {
-//     return res.json();
-//   }
-//
-//   const json = await res.json();
-//
-//   if (json.message === "jwt expired") {
-//     const refreshRes = await userRefreshToken();
-//     const json = await refreshRes.json();
-//
-//     if (!json.success) {
-//       return json;
-//     }
-//     setCookie("refreshToken", json.refreshToken);
-//     setCookie("accessToken", json.accessToken);
-//
-//     options.headers.Authorization = json.accessToken;
-//
-//     const res = await fetch(url, options);
-//     return res.json();
-//   } else {
-//     return json;
-//   }
-// };
-
 export const passwordReset = (email) => {
   return fetch(PASSWORD_RESET_URL, {
     method: "POST",
