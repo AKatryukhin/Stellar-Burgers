@@ -13,9 +13,10 @@ import {
 } from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = React.memo(() => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const orderIngredientsArr = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.map((i) => i._id)
@@ -53,7 +54,7 @@ export const BurgerConstructor = React.memo(() => {
 
   const handleClick = () => {
     !token && navigate("/login", { replace: true });
-    bun &&
+    token && bun &&
       otherIngredients &&
       dispatch({ type: GET_ORDER_REQUEST, payload: orderIngredientsArr });
   };
