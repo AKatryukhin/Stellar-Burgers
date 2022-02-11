@@ -10,8 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
   ADD_CURRENT_INGREDIENT,
-  ADD_SELECTED_INGREDIENT,
-  INCREASE_COUNT,
+  ADD_SELECTED_INGREDIENT, DECREASE_COUNT, DELETE_SELECTED_INGREDIENT,
+  INCREASE_COUNT
 } from "../../services/actions/types";
 import { useDrag } from "react-dnd";
 
@@ -27,10 +27,9 @@ export const IngredientsItem = ({ ingredient }) => {
 
   const dispatch = useDispatch();
   const isBunInOrder = useSelector((state) =>
-    state?.selectedIngredients.selectedIngredients.some((i) => i.type === "bun")
+    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
   const handleClick = () => {
-
 
     if (ingredient.type !== "bun") {
       ingredient.count
@@ -51,6 +50,25 @@ export const IngredientsItem = ({ ingredient }) => {
         ingredient: ingredient,
         count: 2,
       });
+    }
+    if (ingredient.type === "bun" && isBunInOrder && ingredient._id !== isBunInOrder._id) {
+      dispatch({
+        type: DELETE_SELECTED_INGREDIENT,
+        payload: isBunInOrder,
+      });
+      dispatch({
+        type: DECREASE_COUNT,
+        ingredient: isBunInOrder,
+      });
+      dispatch({
+        type: INCREASE_COUNT,
+        ingredient: ingredient,
+        count: 2,
+      });
+    }
+
+    if (ingredient.type === "bun" && isBunInOrder && ingredient._id === isBunInOrder._id) {
+      return
     }
     dispatch({
       type: ADD_SELECTED_INGREDIENT,

@@ -41,7 +41,7 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
         count: 2,
       });
     }
-    if (ingredient.type === "bun" && isBunInOrder) {
+    if (ingredient.type === "bun" && isBunInOrder && ingredient._id !== isBunInOrder._id) {
       dispatch({
         type: DELETE_SELECTED_INGREDIENT,
         payload: isBunInOrder,
@@ -55,6 +55,9 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
         ingredient: ingredient,
         count: 2,
       });
+    }
+    if (ingredient.type === "bun" && isBunInOrder && ingredient._id === isBunInOrder._id) {
+      return
     }
     dispatch({
       type: ADD_SELECTED_INGREDIENT,
