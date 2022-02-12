@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
-import { CHANGE_PASSWORD_REQUEST } from "../services/actions/types";
+import { changePasswordRequest } from "../services/actions/actionsPassword";
 
 
 export const ResetPassword = () => {
@@ -38,11 +38,7 @@ export const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: CHANGE_PASSWORD_REQUEST,
-      password: password,
-      token: code
-    });
+    dispatch(changePasswordRequest(password, code));
   };
 
   return (

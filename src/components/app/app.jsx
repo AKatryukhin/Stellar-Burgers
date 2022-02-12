@@ -17,6 +17,7 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 
 import { IngredientPage } from "../../pages/ingredient-page";
 import Preloader from "../preloader/preloader";
+import { fetchIngredients } from "../../services/actions/actionsIngredient";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export const App = () => {
     (state) => state?.ingredients
   );
   useEffect(() => {
-    dispatch({ type: GET_INGREDIENTS_REQUEST });
+    dispatch(fetchIngredients());
   }, []);
 
   return (

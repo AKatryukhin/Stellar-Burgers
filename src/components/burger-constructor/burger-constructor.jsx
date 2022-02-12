@@ -14,6 +14,7 @@ import {
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
 import { useLocation, useNavigate } from "react-router-dom";
+import { fetchOrder } from "../../services/actions/actionsOrder";
 
 export const BurgerConstructor = React.memo(() => {
   const location = useLocation();
@@ -56,7 +57,7 @@ export const BurgerConstructor = React.memo(() => {
     !token && navigate("/login", { replace: true });
     token && bun &&
       otherIngredients &&
-      dispatch({ type: GET_ORDER_REQUEST, payload: orderIngredientsArr });
+      dispatch(fetchOrder(orderIngredientsArr));
   };
 
   const onClose = useCallback(() => {
