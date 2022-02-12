@@ -7,6 +7,7 @@ import Modal from "../components/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigationType, useParams } from "react-router-dom";
 import { REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS } from "../services/actions/types";
+import { resetIngredients } from "../services/actions/actionsIngredient";
 
 export const IngredientPage = () => {
 
@@ -24,7 +25,7 @@ export const IngredientPage = () => {
 
   const handleModalClose = useCallback(() => {
   dispatch({ type: REMOVE_CURRENT_INGREDIENT });
-  ingredientsFailed && dispatch({ type: RESET_INGREDIENTS });
+  ingredientsFailed && dispatch(resetIngredients());
   navigate(-1);
 }, [currentIngredient, ingredientsFailed]);
 

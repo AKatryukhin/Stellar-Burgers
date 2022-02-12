@@ -8,26 +8,30 @@ import {
   updateUserInfo,
 } from "../../utils/AuthApi";
 import {
-  GET_LOGIN_FAILED,
   GET_LOGIN_REQUEST,
-  GET_LOGIN_SUCCESS,
-  GET_LOGOUT_FAILED,
   GET_LOGOUT_REQUEST,
-  GET_LOGOUT_SUCCESS,
-  GET_REGISTRATION_FAILED,
   GET_REGISTRATION_REQUEST,
-  GET_REGISTRATION_SUCCESS,
-  GET_TOKEN_UPDATE_FAILED,
   GET_TOKEN_UPDATE_REQUEST,
-  GET_TOKEN_UPDATE_SUCCESS,
-  GET_USER_INFO_FAILED,
   GET_USER_INFO_REQUEST,
-  GET_USER_INFO_SUCCESS,
-  UPDATE_USER_INFO_FAILED,
   UPDATE_USER_INFO_REQUEST,
-  UPDATE_USER_INFO_SUCCESS,
 } from "../actions/types";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
+import {
+  getInfoUser,
+  getInfoUserFailed,
+  getInfoUserSuccess,
+  requestLoginFailed,
+  requestLoginSuccess,
+  requestLogoutFailed,
+  requestLogoutSuccess,
+  requestRegisterFailed,
+  requestRegisterSuccess,
+  tokenUpdate,
+  tokenUpdateFailed,
+  tokenUpdateSuccess,
+  updateInfoUserFailed,
+  updateInfoUserSuccess,
+} from "../actions/actionsAuth";
 
 function* workCreateUser(action) {
   try {
@@ -37,92 +41,65 @@ function* workCreateUser(action) {
       action.email,
       action.password
     );
-    yield put({
-      type: GET_REGISTRATION_SUCCESS,
-      name: data.user.name,
-      email: data.user.email,
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-    });
+    yield put(requestRegisterSuccess(data));
     setCookie("accessToken", data.accessToken);
     setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
-    yield put({ type: GET_REGISTRATION_FAILED });
+    yield put(requestRegisterFailed());
   }
 }
 
 function* workSignIn(action) {
   try {
     const data = yield call(userLogin, action.email, action.password);
-    yield put({
-      type: GET_LOGIN_SUCCESS,
-      name: data.user.name,
-      email: data.user.email,
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-    });
+    yield put(requestLoginSuccess(data));
     setCookie("accessToken", data.accessToken);
     setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
-    yield put({ type: GET_LOGIN_FAILED });
+    yield put(requestLoginFailed());
   }
 }
 
 function* workTokenUpdate(action) {
   try {
     const data = yield call(userRefreshToken, action.token);
-    yield put({
-      type: GET_TOKEN_UPDATE_SUCCESS,
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-    });
+    yield put(tokenUpdateSuccess(data));
     setCookie("accessToken", data.accessToken);
     setCookie("refreshToken", data.refreshToken);
   } catch (err) {
     console.log(err);
-    yield put({ type: GET_TOKEN_UPDATE_FAILED });
+    yield put(tokenUpdateFailed());
   } finally {
-    yield put({
-      type: GET_USER_INFO_REQUEST,
-      accessToken: getCookie("accessToken"),
-      refreshToken: getCookie("refreshToken"),
-    });
+    const accessToken = getCookie("accessToken");
+    const refreshToken = getCookie("refreshToken");
+    yield put(getInfoUser(accessToken, refreshToken));
   }
 }
 
 function* workSignOut(action) {
   try {
     yield call(userLogout, action.token);
-    yield put({
-      type: GET_LOGOUT_SUCCESS,
-    });
+    yield put(requestLogoutSuccess());
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
   } catch (err) {
     console.log(err);
-    yield put({ type: GET_LOGOUT_FAILED });
+    yield put(requestLogoutFailed());
   }
 }
 
 function* workGetUserInfo(action) {
   try {
     const data = yield call(getUserInfo, action.accessToken);
-    yield put({
-      type: GET_USER_INFO_SUCCESS,
-      name: data.user.name,
-      email: data.user.email,
-    });
+    yield put(getInfoUserSuccess(data));
   } catch (err) {
     if (err.message === "jwt expired") {
-      yield put({
-        type: GET_TOKEN_UPDATE_REQUEST,
-        token: action.refreshToken,
-      });
+      yield put(tokenUpdate(action.refreshToken));
     } else {
       console.log(err);
-      yield put({ type: GET_USER_INFO_FAILED });
+      yield put(getInfoUserFailed());
     }
   }
 }
@@ -135,20 +112,13 @@ function* workUpdateUserInfo(action) {
       action.email,
       action.accessToken
     );
-    yield put({
-      type: UPDATE_USER_INFO_SUCCESS,
-      name: data.user.name,
-      email: data.user.email,
-    });
+    yield put(updateInfoUserSuccess(data));
   } catch (err) {
     if (err.message === "jwt expired") {
-      yield put({
-        type: GET_TOKEN_UPDATE_REQUEST,
-        token: action.refreshToken,
-      });
+      yield put(tokenUpdate(action.refreshToken));
     } else {
       console.log(err);
-      yield put({ type: UPDATE_USER_INFO_FAILED });
+      yield put(updateInfoUserFailed());
     }
   }
 }

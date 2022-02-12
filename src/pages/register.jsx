@@ -9,11 +9,11 @@ import {
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_REGISTRATION_REQUEST } from "../services/actions/types";
 import { getCookie, setCookie } from "../utils/cookie";
+import { createUser } from "../services/actions/actionsAuth";
 
 export const Register = () => {
-  const { values, handleChange, errors, isValid, setValues } =
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
   const { name, email, password } = values;
   const navigate = useNavigate();
@@ -39,15 +39,9 @@ export const Register = () => {
   };
 
   const handleRegister = ({ name, email, password }) => {
-    dispatch({
-      type: GET_REGISTRATION_REQUEST,
-      name: name,
-      email: email,
-      password: password,
-    });
+    dispatch(createUser(name, email, password));
     setValues({});
   };
-
   return (
     <div className={styles.wrap}>
       <form className={styles.form} onSubmit={handleSubmit} name="sign-form">
@@ -61,7 +55,6 @@ export const Register = () => {
             error={false}
             errorText={"Введите корректное значение"}
             onChange={handleChange}
-
           />
         </div>
         <div className={`mb-6 ${styles.inputWrap}`}>

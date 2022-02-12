@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
-import { RESET_PASSWORD_REQUEST } from "../services/actions/types";
 import { fetchResetPassword } from "../services/actions/actionsPassword";
 
 export const ForgotPassword = () => {

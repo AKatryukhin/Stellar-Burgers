@@ -5,15 +5,15 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import {
-  GET_LOGOUT_REQUEST,
-  GET_USER_INFO_REQUEST,
-  UPDATE_USER_INFO_REQUEST,
-} from "../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCookie } from "../utils/cookie";
 import Preloader from "../components/preloader/preloader";
+import {
+  getInfoUser,
+  logout,
+  updateInfoUser,
+} from "../services/actions/actionsAuth";
 
 export const Profile = () => {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
@@ -22,7 +22,6 @@ export const Profile = () => {
   const { name, email, password } = values;
   const dispatch = useDispatch();
   const location = useLocation();
-
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
   const navigate = useNavigate();
@@ -36,11 +35,7 @@ export const Profile = () => {
   }, [stateName, stateEmail]);
 
   useEffect(() => {
-    dispatch({
-      type: GET_USER_INFO_REQUEST,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
+    dispatch(getInfoUser(accessToken, refreshToken));
   }, []);
 
   useEffect(() => {
@@ -49,14 +44,9 @@ export const Profile = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: UPDATE_USER_INFO_REQUEST,
-      email: email,
-      name: name,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
+    dispatch(updateInfoUser(name, email, accessToken, refreshToken));
   };
+
   const onReset = (e) => {
     e.preventDefault();
     setValues({
@@ -66,10 +56,7 @@ export const Profile = () => {
     });
   };
   const handleLogout = () => {
-    dispatch({
-      type: GET_LOGOUT_REQUEST,
-      token: refreshToken,
-    });
+    dispatch(logout(refreshToken));
   };
 
   const { getUserInfoRequest, updateUserRequest } = useSelector(

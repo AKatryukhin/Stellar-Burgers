@@ -9,7 +9,7 @@ import {
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_LOGIN_REQUEST } from "../services/actions/types";
+import { login } from "../services/actions/actionsAuth";
 
 export const Login = () => {
   const { values, handleChange, errors, isValid, setValues } =
@@ -32,11 +32,7 @@ export const Login = () => {
   };
 
   const handleLogin = () => {
-    dispatch({
-      type: GET_LOGIN_REQUEST,
-      email: email,
-      password: password,
-    });
+    dispatch(login(email, password));
   };
 
   return (
