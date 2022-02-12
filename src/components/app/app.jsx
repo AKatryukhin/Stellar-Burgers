@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
-import { GET_INGREDIENTS_REQUEST } from "../../services/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import Main from "../main/main";
 import {

@@ -6,8 +6,8 @@ import { IngredientsList } from "../ingredients-list/ingredients-list";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import {REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS} from "../../services/actions/types";
 import noBurger from "../../images/no-burger.png";
+import { removeCurrentIngredient, resetIngredients } from "../../services/actions/actionsIngredient";
 
 export const BurgerIngredients = React.memo(() => {
   const dispatch = useDispatch();
@@ -61,9 +61,9 @@ export const BurgerIngredients = React.memo(() => {
   }
 
   const onClose = useCallback(() => {
-    dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+    dispatch(removeCurrentIngredient());
     ingredientsFailed &&
-    dispatch({ type: RESET_INGREDIENTS });
+    dispatch(resetIngredients());
   }, [currentIngredient, ingredientsFailed]);
 
   return (

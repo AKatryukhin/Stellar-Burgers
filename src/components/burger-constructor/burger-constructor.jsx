@@ -5,16 +5,12 @@ import { BurgerConstructorList } from "../burger-constructor-list/burger-constru
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CLEAR_INGREDIENT_LIST_COUNT,
-  CLEAR_SELECTED_INGREDIENT_LIST,
-  GET_ORDER_REQUEST,
-  RESET_ORDER_NUMBER,
-} from "../../services/actions/types";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchOrder } from "../../services/actions/actionsOrder";
+import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
+import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
+import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
 
 export const BurgerConstructor = React.memo(() => {
   const location = useLocation();
@@ -61,9 +57,9 @@ export const BurgerConstructor = React.memo(() => {
   };
 
   const onClose = useCallback(() => {
-    dispatch({ type: CLEAR_SELECTED_INGREDIENT_LIST });
-    dispatch({ type: CLEAR_INGREDIENT_LIST_COUNT });
-    dispatch({ type: RESET_ORDER_NUMBER });
+    dispatch(clearSelectIngredientList());
+    dispatch(clearIngredientsCount());
+    dispatch(resetOrder());
   }, [dispatch]);
   return (
     <section className={`${styles.section} pl-4`}>

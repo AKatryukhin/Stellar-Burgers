@@ -4,17 +4,18 @@ import PropTypes from "prop-types";
 import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ADD_SELECTED_INGREDIENT,
-  DECREASE_COUNT,
-  DELETE_SELECTED_INGREDIENT,
-  INCREASE_COUNT,
-  MOVE_INGREDIENT,
-} from "../../services/actions/types";
 import { useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
 import { useCallback } from "react";
+import {
+  addSelectIngredient, moveSelectIngredient,
+  removeSelectIngredient
+} from "../../services/actions/actionsSelectIngredient";
+import {
+  decreaseCount,
+  increaseCount,
+} from "../../services/actions/actionsIngredient";
 
 export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const isBunInOrder = useSelector((state) =>
@@ -23,46 +24,29 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   const handleClick = (ingredient) => {
     if (ingredient.type !== "bun") {
       ingredient.count
-        ? dispatch({
-            type: INCREASE_COUNT,
-            ingredient: ingredient,
-            count: ingredient.count + 1,
-          })
-        : dispatch({
-            type: INCREASE_COUNT,
-            ingredient: ingredient,
-            count: 1,
-          });
+        ? dispatch(increaseCount(ingredient, ingredient.count + 1))
+        : dispatch(increaseCount(ingredient, 1));
     }
     if (ingredient.type === "bun" && !isBunInOrder) {
-      dispatch({
-        type: INCREASE_COUNT,
-        ingredient: ingredient,
-        count: 2,
-      });
+      dispatch(increaseCount(ingredient, 2));
     }
-    if (ingredient.type === "bun" && isBunInOrder && ingredient._id !== isBunInOrder._id) {
-      dispatch({
-        type: DELETE_SELECTED_INGREDIENT,
-        payload: isBunInOrder,
-      });
-      dispatch({
-        type: DECREASE_COUNT,
-        ingredient: isBunInOrder,
-      });
-      dispatch({
-        type: INCREASE_COUNT,
-        ingredient: ingredient,
-        count: 2,
-      });
+    if (
+      ingredient.type === "bun" &&
+      isBunInOrder &&
+      ingredient._id !== isBunInOrder._id
+    ) {
+      dispatch(removeSelectIngredient(isBunInOrder));
+      dispatch(decreaseCount(isBunInOrder));
+      dispatch(increaseCount(ingredient, 2));
     }
-    if (ingredient.type === "bun" && isBunInOrder && ingredient._id === isBunInOrder._id) {
-      return
+    if (
+      ingredient.type === "bun" &&
+      isBunInOrder &&
+      ingredient._id === isBunInOrder._id
+    ) {
+      return;
     }
-    dispatch({
-      type: ADD_SELECTED_INGREDIENT,
-      payload: { ...ingredient, key: uuid() },
-    });
+    dispatch(addSelectIngredient({ ...ingredient, key: uuid() }));
   };
 
   const [{ isHover }, drop] = useDrop({
@@ -76,15 +60,10 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
   });
 
   const dispatch = useDispatch();
+
   const onClose = (item) => {
-    dispatch({
-      type: DELETE_SELECTED_INGREDIENT,
-      payload: item,
-    });
-    dispatch({
-      type: DECREASE_COUNT,
-      ingredient: item,
-    });
+    dispatch(removeSelectIngredient(item));
+    dispatch(decreaseCount(item));
   };
 
   const selectedIngredients = useSelector(
@@ -93,14 +72,16 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 
   const moveItems = useCallback(
     (dragIndex, hoverIndex) => {
-      const newIngredients = [...selectedIngredients].filter(i => i.type !== 'bun');
-      const newBuns = [...selectedIngredients].filter(i => i.type === 'bun');
+      const newIngredients = [...selectedIngredients].filter(
+        (i) => i.type !== "bun"
+      );
+      const newBuns = [...selectedIngredients].filter((i) => i.type === "bun");
       newIngredients.splice(
         hoverIndex,
         0,
         newIngredients.splice(dragIndex, 1)[0]
       );
-      dispatch({ type: MOVE_INGREDIENT, ingredients: newIngredients, buns: newBuns});
+      dispatch(moveSelectIngredient(newIngredients, newBuns))
     },
     [selectedIngredients, dispatch]
   );

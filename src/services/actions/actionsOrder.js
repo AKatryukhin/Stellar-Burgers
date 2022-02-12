@@ -2,7 +2,7 @@ import {
   GET_INGREDIENTS_FAILED, GET_ORDER_NUMBER_FAILED,
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_REQUEST,
-  OPEN_ORDER_MODAL
+  OPEN_ORDER_MODAL, RESET_ORDER_NUMBER
 } from "./types";
 
 export const fetchOrder = (orderIngredientsArr) => {
@@ -19,4 +19,8 @@ export const requestOrderFailed = () => {
 
 export const openOrderModal = () => {
   return { type: OPEN_ORDER_MODAL };
+};
+
+export const resetOrder = () => {
+  return { type: RESET_ORDER_NUMBER };
 };

@@ -53,19 +53,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredients: copyIngredients,
       };
     }
-    case INCREASE_COUNT: {
-      const item = action.ingredient;
-      const index = state.ingredients.indexOf(item);
-      console.log(index);
-      const copyIngredients = [...state.ingredients];
-      console.log("copy", copyIngredients);
-      copyIngredients.splice(index, 1, { ...item, count: action.count });
-      console.log("copy", copyIngredients);
-      return {
-        ...state,
-        ingredients: copyIngredients,
-      };
-    }
+
     case DECREASE_COUNT: {
       const item = state.ingredients.find(
         (i) => i._id === action.ingredient._id

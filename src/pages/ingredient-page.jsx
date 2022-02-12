@@ -6,8 +6,7 @@ import styles from "./ingredient-page.module.css";
 import Modal from "../components/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigationType, useParams } from "react-router-dom";
-import { REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS } from "../services/actions/types";
-import { resetIngredients } from "../services/actions/actionsIngredient";
+import { removeCurrentIngredient, resetIngredients } from "../services/actions/actionsIngredient";
 
 export const IngredientPage = () => {
 
@@ -24,7 +23,7 @@ export const IngredientPage = () => {
   const background = location.state && location.state.background;
 
   const handleModalClose = useCallback(() => {
-  dispatch({ type: REMOVE_CURRENT_INGREDIENT });
+  dispatch(removeCurrentIngredient());
   ingredientsFailed && dispatch(resetIngredients());
   navigate(-1);
 }, [currentIngredient, ingredientsFailed]);
