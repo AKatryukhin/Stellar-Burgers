@@ -21,3 +21,13 @@
   text-align: center;
 }
 
+.link {
+  color: #fff;
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+
+.link:hover {
+  opacity: .6;
+}
+

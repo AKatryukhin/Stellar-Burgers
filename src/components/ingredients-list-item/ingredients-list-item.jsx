@@ -5,16 +5,22 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import {
-  ADD_CURRENT_INGREDIENT,
-  ADD_SELECTED_INGREDIENT,
-  INCREASE_COUNT,
-} from "../../services/actions/types";
 import { useDrag } from "react-dnd";
+import {
+  addCurrentIngredient,
+  decreaseCount,
+  increaseCount,
+} from "../../services/actions/actionsIngredient";
+import {
+  addSelectIngredient,
+  removeSelectIngredient,
+} from "../../services/actions/actionsSelectIngredient";
 
 export const IngredientsItem = ({ ingredient }) => {
+  const navigate = useNavigate();
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
@@ -25,36 +31,44 @@ export const IngredientsItem = ({ ingredient }) => {
 
   const dispatch = useDispatch();
   const isBunInOrder = useSelector((state) =>
-    state?.selectedIngredients.selectedIngredients.some((i) => i.type === "bun")
+    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
   const handleClick = () => {
     if (ingredient.type !== "bun") {
       ingredient.count
-        ? dispatch({
-            type: INCREASE_COUNT,
-            ingredient: ingredient,
-            count: ingredient.count + 1,
-          })
-        : dispatch({
-            type: INCREASE_COUNT,
-            ingredient: ingredient,
-            count: 1,
-          });
+        ? dispatch(increaseCount(ingredient, ingredient.count + 1))
+        : dispatch(increaseCount(ingredient, 1));
     }
     if (ingredient.type === "bun" && !isBunInOrder) {
-      dispatch({
-        type: INCREASE_COUNT,
-        ingredient: ingredient,
-        count: 2,
-      });
+      dispatch(increaseCount(ingredient, 2));
     }
-    dispatch({
-      type: ADD_SELECTED_INGREDIENT,
-      payload: { ...ingredient, key: uuid() },
-    });
-    dispatch({
-      type: ADD_CURRENT_INGREDIENT,
-      ingredient: ingredient,
+    if (
+      ingredient.type === "bun" &&
+      isBunInOrder &&
+      ingredient._id !== isBunInOrder._id
+    ) {
+      dispatch(removeSelectIngredient(isBunInOrder));
+      dispatch(decreaseCount(isBunInOrder));
+      dispatch(increaseCount(ingredient, 2));
+    }
+
+    if (
+      ingredient.type === "bun" &&
+      isBunInOrder &&
+      ingredient._id === isBunInOrder._id
+    ) {
+      navigate(`/ingredients/${ingredient._id}`, {
+        state: { background: true },
+        replace: false,
+      });
+      return;
+    }
+    dispatch(addSelectIngredient({ ...ingredient, key: uuid() }));
+
+    dispatch(addCurrentIngredient(ingredient));
+    navigate(`/ingredients/${ingredient._id}`, {
+      state: { background: true },
+      replace: false,
     });
   };
 

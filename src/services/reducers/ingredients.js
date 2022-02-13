@@ -12,6 +12,7 @@ const initialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
+  loaded: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -28,6 +29,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredientsFailed: false,
         ingredients: action.ingredients,
         ingredientsRequest: false,
+        loaded: true
       };
     }
     case GET_INGREDIENTS_FAILED: {
@@ -51,6 +53,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ingredients: copyIngredients,
       };
     }
+
     case DECREASE_COUNT: {
       const item = state.ingredients.find(
         (i) => i._id === action.ingredient._id

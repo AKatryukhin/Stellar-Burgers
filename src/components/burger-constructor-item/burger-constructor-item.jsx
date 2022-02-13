@@ -1,5 +1,4 @@
 import React, { useCallback, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./burger-constructor-item.module.css";

@@ -1,0 +1,34 @@
+.wrap {
+  margin: 180px auto 0;
+}
+
+.form {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputWrap,
+.inputWrap > div,
+.inputWrap > div > div {
+  width: 100%;
+}
+
+.inputError {
+  display: block;
+  width: 100%;
+  color: rgb(255,0,0);
+}
+
+.link {
+  color: #4C4CFF;
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+
+.link:hover {
+  opacity: .6;
+}
+

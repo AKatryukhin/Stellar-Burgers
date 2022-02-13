@@ -1,30 +1,58 @@
-import React, {useEffect} from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./app.module.css";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { AppHeader } from "../app-header/app-header";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import {GET_INGREDIENTS_REQUEST} from "../../services/actions/types";
-import {useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Main from "../main/main";
+import {
+  Register,
+  Login,
+  NotFound,
+  Profile,
+  ForgotPassword,
+  ResetPassword,
+} from "../../pages";
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "../protected-route/protected-route";
 
+import { IngredientPage } from "../../pages/ingredient-page";
+import Preloader from "../preloader/preloader";
+import { fetchIngredients } from "../../services/actions/actionsIngredient";
 
 export const App = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch({ type: GET_INGREDIENTS_REQUEST });
-    }, []);
+  const dispatch = useDispatch();
+  const { ingredientsRequest, loaded } = useSelector(
+    (state) => state?.ingredients
+  );
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, []);
 
   return (
     <div className={styles.page}>
       <AppHeader />
-      <main className={styles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
+      {ingredientsRequest && <Preloader />}
+      {!ingredientsRequest && loaded && (
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route
+            path="/profile/*"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/ingredients/:ingredientId"
+            element={<IngredientPage />}
+          />
+        </Routes>
+      )}
     </div>
   );
 };
