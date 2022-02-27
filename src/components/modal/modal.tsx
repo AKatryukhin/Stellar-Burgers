@@ -1,14 +1,14 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, FC } from "react";
 import { createPortal } from "react-dom";
 import style from "./modal.module.css";
 import closeIcon from "../../images/closeIcon.svg";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { ESC_KEYCODE } from "../../utils/constants";
-import PropTypes from "prop-types";
+import { ModalProps } from "./modal.props";
 
 
-const Modal = React.memo(({ title, children, onClose }) => {
-  const modalRoot = document.getElementById("modals");
+const Modal: FC<ModalProps> = React.memo(({ title, children, onClose }) => {
+  const modalRoot = document.getElementById("modals") as HTMLElement;
 
   //функция закрытия модального окна по Escape
   const handleCloseByEsc = useCallback(
@@ -49,9 +49,3 @@ const Modal = React.memo(({ title, children, onClose }) => {
 });
 
 export default Modal;
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element,
-  onClose: PropTypes.func.isRequired
-};

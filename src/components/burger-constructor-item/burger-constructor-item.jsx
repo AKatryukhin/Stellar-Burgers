@@ -18,7 +18,6 @@ const BurgerConstructorItem = ({
   moveItems,
 }) => {
   const ref = useRef(null);
-
   const [{ isDrag }, dragItem] = useDrag({
     type: "constructor-card",
     item: () => {
@@ -85,13 +84,13 @@ const BurgerConstructorItem = ({
   );
 };
 
-BurgerConstructorItem.propTypes = {
-  index: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  isHover: PropTypes.bool,
-};
+// BurgerConstructorItem.propTypes = {
+//   index: PropTypes.number.isRequired,
+//   text: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   thumbnail: PropTypes.string.isRequired,
+//   handleClose: PropTypes.func.isRequired,
+//   isHover: PropTypes.bool,
+// };
 
 export default BurgerConstructorItem;

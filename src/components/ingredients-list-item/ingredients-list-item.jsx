@@ -3,7 +3,6 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { itemPropTypes } from "../../utils/types";
 import PropTypes from "prop-types";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -93,6 +92,6 @@ export const IngredientsItem = ({ ingredient }) => {
   );
 };
 
-IngredientsItem.propTypes = {
-  ingredient: itemPropTypes.isRequired,
-};
+// IngredientsItem.propTypes = {
+//   ingredient: itemPropTypes.isRequired,
+// };

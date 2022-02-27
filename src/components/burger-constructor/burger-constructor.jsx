@@ -7,13 +7,12 @@ import { OrderDetails } from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
-import { useLocation, useNavigate } from "react-router-dom";
+  import {  useNavigate } from "react-router-dom";
 import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
 
 export const BurgerConstructor = React.memo(() => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const orderIngredientsArr = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.map((i) => i._id)
@@ -49,18 +48,18 @@ export const BurgerConstructor = React.memo(() => {
     }
   }, [otherIngredients, bun]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     !token && navigate("/login", { replace: true });
     token && bun &&
       otherIngredients &&
       dispatch(fetchOrder(orderIngredientsArr));
-  };
+  }, [token, otherIngredients]);
 
   const onClose = useCallback(() => {
     dispatch(clearSelectIngredientList());
     dispatch(clearIngredientsCount());
     dispatch(resetOrder());
-  }, [dispatch]);
+  }, []);
   return (
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>

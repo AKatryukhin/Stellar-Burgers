@@ -1,7 +1,8 @@
+import React from "react";
 import styles from "./burger-constructor-list.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { itemPropTypes } from "../../utils/types";
+// import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
@@ -17,7 +18,7 @@ import {
   increaseCount,
 } from "../../services/actions/actionsIngredient";
 
-export const BurgerConstructorList = ({ bun, otherIngredients }) => {
+export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
   const isBunInOrder = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
@@ -61,10 +62,10 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
 
   const dispatch = useDispatch();
 
-  const onClose = (item) => {
+  const onClose = useCallback((item) => {
     dispatch(removeSelectIngredient(item));
     dispatch(decreaseCount(item));
-  };
+  }, [dispatch]);
 
   const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
@@ -163,9 +164,9 @@ export const BurgerConstructorList = ({ bun, otherIngredients }) => {
       </div>
     </div>
   );
-};
+});
 
-BurgerConstructorList.propTypes = {
-  otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-  bun: itemPropTypes,
-};
+// BurgerConstructorList.propTypes = {
+//   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+//   bun: itemPropTypes,
+// };

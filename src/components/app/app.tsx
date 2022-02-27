@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +18,12 @@ import { IngredientPage } from "../../pages/ingredient-page";
 import Preloader from "../preloader/preloader";
 import { fetchIngredients } from "../../services/actions/actionsIngredient";
 
-export const App = () => {
+export const App: FC = () => {
   const dispatch = useDispatch();
+
   const { ingredientsRequest, loaded } = useSelector(
-    (state) => state?.ingredients
+    // @ts-ignore
+    (state) => state?.ingredients // store пока не типизируем
   );
   useEffect(() => {
     dispatch(fetchIngredients());

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./app-header.module.css";
 import {
   Logo,
@@ -10,7 +10,7 @@ import { Nav } from "../nav/nav";
 import { NavItem } from "../nav-item/nav-item";
 import { Link, useLocation } from "react-router-dom";
 
-export const AppHeader = () => {
+export const AppHeader: FC = () => {
   const location = useLocation();
   const constructorActive = location.pathname === "/";
   const orderActive = location.pathname === "/profile/orders";
