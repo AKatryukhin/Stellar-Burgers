@@ -1,23 +1,23 @@
-import React from 'react';
-import styles from './order-details.module.css';
-import IconDone from '../../images/iconDoneGif.gif';
-import {useSelector} from "react-redux";
+import React, { FC } from "react";
+import styles from "./order-details.module.css";
+import IconDone from "../../images/iconDoneGif.gif";
+import { useSelector } from "react-redux";
 
-export const OrderDetails = React.memo(() => {
-  const order = useSelector(state => state?.order.orderNumber)
+export const OrderDetails: FC = React.memo(() => {
+  // @ts-ignore
+  const order = useSelector((state) => state?.order.orderNumber); // state пока не типизируем
 
   return (
-    (
     <article className={styles.card}>
       <p className={`${styles.name} text text_type_digits-large mt-4 mb-8`}>
-          {order}
+        {order}
       </p>
       <p className={`${styles.name} text text_type_main-medium mb-15`}>
         идентификатор заказа
       </p>
       <img
         src={IconDone}
-        alt='Картинка - отметка выполнен'
+        alt="Картинка - отметка выполнен"
         className={`${styles.icon} mb-15`}
       />
       <p className={`${styles.name} text text_type_main-default mb-2`}>
@@ -28,7 +28,6 @@ export const OrderDetails = React.memo(() => {
       >
         Дождитесь готовности на орбитальной станции
       </p>
-      </article>
-    )
+    </article>
   );
 });

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./ingredient-details.module.css";
+import { IngredientDetailsProps } from "./ingredient-details.props";
 
-export const IngredientDetails = React.memo(({currentIngredient}) => {
+export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ currentIngredient }) => {
   const { name, image_large, calories, proteins, fat, carbohydrates } =
     currentIngredient;
 

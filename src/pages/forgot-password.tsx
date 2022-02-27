@@ -1,17 +1,16 @@
 import styles from "./form.module.css";
 import {
   Button,
-  EmailInput,
-  PasswordInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchResetPassword } from "../services/actions/actionsPassword";
 
-export const ForgotPassword = () => {
-  const { values, handleChange, errors, isValid, setValues } =
+export const ForgotPassword: FC = () => {
+  const { values, handleChange } =
     useFormAndValidation();
 
   const dispatch = useDispatch();
@@ -19,11 +18,14 @@ export const ForgotPassword = () => {
   const { email } = values;
 
   const navigate = useNavigate();
+
   const isResetPasswordSuccess = useSelector(
+    // @ts-ignore
     (state) => state?.password.isResetPasswordSuccess
   );
 
   const { accessToken } = useSelector(
+    // @ts-ignore
     (state) => state?.auth);
 
 
@@ -35,7 +37,7 @@ export const ForgotPassword = () => {
     accessToken && navigate("/");
   }, [accessToken]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     dispatch(fetchResetPassword(email));
   };
@@ -47,7 +49,7 @@ export const ForgotPassword = () => {
           Восстановление пароля
         </h1>
         <div className={`mb-6 ${styles.inputWrap}`}>
-          <EmailInput
+          <Input
             type={"email"}
             placeholder={"Укажите E-mail"}
             value={email || ""}

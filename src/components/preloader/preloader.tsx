@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from './preloader.module.css';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-const Preloader = () => {
+const Preloader: FC = () => {
   return (
     <section>
     <ModalOverlay />

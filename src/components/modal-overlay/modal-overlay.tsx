@@ -6,7 +6,9 @@ const ModalOverlay: FC<ModalOverlayProps> = ( {onClose}) => {
  //функция закрытия модального окна по оверлей
   const handleOverlay = (e: React.SyntheticEvent<EventTarget>) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      if (onClose) {
+        onClose();
+      }
     }
  };
 
