@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, ErrorInfo } from "react";
+import { ErrorBoundaryProps } from "./error-boundary.props";
 
 
-export class ErrorBoundary extends Component {
+export class ErrorBoundary extends Component<ErrorBoundaryProps> {
   
-  state = { hasError: false };
+  state: Readonly<ErrorBoundaryProps> = { hasError: false };
  
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true };
   }
 
   // с помощью этого метода логируем информацию об ошибке:
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.log("Возникла ошибка!", error, info);
   }
 
