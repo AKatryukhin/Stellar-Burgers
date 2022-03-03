@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { FC, FormEvent, SyntheticEvent, useEffect } from "react";
 import { getCookie } from "../utils/cookie";
 import Preloader from "../components/preloader/preloader";
 import {
@@ -15,17 +15,20 @@ import {
   updateInfoUser,
 } from "../services/actions/actionsAuth";
 
-export const Profile = () => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+export const Profile: FC = () => {
+  const { values, handleChange, isValid, setValues } =
     useFormAndValidation();
 
+  // @ts-ignore
   const { name, email, password } = values;
   const dispatch = useDispatch();
   const location = useLocation();
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
   const navigate = useNavigate();
+  // @ts-ignore
   const stateName = useSelector((state) => state?.auth.name);
+  // @ts-ignore
   const stateEmail = useSelector((state) => state?.auth.email);
   useEffect(() => {
     setValues({
@@ -42,12 +45,12 @@ export const Profile = () => {
     !accessToken && navigate("/login", { replace: true });
   }, [accessToken]);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(updateInfoUser(name, email, accessToken, refreshToken));
   };
 
-  const onReset = (e) => {
+  const onReset = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setValues({
       name: stateName,
@@ -59,7 +62,9 @@ export const Profile = () => {
     dispatch(logout(refreshToken));
   };
 
+
   const { getUserInfoRequest, updateUserRequest } = useSelector(
+    // @ts-ignore
     (state) => state?.auth
   );
 
@@ -162,7 +167,6 @@ export const Profile = () => {
                 disabled={false}
                 errorText={"Ошибка"}
                 size={"default"}
-                autocomplete="on"
               />
             </div>
             {isValid && (

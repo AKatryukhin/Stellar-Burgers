@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import styles from "./not-found.module.css";
 import { Link } from "react-router-dom";
 
-export const NotFound = () => {
+export const NotFound: FC = () => {
   return (
     <section className={styles.wrap}>
       <div className={styles.container}>
