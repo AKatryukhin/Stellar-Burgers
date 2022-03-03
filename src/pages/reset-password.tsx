@@ -1,27 +1,32 @@
 import styles from "./form.module.css";
-import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { FC, FormEvent, useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordRequest } from "../services/actions/actionsPassword";
 
 
-export const ResetPassword = () => {
-  const { values, handleChange, errors, isValid, setValues } =
+export const ResetPassword: FC = () => {
+  const { values, handleChange } =
     useFormAndValidation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // @ts-ignore
   const { password, code } = values;
+
   const changePasswordFailed = useSelector(
+    // @ts-ignore
     (state) => state?.password.changePasswordFailed
   );
   const isChangePasswordSuccess = useSelector(
+    // @ts-ignore
     (state) => state?.password.isChangePasswordSuccess
   );
   const { accessToken } = useSelector(
+    // @ts-ignore
     (state) => state?.auth);
 
   useEffect(() => {
@@ -36,7 +41,7 @@ export const ResetPassword = () => {
     accessToken && navigate("/");
   }, [accessToken]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(changePasswordRequest(password, code));
   };
@@ -47,12 +52,8 @@ export const ResetPassword = () => {
         <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
         <div className={`mb-6 ${styles.inputWrap}`}>
           <PasswordInput
-            type={"text"}
-            placeholder={"Введите новый пароль"}
             value={password || ""}
             name={"password"}
-            error={false}
-            errorText={"Введите корректное значение"}
             onChange={handleChange}
           />
         </div>

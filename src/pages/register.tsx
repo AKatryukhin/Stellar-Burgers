@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, FormEvent, useEffect } from "react";
 import styles from "./form.module.css";
 import {
   Button,
@@ -9,15 +9,18 @@ import {
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie, setCookie } from "../utils/cookie";
+import { setCookie } from "../utils/cookie";
 import { createUser } from "../services/actions/actionsAuth";
 
-export const Register = () => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+export const Register: FC = () => {
+  const { values, handleChange, isValid, setValues } =
     useFormAndValidation();
+  // @ts-ignore
   const { name, email, password } = values;
   const navigate = useNavigate();
+
   const { isRegisterSuccess, refreshToken, accessToken } = useSelector(
+    // @ts-ignore
     (state) => state?.auth
   );
   const dispatch = useDispatch();
@@ -33,11 +36,12 @@ export const Register = () => {
     accessToken && navigate("/");
   }, [accessToken]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     isValid && handleRegister({ name, email, password });
   };
 
+  // @ts-ignore
   const handleRegister = ({ name, email, password }) => {
     dispatch(createUser(name, email, password));
     setValues({});
@@ -59,12 +63,8 @@ export const Register = () => {
         </div>
         <div className={`mb-6 ${styles.inputWrap}`}>
           <EmailInput
-            type={"email"}
-            placeholder={"E-mail"}
             value={email || ""}
             name={"email"}
-            error={false}
-            errorText={"Введите корректное значение"}
             onChange={handleChange}
           />
         </div>
@@ -73,9 +73,6 @@ export const Register = () => {
             value={password || ""}
             name={"password"}
             size={"default"}
-            type={"password"}
-            error={false}
-            errorText={"Введите корректное значение"}
             onChange={handleChange}
           />
         </div>

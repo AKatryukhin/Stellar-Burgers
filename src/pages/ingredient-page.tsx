@@ -21,7 +21,8 @@ export const IngredientPage: FC = () => {
   const dispatch = useDispatch();
   const action = useNavigationType();
   let { ingredientId } = useParams<{ ingredientId?: string }>();
-  const currentIngredient: IIngredientData | undefined = ingredients.find(i => i._id === ingredientId);
+  // @ts-ignore
+  const currentIngredient: IIngredientData = ingredients.find(i => i._id === ingredientId);
   const navigate = useNavigate();
   const location = useLocation();
   // @ts-ignore
