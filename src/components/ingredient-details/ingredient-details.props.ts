@@ -1,5 +1,5 @@
 import { IIngredientData } from "../../utils/types";
 
 export interface IngredientDetailsProps{
-  currentIngredient: IIngredientData
+  currentIngredient: IIngredientData | undefined
 }

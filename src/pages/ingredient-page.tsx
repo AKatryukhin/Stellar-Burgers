@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { FC, useCallback } from "react";
 
 import { IngredientDetails } from "../components";
 
@@ -7,19 +7,24 @@ import Modal from "../components/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigationType, useParams } from "react-router-dom";
 import { removeCurrentIngredient, resetIngredients } from "../services/actions/actionsIngredient";
+import { IIngredientData } from "../utils/types";
 
-export const IngredientPage = () => {
+export const IngredientPage: FC = () => {
 
-  const ingredients = useSelector((state) => state?.ingredients.ingredients);
-  const ingredientsFailed = useSelector(
+  // @ts-ignore
+  const ingredients: Array<IIngredientData> = useSelector((state) => state?.ingredients.ingredients);
+
+  const ingredientsFailed: boolean = useSelector(
+    // @ts-ignore
     (state) => state?.ingredients.ingredientsFailed
   );
   const dispatch = useDispatch();
   const action = useNavigationType();
-  let { ingredientId } = useParams();
-  const currentIngredient = ingredients.find(i => i._id === ingredientId);
+  let { ingredientId } = useParams<{ ingredientId?: string }>();
+  const currentIngredient: IIngredientData | undefined = ingredients.find(i => i._id === ingredientId);
   const navigate = useNavigate();
   const location = useLocation();
+  // @ts-ignore
   const background = location.state && location.state.background;
 
   const handleModalClose = useCallback(() => {
