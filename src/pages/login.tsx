@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { FC, FormEvent, useEffect } from "react";
 import styles from "./form.module.css";
 import {
   Button,
   Input,
-  EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
@@ -11,27 +10,31 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../services/actions/actionsAuth";
 
-export const Login = () => {
-  const { values, handleChange, errors, isValid, setValues } =
+export const Login: FC = () => {
+  const { values, handleChange, isValid, setValues } =
     useFormAndValidation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // @ts-ignore
   const { email, password } = values;
   const location = useLocation();
-  const { accessToken, refreshToken } = useSelector((state) => state?.auth);
+  // @ts-ignore
+  const { accessToken } = useSelector((state) => state?.auth);
   useEffect(() => {
     location.state
+      // @ts-ignore
       ? accessToken && navigate(location.state.from)
       : accessToken && navigate("/");
   }, [accessToken]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     isValid && handleLogin({ email, password });
     setValues({});
   };
 
-  const handleLogin = () => {
+  // @ts-ignore
+  const handleLogin = ({ email, password }) => {
     dispatch(login(email, password));
   };
 
@@ -40,7 +43,7 @@ export const Login = () => {
       <form className={styles.form} onSubmit={handleSubmit} name="login-form">
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
         <div className={`mb-6 ${styles.inputWrap}`}>
-          <EmailInput
+          <Input
             type={"email"}
             placeholder={"E-mail"}
             value={email || ""}
@@ -55,11 +58,7 @@ export const Login = () => {
             value={password || ""}
             name={"password"}
             size={"default"}
-            type={"password"}
-            error={false}
-            errorText={"Введите корректное значение"}
             onChange={handleChange}
-            autocomplete="on"
           />
         </div>
         <div className="mb-20">

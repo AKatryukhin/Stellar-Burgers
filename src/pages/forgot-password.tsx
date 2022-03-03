@@ -38,7 +38,7 @@ export const ForgotPassword: FC = () => {
     accessToken && navigate("/");
   }, [accessToken]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     dispatch(fetchResetPassword(email));
   };
