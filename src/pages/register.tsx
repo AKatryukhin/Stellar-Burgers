@@ -15,7 +15,6 @@ import { createUser } from "../services/actions/actionsAuth";
 export const Register: FC = () => {
   const { values, handleChange, isValid, setValues } =
     useFormAndValidation();
-  // @ts-ignore
   const { name, email, password } = values;
   const navigate = useNavigate();
 

@@ -1,34 +1,27 @@
-import { useState, useCallback, ChangeEvent } from "react";
+import { useState, useCallback, ChangeEvent, FC } from "react";
 
-interface Values {
-  [x: string]: string | number | boolean;
+interface IFormValues {
+  [key: string]: string;
 }
 
-export default function useFormAndValidation(): {
-  setIsValid: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  setValues: (value: ((prevState: {}) => {}) | {}) => void;
-  values: {};
-  isValid: boolean;
-  resetForm: (newValues?: {}, newErrors?: {}, newIsValid?: boolean) => void;
-  errors: {};
-} {
-  const [values, setValues] = useState<Values>({});
-  const [errors, setErrors] = useState({});
+interface IFormErrors {
+  [key: string]: string;
+}
+
+export default function useFormAndValidation(defaultValues: IFormValues = {}) {
+
+  const [values, setValues] = useState<IFormValues>({});
+  const [errors, setErrors] = useState<IFormErrors>({});
   const [isValid, setIsValid] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value: string | boolean =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
     const name: string = e.target.name;
-    const parentContainer: HTMLFormElement | null = (
-      e.target as HTMLElement
-    ).closest("form");
-
+    setIsValid((e.target.closest("form") as HTMLFormElement).checkValidity());
+    // @ts-ignore
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: e.target.validationMessage });
-    // @ts-ignore
-    setIsValid(parentContainer.checkValidity());
   };
 
   const resetForm = useCallback(
@@ -49,4 +42,4 @@ export default function useFormAndValidation(): {
     setValues,
     setIsValid,
   };
-}
+};

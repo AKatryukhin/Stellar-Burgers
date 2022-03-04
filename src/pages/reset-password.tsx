@@ -9,12 +9,11 @@ import { changePasswordRequest } from "../services/actions/actionsPassword";
 
 export const ResetPassword: FC = () => {
   const { values, handleChange } =
-    useFormAndValidation();
+    useFormAndValidation({password: ''});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // @ts-ignore
   const { password, code } = values;
 
   const changePasswordFailed = useSelector(

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import styles from "./burger-constructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
@@ -11,35 +11,41 @@ import Preloader from "../preloader/preloader";
 import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
+import { IIngredientData } from "../../utils/types";
 
-export const BurgerConstructor = React.memo(() => {
+export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
-  const orderIngredientsArr = useSelector((state) =>
+
+  const orderIngredientsArr: Array<IIngredientData> = useSelector((state) =>
+    // @ts-ignore
     state?.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
   const { orderRequest, orderFailed, orderNumber } = useSelector(
+    // @ts-ignore
     (state) => state?.order
   );
+  // @ts-ignore
   const token = useSelector((state) => state?.auth.accessToken);
   const navigate = useNavigate();
 
-  const selectedIngredients = useSelector(
+  const selectedIngredients: Array<IIngredientData> = useSelector(
+    // @ts-ignore
     (state) => state?.selectedIngredients.selectedIngredients
   );
-  const bun = useMemo(
-    () => selectedIngredients.find((i) => i.type === "bun"),
+  const bun: IIngredientData | undefined = useMemo(
+    () => selectedIngredients.find((i: IIngredientData) => i.type === "bun"),
     [selectedIngredients]
   );
-  const otherIngredients = useMemo(
-    () => selectedIngredients.filter((i) => i.type !== "bun"),
+  const otherIngredients = useMemo<Array<IIngredientData>>(
+    () => selectedIngredients.filter((i: IIngredientData) => i.type !== "bun"),
     [selectedIngredients]
   );
 
-  const totalPrice = useMemo(() => {
+  const totalPrice = useMemo<number>(() => {
     if (bun) {
-      const bunSum = bun.price * 2;
-      const otherIngredientsSum = otherIngredients.reduce(
-        (acc, i) => acc + i.price,
+      const bunSum: number = bun.price * 2;
+      const otherIngredientsSum: number = otherIngredients.reduce(
+        (acc: number, i: IIngredientData) => acc + i.price,
         0
       );
       return bunSum + otherIngredientsSum;
@@ -64,22 +70,23 @@ export const BurgerConstructor = React.memo(() => {
     <section className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <BurgerConstructorList bun={bun} otherIngredients={otherIngredients} />
-      </div>
-      <div className={styles.orderWrap}>
+        <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
           <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
           <img src={bigIconPrice} alt="Иконка стоимости" />
         </span>
-        <Button type="primary" size="medium" onClick={handleClick}>
-          {orderRequest
-            ? "Отправка..."
-            : orderFailed
-            ? "Что-то пошло не так :("
-            : bun
-            ? "Оформить заказ"
-            : "Необходимо добавить булку!"}
-        </Button>
+          <Button type="primary" size="medium" onClick={handleClick}>
+            {orderRequest
+              ? "Отправка..."
+              : orderFailed
+                ? "Что-то пошло не так :("
+                : bun
+                  ? "Оформить заказ"
+                  : "Необходимо добавить булку!"}
+          </Button>
+        </div>
       </div>
+
       {orderRequest && <Preloader />}
       {!orderRequest && orderNumber && (
         <Modal onClose={onClose}>

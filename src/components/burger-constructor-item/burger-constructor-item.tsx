@@ -1,13 +1,15 @@
-import React, { useCallback, useRef } from "react";
+import React, { FC, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
-import { useDrag, useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrag, useDrop, XYCoord } from "react-dnd";
 import styles from "./burger-constructor-item.module.css";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerConstructorItemProps } from "./burger-constructor-item.props";
+import { IIngredientData } from "../../utils/types";
 
-const BurgerConstructorItem = ({
+const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({
   index,
   text,
   price,
@@ -17,7 +19,7 @@ const BurgerConstructorItem = ({
   id,
   moveItems,
 }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
   const [{ isDrag }, dragItem] = useDrag({
     type: "constructor-card",
     item: () => {
@@ -35,7 +37,7 @@ const BurgerConstructorItem = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: IIngredientData, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }
@@ -48,7 +50,7 @@ const BurgerConstructorItem = ({
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -62,6 +64,7 @@ const BurgerConstructorItem = ({
   const opacity = isDrag ? 0 : 1;
   dragItem(dropItem(ref));
 
+
   return (
     <li
       ref={ref}
@@ -71,26 +74,20 @@ const BurgerConstructorItem = ({
       style={{ opacity }}
     >
       <span className="mr-3">
-        <DragIcon type="primary" className="mr-6" />
+        <div className="mr-6" >
+        <DragIcon type="primary" />
+          </div>
       </span>
       <ConstructorElement
         text={text}
         price={price}
         thumbnail={thumbnail}
         handleClose={handleClose}
+        // @ts-ignore
         isHover={isHover}
       />
     </li>
   );
 };
-
-// BurgerConstructorItem.propTypes = {
-//   index: PropTypes.number.isRequired,
-//   text: PropTypes.string.isRequired,
-//   price: PropTypes.number.isRequired,
-//   thumbnail: PropTypes.string.isRequired,
-//   handleClose: PropTypes.func.isRequired,
-//   isHover: PropTypes.bool,
-// };
 
 export default BurgerConstructorItem;

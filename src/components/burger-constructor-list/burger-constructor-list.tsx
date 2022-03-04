@@ -1,11 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./burger-constructor-list.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-// import { itemPropTypes } from "../../utils/types";
 import bunImage from "../../images/bun-02.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
 import { useCallback } from "react";
@@ -17,12 +15,16 @@ import {
   decreaseCount,
   increaseCount,
 } from "../../services/actions/actionsIngredient";
+import { IIngredientData } from "../../utils/types";
+import { burgerConstructorListProps } from "./burger-constructor-list.props";
 
-export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
+export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(({ bun, otherIngredients }) => {
+
   const isBunInOrder = useSelector((state) =>
+    // @ts-ignore
     state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
-  const handleClick = (ingredient) => {
+  const handleClick = (ingredient: IIngredientData) => {
     if (ingredient.type !== "bun") {
       ingredient.count
         ? dispatch(increaseCount(ingredient, ingredient.count + 1))
@@ -50,11 +52,13 @@ export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
     dispatch(addSelectIngredient({ ...ingredient, key: uuid() }));
   };
 
+
   const [{ isHover }, drop] = useDrop({
     accept: "place",
-    collect: (monitor) => ({
+    collect: (monitor: DropTargetMonitor) => ({
       isHover: monitor.isOver(),
     }),
+    // @ts-ignore
     drop({ ingredient }) {
       handleClick(ingredient);
     },
@@ -67,7 +71,9 @@ export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
     dispatch(decreaseCount(item));
   }, [dispatch]);
 
+
   const selectedIngredients = useSelector(
+    // @ts-ignore
     (state) => state?.selectedIngredients.selectedIngredients
   );
 
@@ -102,15 +108,17 @@ export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
             price={bun.price}
             thumbnail={bun.image}
             key={bun.key}
+            // @ts-ignore
             isHover={isHover}
           />
         ) : (
           <ConstructorElement
+            // @ts-ignore
             className="mt-4"
             type="top"
             isLocked={true}
             text="Выберите булку"
-            price=""
+            price={0}
             thumbnail={bunImage}
             isHover={isHover}
           />
@@ -148,15 +156,17 @@ export const BurgerConstructorList = React.memo(({ bun, otherIngredients }) => {
             text={`${bun.name} (низ)`}
             price={bun.price}
             thumbnail={bun.image}
+            // @ts-ignore
             isHover={isHover}
           />
         ) : (
           <ConstructorElement
+            // @ts-ignore
             className="mt-4"
             type="bottom"
             isLocked={true}
             text="Выберите булку"
-            price=""
+            price={0}
             thumbnail={bunImage}
             isHover={isHover}
           />

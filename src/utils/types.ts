@@ -15,4 +15,5 @@ export interface IIngredientData {
   __v: number;
   key?: string;
   count?: number;
+  index: number;
 }
