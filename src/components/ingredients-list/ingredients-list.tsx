@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ingredients-list.module.css";
 import { IngredientsItem } from "../ingredients-list-item/ingredients-list-item";
-import PropTypes from "prop-types";
+import { IngredientsListProps } from "./ingredients-list.props";
 
-export const IngredientsList = React.forwardRef(
+export const IngredientsList = React.forwardRef<HTMLHeadingElement, IngredientsListProps>(
   ({ title, filteredIngredients }, ref) => {
     return (
       <div className={`${styles.listWrap} mb-10 custom-scroll`}>
@@ -24,7 +24,3 @@ export const IngredientsList = React.forwardRef(
   }
 );
 
-// IngredientsList.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   filteredIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-// };

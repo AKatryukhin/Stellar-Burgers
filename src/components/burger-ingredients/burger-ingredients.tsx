@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef, FC } from "react";
 
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,44 +8,52 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import noBurger from "../../images/no-burger.png";
 import { removeCurrentIngredient, resetIngredients } from "../../services/actions/actionsIngredient";
+import { IIngredientData } from "../../utils/types";
 
-export const BurgerIngredients = React.memo(() => {
+export const BurgerIngredients: FC = React.memo(() => {
   const dispatch = useDispatch();
+  // @ts-ignore
   const ingredients = useSelector((state) => state?.ingredients.ingredients);
   const ingredientsFailed = useSelector(
+    // @ts-ignore
     (state) => state?.ingredients.ingredientsFailed
   );
   const currentIngredient = useSelector(
+    // @ts-ignore
     (state) => state?.currentIngredient.ingredient
   );
 
-  const [current, setCurrent] = useState("Булки");
-  const buns = useMemo(
-    () => ingredients.filter((i) => i.type === "bun"),
+  const [current, setCurrent] = useState<string>("Булки");
+  const buns: Array<IIngredientData> = useMemo(
+    () => ingredients.filter((i: IIngredientData) => i.type === "bun"),
     [ingredients]
   );
-  const sauces = useMemo(
-    () => ingredients.filter((i) => i.type === "sauce"),
+  const sauces: Array<IIngredientData> = useMemo(
+    () => ingredients.filter((i: IIngredientData) => i.type === "sauce"),
     [ingredients]
   );
-  const mains = useMemo(
-    () => ingredients.filter((i) => i.type === "main"),
+  const mains: Array<IIngredientData> = useMemo(
+    () => ingredients.filter((i: IIngredientData) => i.type === "main"),
     [ingredients]
   );
 
-  const handleCurrent = useCallback((evt) => {
-    setCurrent(evt);
+  const handleCurrent = useCallback((e: any) => {
+    setCurrent(e);
   }, []);
 
-  const bunsRef = useRef();
-  const saucesRef = useRef();
-  const mainsRef = useRef();
-  const containerRef = useRef(null);
+  const bunsRef = useRef<HTMLDivElement>(null);
+  const saucesRef = useRef<HTMLDivElement>(null);
+  const mainsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   function handleScroll() {
+    // @ts-ignore
     const containerTop = containerRef.current.getBoundingClientRect().top;
+    // @ts-ignore
     const bunsTop = bunsRef.current.getBoundingClientRect().top;
+    // @ts-ignore
     const saucesTop = saucesRef.current.getBoundingClientRect().top;
+    // @ts-ignore
     const mainsTop = mainsRef.current.getBoundingClientRect().top;
     const bunsAbs = Math.abs(containerTop - bunsTop);
     const saucesAbs = Math.abs(containerTop - saucesTop);

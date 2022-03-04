@@ -74,9 +74,7 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({
       style={{ opacity }}
     >
       <span className="mr-3">
-        <div className="mr-6" >
         <DragIcon type="primary" />
-          </div>
       </span>
       <ConstructorElement
         text={text}
