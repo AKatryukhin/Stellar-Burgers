@@ -1,22 +1,27 @@
-import React, { Component, ErrorInfo } from "react";
-import { ErrorBoundaryProps } from "./error-boundary.props";
+import React, { Component, ErrorInfo, ReactNode } from "react";
 
+interface Props {
+  children: ReactNode;
+}
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps> {
-  
-  state: Readonly<ErrorBoundaryProps> = { hasError: false };
- 
+interface State {
+  hasError: boolean;
+}
 
-  static getDerivedStateFromError(error: Error) {
+export class ErrorBoundary extends Component<Props, State> {
+  public state: State = {
+    hasError: false
+  };
+
+  public static getDerivedStateFromError(_: Error): State {
     return { hasError: true };
   }
 
-  // с помощью этого метода логируем информацию об ошибке:
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    console.log("Возникла ошибка!", error, info);
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
   }
 
-  render() {
+  public render() {
     if (this.state.hasError) {
       return (
         <section>
@@ -27,6 +32,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps> {
         </section>
       );
     }
+
     return this.props.children;
   }
 }
+
+export default ErrorBoundary;

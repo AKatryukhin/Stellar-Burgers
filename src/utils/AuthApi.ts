@@ -6,21 +6,21 @@ import {
   USER_REGISTER_URL, USER_UPDATE_DATA_URL, USER_UPDATE_TOKEN_URL
 } from "./constants";
 
-const handleResponse = (res) => {
+const handleResponse = (res: Response) => {
   if (!res.ok) {
     return Promise.reject(`Error: ${res.status}`);
   }
   return res.json();
 };
 
-const handleResponseJWT = (res) => {
+const handleResponseJWT = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
   return res.json().then((err) => Promise.reject(err))
 };
 
-export const passwordReset = (email) => {
+export const passwordReset = (email: string) => {
   return fetch(PASSWORD_RESET_URL, {
     method: "POST",
     headers: {
@@ -32,7 +32,7 @@ export const passwordReset = (email) => {
   }).then(handleResponse);
 };
 
-export const passwordChange = (password, token) => {
+export const passwordChange = (password: string, token: string) => {
   return fetch(PASSWORD_CHANGE_URL, {
     method: "POST",
     headers: {
@@ -45,7 +45,7 @@ export const passwordChange = (password, token) => {
   }).then(handleResponse);
 };
 
-export const userRegister = (name, email, password) => {
+export const userRegister = (name: string, email: string, password: string) => {
   return fetch(USER_REGISTER_URL, {
     method: "POST",
     mode: 'cors',
@@ -64,7 +64,7 @@ export const userRegister = (name, email, password) => {
   }).then(handleResponse);
 };
 
-export const userLogin = (email, password) => {
+export const userLogin = (email: string, password: string) => {
   return fetch(USER_LOGIN_URL, {
     method: "POST",
     mode: 'cors',
@@ -82,7 +82,7 @@ export const userLogin = (email, password) => {
   }).then(handleResponse);
 };
 
-export const userLogout = (refreshToken) => {
+export const userLogout = (refreshToken: string) => {
   return fetch(USER_LOGOUT_URL, {
     method: "POST",
     headers: {
@@ -94,7 +94,7 @@ export const userLogout = (refreshToken) => {
   }).then(handleResponse);
 }
 
-export const userRefreshToken = (refreshToken) => {
+export const userRefreshToken = (refreshToken: string) => {
   return fetch(USER_UPDATE_TOKEN_URL, {
     method: "POST",
     mode: 'cors',
@@ -111,7 +111,7 @@ export const userRefreshToken = (refreshToken) => {
   }).then(handleResponse);
 }
 
-export const getUserInfo = (accessToken) => {
+export const getUserInfo = (accessToken: string) => {
   return fetch(USER_GET_DATA_URL, {
     method: "GET",
     mode: 'cors',
@@ -126,7 +126,7 @@ export const getUserInfo = (accessToken) => {
   }).then(handleResponseJWT);
 }
 
-export const updateUserInfo = (name, email, accessToken) => {
+export const updateUserInfo = (name: string, email: string, accessToken: string) => {
   return fetch(USER_UPDATE_DATA_URL, {
     method: "PATCH",
     mode: 'cors',

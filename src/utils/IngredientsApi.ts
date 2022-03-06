@@ -1,6 +1,7 @@
 import { INGREDIENTS_URL, ORDER_URL } from './constants';
+import { IIngredientData } from "./types";
 
-const handleResponse = (res) => {
+const handleResponse = (res: Response) => {
   if (!res.ok) {
     return Promise.reject(`Error: ${res.status}`);
   }
@@ -12,7 +13,7 @@ export const getIngredientsList = () => {
   .then(handleResponse);
 };
 
-export const placeAnOrder = (selectedIngredients) => {
+export const placeAnOrder = (selectedIngredients: IIngredientData) => {
   return fetch(ORDER_URL, {
     method: 'POST',
     headers: {

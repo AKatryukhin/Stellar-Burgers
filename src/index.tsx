@@ -6,7 +6,6 @@ import { App, ErrorBoundary } from './components';
 import store from "./services/store";
 import { BrowserRouter } from 'react-router-dom';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
