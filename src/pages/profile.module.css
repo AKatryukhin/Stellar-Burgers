@@ -1,6 +1,6 @@
 .wrap{
     min-height: 100vh;
-    padding: 120px 410px;
+    padding-top: 120px;
     display: flex;
 }
 
@@ -12,7 +12,8 @@
 }
 
 .form {
-    width: 480px;
+    max-width: 480px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
