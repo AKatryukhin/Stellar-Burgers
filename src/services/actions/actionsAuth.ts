@@ -18,9 +18,13 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS
 } from "./types";
-import { getCookie } from "../../utils/cookie";
+import {
+  ICreateOrLoginUserResponse,
+  IGetUserInfoResponse,
+  IUpdateTokenResponse, IUpdateUserInfoResponse
+} from "../../utils/types";
 
-export const createUser = (name, email, password) => {
+export const createUser = (name: string, email: string, password: string) => {
   return {
     type: GET_REGISTRATION_REQUEST,
     name: name,
@@ -29,7 +33,7 @@ export const createUser = (name, email, password) => {
   };
 };
 
-export const requestRegisterSuccess = (data) => {
+export const requestRegisterSuccess = (data: ICreateOrLoginUserResponse) => {
   return {
     type: GET_REGISTRATION_SUCCESS,
     name: data.user.name,
@@ -43,7 +47,7 @@ export const requestRegisterFailed = () => {
   return { type: GET_REGISTRATION_FAILED };
 };
 
-export const login = (email, password) => {
+export const login = (email: string, password: string) => {
   return {
     type: GET_LOGIN_REQUEST,
     email: email,
@@ -51,7 +55,7 @@ export const login = (email, password) => {
   };
 };
 
-export const requestLoginSuccess = (data) => {
+export const requestLoginSuccess = (data: ICreateOrLoginUserResponse) => {
   return {
     type: GET_LOGIN_SUCCESS,
     name: data.user.name,
@@ -65,7 +69,7 @@ export const requestLoginFailed = () => {
   return { type: GET_LOGIN_FAILED };
 };
 
-export const logout = (token) => {
+export const logout = (token: string) => {
   return {
     type: GET_LOGOUT_REQUEST,
     token: token,
@@ -81,14 +85,14 @@ export const requestLogoutFailed = () => {
   return { type: GET_LOGOUT_FAILED };
 };
 
-export const tokenUpdate = (token) => {
+export const tokenUpdate = (token: string) => {
   return {
     type: GET_TOKEN_UPDATE_REQUEST,
     token: token,
   };
 };
 
-export const tokenUpdateSuccess = (data) => {
+export const tokenUpdateSuccess = (data: IUpdateTokenResponse) => {
   return {
     type: GET_TOKEN_UPDATE_SUCCESS,
     accessToken: data.accessToken,
@@ -100,7 +104,7 @@ export const tokenUpdateFailed = () => {
   return { type: GET_TOKEN_UPDATE_FAILED };
 };
 
-export const getInfoUser = (accessToken, refreshToken) => {
+export const getInfoUser = (accessToken: string, refreshToken: string) => {
   return {
     type: GET_USER_INFO_REQUEST,
     accessToken: accessToken,
@@ -108,7 +112,7 @@ export const getInfoUser = (accessToken, refreshToken) => {
   };
 };
 
-export const getInfoUserSuccess = (data) => {
+export const getInfoUserSuccess = (data: IGetUserInfoResponse) => {
   return {
     type: GET_USER_INFO_SUCCESS,
     name: data.user.name,
@@ -120,7 +124,7 @@ export const getInfoUserFailed = () => {
   return { type: GET_USER_INFO_FAILED };
 };
 
-export const updateInfoUser = (name, email, accessToken, refreshToken) => {
+export const updateInfoUser = (name: string, email: string, accessToken: string, refreshToken: string) => {
   return {
     type: UPDATE_USER_INFO_REQUEST,
     name: name,
@@ -130,7 +134,7 @@ export const updateInfoUser = (name, email, accessToken, refreshToken) => {
   };
 };
 
-export const updateInfoUserSuccess = (data) => {
+export const updateInfoUserSuccess = (data: IUpdateUserInfoResponse) => {
   return {
     type: UPDATE_USER_INFO_SUCCESS,
     name: data.user.name,

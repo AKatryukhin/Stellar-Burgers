@@ -19,7 +19,6 @@ export const Profile: FC = () => {
   const { values, handleChange, isValid, setValues } =
     useFormAndValidation();
 
-  // @ts-ignore
   const { name, email, password } = values;
   const dispatch = useDispatch();
   const location = useLocation();
@@ -38,6 +37,7 @@ export const Profile: FC = () => {
   }, [stateName, stateEmail]);
 
   useEffect(() => {
+    refreshToken && accessToken &&
     dispatch(getInfoUser(accessToken, refreshToken));
   }, []);
 
@@ -47,6 +47,7 @@ export const Profile: FC = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    refreshToken && accessToken &&
     dispatch(updateInfoUser(name, email, accessToken, refreshToken));
   };
 
@@ -59,6 +60,7 @@ export const Profile: FC = () => {
     });
   };
   const handleLogout = () => {
+    refreshToken &&
     dispatch(logout(refreshToken));
   };
 
