@@ -13,12 +13,12 @@ import { IIngredientData } from "../../utils/types";
 export const BurgerIngredients: FC = React.memo(() => {
   const dispatch = useDispatch();
   // @ts-ignore
-  const ingredients = useSelector((state) => state?.ingredients.ingredients);
-  const ingredientsFailed = useSelector(
+  const ingredients: Array<IIngredientData> = useSelector((state) => state?.ingredients.ingredients);
+  const ingredientsFailed: boolean = useSelector(
     // @ts-ignore
     (state) => state?.ingredients.ingredientsFailed
   );
-  const currentIngredient = useSelector(
+  const currentIngredient: IIngredientData = useSelector(
     // @ts-ignore
     (state) => state?.currentIngredient.ingredient
   );
@@ -47,14 +47,10 @@ export const BurgerIngredients: FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   function handleScroll() {
-    // @ts-ignore
-    const containerTop = containerRef.current.getBoundingClientRect().top;
-    // @ts-ignore
-    const bunsTop = bunsRef.current.getBoundingClientRect().top;
-    // @ts-ignore
-    const saucesTop = saucesRef.current.getBoundingClientRect().top;
-    // @ts-ignore
-    const mainsTop = mainsRef.current.getBoundingClientRect().top;
+    const containerTop = containerRef.current ? containerRef.current.getBoundingClientRect().top : 0;
+    const bunsTop = bunsRef.current ? bunsRef.current.getBoundingClientRect().top : 0;
+    const saucesTop = saucesRef.current ? saucesRef.current.getBoundingClientRect().top : 0;
+    const mainsTop = mainsRef.current ? mainsRef.current.getBoundingClientRect().top: 0;
     const bunsAbs = Math.abs(containerTop - bunsTop);
     const saucesAbs = Math.abs(containerTop - saucesTop);
     const mainsAbs = Math.abs(containerTop - mainsTop);
