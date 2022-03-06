@@ -3,11 +3,10 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { useDrag } from "react-dnd";
+import { DragSourceMonitor, useDrag } from "react-dnd";
 import {
   addCurrentIngredient,
   decreaseCount,
@@ -17,20 +16,25 @@ import {
   addSelectIngredient,
   removeSelectIngredient,
 } from "../../services/actions/actionsSelectIngredient";
+import { FC } from "react";
+import { IngredientsListItemProps } from "./ingredients-list-item.props";
+import { IIngredientData } from "../../utils/types";
 
-export const IngredientsItem = ({ ingredient }) => {
+export const IngredientsItem: FC<IngredientsListItemProps> = ({ ingredient }) => {
   const navigate = useNavigate();
   const [{ isDrag }, drag] = useDrag({
     type: "place",
     item: { ingredient },
-    collect: (monitor) => ({
+    collect: (monitor:DragSourceMonitor) => ({
       isDrag: monitor.isDragging(),
     }),
   });
 
   const dispatch = useDispatch();
-  const isBunInOrder = useSelector((state) =>
-    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
+
+  const isBunInOrder: IIngredientData = useSelector((state) =>
+    // @ts-ignore
+    state?.selectedIngredients.selectedIngredients.find((i: IIngredientData) => i.type === "bun")
   );
   const handleClick = () => {
     if (ingredient.type !== "bun") {
@@ -92,6 +96,4 @@ export const IngredientsItem = ({ ingredient }) => {
   );
 };
 
-// IngredientsItem.propTypes = {
-//   ingredient: itemPropTypes.isRequired,
-// };
+
