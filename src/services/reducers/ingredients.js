@@ -5,7 +5,6 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   INCREASE_COUNT, RESET_INGREDIENTS,
-  UPDATE_TYPE,
 } from "../actions/types";
 
 const initialState = {
