@@ -1,5 +1,5 @@
 import { handleResponse, BASE_URL } from "./constants";
-import { IIngredientData } from "./types";
+import { IIngredientData } from "./common-types";
 
 export const getIngredientsList = () => {
   return fetch(`${BASE_URL}/ingredients`)

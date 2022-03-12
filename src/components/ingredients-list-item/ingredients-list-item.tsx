@@ -18,7 +18,7 @@ import {
 } from "../../services/actions/actionsSelectIngredient";
 import { FC } from "react";
 import { IngredientsListItemProps } from "./ingredients-list-item.props";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 export const IngredientsItem: FC<IngredientsListItemProps> = ({ ingredient }) => {
   const navigate = useNavigate();

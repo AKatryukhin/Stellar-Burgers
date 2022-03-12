@@ -1,22 +1,4 @@
-export type TIngredientType = 'bun' | 'sauce' | 'main';
-
-export interface IIngredientData {
-  _id: string;
-  name: string;
-  type: TIngredientType;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-  key?: string;
-  count?: number;
-  index: number;
-}
+import { TIngredientType } from "../../utils/common-types";
 
 export interface ICreateOrLoginUserResponse {
   success: boolean;
@@ -55,3 +37,7 @@ export interface IUpdateUserInfoResponse {
   };
 }
 
+export interface IAllIngredientsResponse {
+  success: boolean;
+  data: Array<TIngredientType>;
+};

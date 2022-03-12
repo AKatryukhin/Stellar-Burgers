@@ -15,7 +15,7 @@ import {
   decreaseCount,
   increaseCount,
 } from "../../services/actions/actionsIngredient";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 import { burgerConstructorListProps } from "./burger-constructor-list.props";
 
 export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(({ bun, otherIngredients }) => {

@@ -4,7 +4,7 @@
   CLEAR_SELECTED_INGREDIENT_LIST,
   DELETE_SELECTED_INGREDIENT,
   MOVE_INGREDIENT,
-} from "../action-types/types";
+} from "../types/action-types";
 
 const initialState = {
   selectedIngredients: [],

@@ -17,13 +17,13 @@ import {
   UPDATE_USER_INFO_FAILED,
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS,
-} from "../action-types/types";
+} from "../types/action-types";
 import {
   ICreateOrLoginUserResponse,
   IGetUserInfoResponse,
   IUpdateTokenResponse,
   IUpdateUserInfoResponse,
-} from "../../utils/types";
+} from "../types/data-types";
 
 export interface ICreateUserAction {
   readonly type: typeof GET_REGISTRATION_REQUEST;

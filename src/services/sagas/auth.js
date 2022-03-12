@@ -14,7 +14,7 @@ import {
   GET_TOKEN_UPDATE_REQUEST,
   GET_USER_INFO_REQUEST,
   UPDATE_USER_INFO_REQUEST,
-} from "../action-types/types";
+} from "../types/action-types";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import {
   getInfoUser,

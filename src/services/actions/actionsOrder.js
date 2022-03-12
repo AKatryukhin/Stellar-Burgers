@@ -3,7 +3,7 @@ import {
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_REQUEST,
   OPEN_ORDER_MODAL, RESET_ORDER_NUMBER
-} from "../action-types/types";
+} from "../types/action-types";
 
 export const fetchOrder = (orderIngredientsArr) => {
   return { type: GET_ORDER_REQUEST, payload: orderIngredientsArr };

@@ -8,7 +8,7 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import noBurger from "../../images/no-burger.png";
 import { removeCurrentIngredient, resetIngredients } from "../../services/actions/actionsIngredient";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 export const BurgerIngredients: FC = React.memo(() => {
   const dispatch = useDispatch();

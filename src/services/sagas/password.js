@@ -3,7 +3,7 @@ import { passwordChange, passwordReset } from "../../utils/AuthApi";
 import {
   CHANGE_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST,
-} from "../action-types/types";
+} from "../types/action-types";
 import {
   changePasswordFailed,
   changePasswordSuccess,

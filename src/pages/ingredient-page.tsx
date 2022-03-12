@@ -7,7 +7,7 @@ import Modal from "../components/modal/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigationType, useParams } from "react-router-dom";
 import { removeCurrentIngredient, resetIngredients } from "../services/actions/actionsIngredient";
-import { IIngredientData } from "../utils/types";
+import { IIngredientData } from "../utils/common-types";
 
 export const IngredientPage: FC = () => {
 

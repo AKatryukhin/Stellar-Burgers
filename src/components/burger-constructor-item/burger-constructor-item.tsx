@@ -7,7 +7,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorItemProps } from "./burger-constructor-item.props";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({
   index,

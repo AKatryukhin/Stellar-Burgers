@@ -11,7 +11,7 @@ import Preloader from "../preloader/preloader";
 import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
