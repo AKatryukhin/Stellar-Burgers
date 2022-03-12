@@ -40,7 +40,7 @@ export interface IUpdateUserInfoResponse {
 export interface IAllIngredientsResponse {
   success: boolean;
   data: Array<TIngredientType>;
-};
+}
 
 export interface IOrder {
   _id: string | undefined;
@@ -50,7 +50,7 @@ export interface IOrder {
   createdAt: string | undefined;
   updatedAt: string | undefined;
   number: number;
-};
+}
 
 export interface IOrders {
   ingredients: Array<IIngredientData>;
@@ -60,24 +60,24 @@ export interface IOrders {
     email: string;
     createdAt: string | null;
     updatedAt: string | null;
-  };
+  }
   status: string;
   name: string;
   createdAt: string | null;
   updatedAt: string | null;
   number: number;
   price: number;
-};
+}
 
-export interface IResponseOrders {
-  success: boolean;
-  orders: Array<IOrder>;
-  total: number;
-  totalToday: number;
-};
+// export interface IResponseOrders {
+//   success: boolean;
+//   orders: Array<IOrder>;
+//   total: number;
+//   totalToday: number;
+// };
 
 export interface IResponseOrder{
   success: boolean;
   name: string;
   order: IOrders;
-};
+}
