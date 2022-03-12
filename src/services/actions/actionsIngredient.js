@@ -3,7 +3,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS, INCREASE_COUNT, REMOVE_CURRENT_INGREDIENT, RESET_INGREDIENTS
-} from "./types";
+} from "../action-types/types";
 
 export const fetchIngredients = () => {
   return { type: GET_INGREDIENTS_REQUEST }

@@ -17,7 +17,7 @@ import {
   UPDATE_USER_INFO_FAILED,
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS
-} from "./types";
+} from "../action-types/types";
 import {
   ICreateOrLoginUserResponse,
   IGetUserInfoResponse,

@@ -2,7 +2,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { getIngredientsList } from "../../utils/IngredientsApi";
 import {
   GET_INGREDIENTS_REQUEST,
-} from "../actions/types";
+} from "../action-types/types";
 import { requestIngredientsFailed, requestIngredientsSuccess } from "../actions/actionsIngredient";
 
 function* workGetIngredients() {

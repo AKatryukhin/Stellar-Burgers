@@ -16,7 +16,7 @@ import {
   GET_USER_INFO_FAILED,
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_FAILED
-} from "../actions/types";
+} from "../action-types/types";
 import { getCookie } from "../../utils/cookie";
 
 const refreshTokenCurrent = getCookie("refreshToken");

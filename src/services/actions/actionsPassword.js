@@ -5,7 +5,7 @@ import {
   GET_ORDER_REQUEST, RESET_PASSWORD_FAILED,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS
-} from "./types";
+} from "../action-types/types";
 
 export const fetchResetPassword = (email) => {
   return { type: RESET_PASSWORD_REQUEST, payload: email };

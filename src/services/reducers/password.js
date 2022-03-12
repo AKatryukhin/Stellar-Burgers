@@ -5,7 +5,7 @@ import {
   CHANGE_PASSWORD_FAILED,
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
-} from "../actions/types";
+} from "../action-types/types";
 
 const initialState = {
   resetPasswordRequest: false,

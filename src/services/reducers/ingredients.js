@@ -5,7 +5,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   INCREASE_COUNT, RESET_INGREDIENTS,
-} from "../actions/types";
+} from "../action-types/types";
 
 const initialState = {
   ingredients: [],

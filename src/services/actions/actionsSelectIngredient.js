@@ -3,7 +3,7 @@ import {
   CLEAR_SELECTED_INGREDIENT_LIST,
   DELETE_SELECTED_INGREDIENT,
   MOVE_INGREDIENT
-} from "./types";
+} from "../action-types/types";
 
 export const addSelectIngredient = (ingredient) => {
   return { type: ADD_SELECTED_INGREDIENT, payload: ingredient }

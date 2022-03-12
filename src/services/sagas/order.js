@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { placeAnOrder } from "../../utils/IngredientsApi";
-import { GET_ORDER_REQUEST } from "../actions/types";
+import { GET_ORDER_REQUEST } from "../action-types/types";
 import {
   openOrderModal,
   requestOrderFailed,

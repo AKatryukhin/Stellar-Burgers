@@ -3,7 +3,7 @@ import {
     GET_ORDER_NUMBER_REQUEST,
     GET_ORDER_NUMBER_SUCCESS,
     RESET_ORDER_NUMBER
-} from "../actions/types";
+} from "../action-types/types";
 
 const initialState = {
     orderNumber: null,
