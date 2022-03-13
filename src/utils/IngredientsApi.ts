@@ -6,7 +6,7 @@ export const getIngredientsList = () => {
   .then(handleResponse);
 };
 
-export const placeAnOrder = (selectedIngredients: IIngredientData) => {
+export const placeAnOrder = (selectedIngredients: Array<IIngredientData>) => {
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {

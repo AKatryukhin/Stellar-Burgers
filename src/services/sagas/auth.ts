@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, PutEffect, CallEffect } from "redux-saga/effects";
 import {
   userRegister,
   userLogin,
@@ -45,7 +45,7 @@ import {
   IUpdateUserInfoResponse
 } from "../types/data-types";
 
-function* workCreateUser(action: ICreateUserAction) {
+function* workCreateUser(action: ICreateUserAction): Generator<PutEffect | CallEffect, void, ICreateOrLoginUserResponse> {
   try {
     const data: ICreateOrLoginUserResponse = yield call(
       userRegister,
@@ -62,7 +62,7 @@ function* workCreateUser(action: ICreateUserAction) {
   }
 }
 
-function* workSignIn(action: ILoginAction) {
+function* workSignIn(action: ILoginAction): Generator<PutEffect | CallEffect, void, ICreateOrLoginUserResponse> {
   try {
     const data: ICreateOrLoginUserResponse = yield call(userLogin, action.email, action.password);
     yield put(requestLoginSuccess(data));
@@ -74,7 +74,7 @@ function* workSignIn(action: ILoginAction) {
   }
 }
 
-function* workTokenUpdate(action: ITokenUpdateAction) {
+function* workTokenUpdate(action: ITokenUpdateAction): Generator<PutEffect | CallEffect, void, IUpdateTokenResponse> {
   try {
     const data: IUpdateTokenResponse = yield call(userRefreshToken, action.token);
     yield put(tokenUpdateSuccess(data));
@@ -92,7 +92,7 @@ function* workTokenUpdate(action: ITokenUpdateAction) {
   }
 }
 
-function* workSignOut(action: ILogoutAction ) {
+function* workSignOut(action: ILogoutAction ): Generator<PutEffect | CallEffect, void> {
   try {
     yield call(userLogout, action.token);
     yield put(requestLogoutSuccess());
@@ -104,7 +104,7 @@ function* workSignOut(action: ILogoutAction ) {
   }
 }
 
-function* workGetUserInfo(action: IGetInfoUserAction) {
+function* workGetUserInfo(action: IGetInfoUserAction): Generator<PutEffect | CallEffect, void, IGetUserInfoResponse> {
   try {
     const data: IGetUserInfoResponse = yield call(getUserInfo, action.accessToken);
     yield put(getInfoUserSuccess(data));
@@ -118,7 +118,7 @@ function* workGetUserInfo(action: IGetInfoUserAction) {
   }
 }
 
-function* workUpdateUserInfo(action: IUpdateInfoUserAction) {
+function* workUpdateUserInfo(action: IUpdateInfoUserAction): Generator<PutEffect | CallEffect, void, IUpdateUserInfoResponse> {
   try {
     const data: IUpdateUserInfoResponse = yield call(
       updateUserInfo,

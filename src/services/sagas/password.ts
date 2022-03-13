@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, PutEffect, CallEffect } from "redux-saga/effects";
 import { passwordChange, passwordReset } from "../../utils/AuthApi";
 import {
   CHANGE_PASSWORD_REQUEST,
@@ -6,12 +6,12 @@ import {
 } from "../types/action-types";
 import {
   changePasswordFailed,
-  changePasswordSuccess,
+  changePasswordSuccess, IChangePasswordRequestAction, IFetchResetPasswordAction,
   resetPasswordFailed,
-  resetPasswordSuccess,
+  resetPasswordSuccess
 } from "../actions/actionsPassword";
 
-function* workPasswordReset(action) {
+function* workPasswordReset(action: IFetchResetPasswordAction): Generator<PutEffect | CallEffect, void> {
   try {
     yield call(passwordReset, action.payload);
     yield put(resetPasswordSuccess());
@@ -21,7 +21,7 @@ function* workPasswordReset(action) {
   }
 }
 
-function* workPasswordChange(action) {
+function* workPasswordChange(action: IChangePasswordRequestAction) {
   try {
     yield call(passwordChange, action.password, action.token);
     yield put(changePasswordSuccess());

@@ -42,32 +42,32 @@ export interface IAllIngredientsResponse {
   data: Array<IIngredientData>;
 }
 
-export interface IOrder {
-  _id: string | undefined;
-  ingredients: string[];
-  status: string;
-  name: string;
-  createdAt: string | undefined;
-  updatedAt: string | undefined;
-  number: number;
-}
+// export interface IOrder {
+//   _id: string | undefined;
+//   ingredients: string[];
+//   status: string;
+//   name: string;
+//   createdAt: string | undefined;
+//   updatedAt: string | undefined;
+//   number: number;
+// }
 
-export interface IOrders {
-  ingredients: Array<IIngredientData>;
-  _id: string | undefined;
-  owner: {
-    name: string;
-    email: string;
-    createdAt: string | null;
-    updatedAt: string | null;
-  }
-  status: string;
-  name: string;
-  createdAt: string | null;
-  updatedAt: string | null;
-  number: number;
-  price: number;
-}
+// export interface IOrders {
+//   ingredients: Array<IIngredientData>;
+//   _id: string | undefined;
+//   owner: {
+//     name: string;
+//     email: string;
+//     createdAt: string | null;
+//     updatedAt: string | null;
+//   }
+//   status: string;
+//   name: string;
+//   createdAt: string | null;
+//   updatedAt: string | null;
+//   number: number;
+//   price: number;
+// }
 
 // export interface IResponseOrders {
 //   success: boolean;
@@ -79,5 +79,8 @@ export interface IOrders {
 export interface IResponseOrder{
   success: boolean;
   name: string;
-  order: IOrders;
+  order: {
+    number: number
+  }
+  ;
 }
