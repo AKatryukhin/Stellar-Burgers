@@ -1,4 +1,4 @@
-import { IIngredientData, TIngredientType } from "../../utils/common-types";
+import { IIngredientData } from "../../utils/common-types";
 
 export interface ICreateOrLoginUserResponse {
   success: boolean;
@@ -39,7 +39,7 @@ export interface IUpdateUserInfoResponse {
 
 export interface IAllIngredientsResponse {
   success: boolean;
-  data: Array<TIngredientType>;
+  data: Array<IIngredientData>;
 }
 
 export interface IOrder {

@@ -6,8 +6,18 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
 } from "../types/action-types";
+import { TPasswordActions } from "../actions/actionsPassword";
 
-const initialState = {
+type TPasswordState = {
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+  changePasswordRequest: boolean;
+  changePasswordFailed: boolean;
+  isResetPasswordSuccess: boolean;
+  isChangePasswordSuccess: boolean;
+};
+
+const initialState: TPasswordState = {
   resetPasswordRequest: false,
   resetPasswordFailed: false,
   changePasswordRequest: false,
@@ -16,7 +26,7 @@ const initialState = {
   isChangePasswordSuccess: false,
 };
 
-export const password = (state = initialState, action) => {
+export const password = (state = initialState, action: TPasswordActions): TPasswordState => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {
       return {

@@ -9,7 +9,6 @@ import {
   REMOVE_CURRENT_INGREDIENT,
   RESET_INGREDIENTS,
 } from "../types/action-types";
-import { IAllIngredientsResponse } from "../types/data-types";
 import { IIngredientData } from "../../utils/common-types";
 
 
@@ -19,7 +18,7 @@ export interface IFetchIngredientsAction {
 
 export interface IRequestIngredientsSuccessAction {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  readonly ingredients: IAllIngredientsResponse;
+  readonly ingredients: Array<IIngredientData>;
 }
 
 export interface IRequestIngredientsFailedAction {
@@ -62,14 +61,15 @@ export type TIngredientsActions =
   IIncreaseCountAction |
   IDecreaseCountAction |
   IClearIngredientsCountAction |
-  IAddCurrentIngredientAction;
+  IAddCurrentIngredientAction |
+  IRemoveCurrentIngredientAction;
 
 export const fetchIngredients = (): IFetchIngredientsAction => {
   return { type: GET_INGREDIENTS_REQUEST };
 };
 
 export const requestIngredientsSuccess = (
-  data: IAllIngredientsResponse
+  data: Array<IIngredientData>
 ): IRequestIngredientsSuccessAction => {
   return { type: GET_INGREDIENTS_SUCCESS, ingredients: data };
 };

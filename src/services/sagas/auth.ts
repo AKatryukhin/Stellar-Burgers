@@ -20,6 +20,12 @@ import {
   getInfoUser,
   getInfoUserFailed,
   getInfoUserSuccess,
+  ICreateUserAction,
+  IGetInfoUserAction,
+  ILoginAction,
+  ILogoutAction,
+  ITokenUpdateAction,
+  IUpdateInfoUserAction,
   requestLoginFailed,
   requestLoginSuccess,
   requestLogoutFailed,
@@ -30,12 +36,18 @@ import {
   tokenUpdateFailed,
   tokenUpdateSuccess,
   updateInfoUserFailed,
-  updateInfoUserSuccess,
+  updateInfoUserSuccess
 } from "../actions/actionsAuth";
+import {
+  ICreateOrLoginUserResponse,
+  IGetUserInfoResponse,
+  IUpdateTokenResponse,
+  IUpdateUserInfoResponse
+} from "../types/data-types";
 
-function* workCreateUser(action) {
+function* workCreateUser(action: ICreateUserAction) {
   try {
-    const data = yield call(
+    const data: ICreateOrLoginUserResponse = yield call(
       userRegister,
       action.name,
       action.email,
@@ -50,9 +62,9 @@ function* workCreateUser(action) {
   }
 }
 
-function* workSignIn(action) {
+function* workSignIn(action: ILoginAction) {
   try {
-    const data = yield call(userLogin, action.email, action.password);
+    const data: ICreateOrLoginUserResponse = yield call(userLogin, action.email, action.password);
     yield put(requestLoginSuccess(data));
     setCookie("accessToken", data.accessToken);
     setCookie("refreshToken", data.refreshToken);
@@ -62,9 +74,9 @@ function* workSignIn(action) {
   }
 }
 
-function* workTokenUpdate(action) {
+function* workTokenUpdate(action: ITokenUpdateAction) {
   try {
-    const data = yield call(userRefreshToken, action.token);
+    const data: IUpdateTokenResponse = yield call(userRefreshToken, action.token);
     yield put(tokenUpdateSuccess(data));
     setCookie("accessToken", data.accessToken);
     setCookie("refreshToken", data.refreshToken);
@@ -74,11 +86,13 @@ function* workTokenUpdate(action) {
   } finally {
     const accessToken = getCookie("accessToken");
     const refreshToken = getCookie("refreshToken");
-    yield put(getInfoUser(accessToken, refreshToken));
+    if(accessToken && refreshToken) {
+      yield put(getInfoUser(accessToken, refreshToken));
+    }
   }
 }
 
-function* workSignOut(action) {
+function* workSignOut(action: ILogoutAction ) {
   try {
     yield call(userLogout, action.token);
     yield put(requestLogoutSuccess());
@@ -90,34 +104,34 @@ function* workSignOut(action) {
   }
 }
 
-function* workGetUserInfo(action) {
+function* workGetUserInfo(action: IGetInfoUserAction) {
   try {
-    const data = yield call(getUserInfo, action.accessToken);
+    const data: IGetUserInfoResponse = yield call(getUserInfo, action.accessToken);
     yield put(getInfoUserSuccess(data));
-  } catch (err) {
-    if (err.message === "jwt expired") {
+  } catch (e: any) {
+    if (e.message === "jwt expired") {
       yield put(tokenUpdate(action.refreshToken));
     } else {
-      console.log(err);
+      console.log(e);
       yield put(getInfoUserFailed());
     }
   }
 }
 
-function* workUpdateUserInfo(action) {
+function* workUpdateUserInfo(action: IUpdateInfoUserAction) {
   try {
-    const data = yield call(
+    const data: IUpdateUserInfoResponse = yield call(
       updateUserInfo,
       action.name,
       action.email,
       action.accessToken
     );
     yield put(updateInfoUserSuccess(data));
-  } catch (err) {
-    if (err.message === "jwt expired") {
+  } catch (e: any) {
+    if (e.message === "jwt expired") {
       yield put(tokenUpdate(action.refreshToken));
     } else {
-      console.log(err);
+      console.log(e);
       yield put(updateInfoUserFailed());
     }
   }

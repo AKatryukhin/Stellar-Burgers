@@ -14,7 +14,7 @@ export interface IIngredientData {
   image_large: string;
   __v: number;
   key?: string;
-  count?: number;
+  count?: number | null;
   index: number;
 }
 

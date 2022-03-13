@@ -18,11 +18,35 @@ import {
   UPDATE_USER_INFO_SUCCESS, UPDATE_USER_INFO_FAILED
 } from "../types/action-types";
 import { getCookie } from "../../utils/cookie";
+import { TAuthActions } from "../actions/actionsAuth";
 
 const refreshTokenCurrent = getCookie("refreshToken");
 const accessTokenCurrent = getCookie("accessToken");
 
-const initialState = {
+type TAuthState = {
+  name: string;
+  email: string;
+  accessToken?: string;
+  refreshToken?: string;
+  registerRequest: boolean;
+  registerFailed: boolean;
+  isRegisterSuccess: boolean;
+  loginRequest: boolean;
+  loginFailed: boolean;
+  isLoginSuccess: boolean;
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+  tokenUpdateRequest: boolean;
+  tokenUpdateFailed: boolean;
+  tokenUpdateSuccess: boolean;
+  getUserInfoRequest: boolean;
+  getUserInfoFailed: boolean;
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+}
+
+
+const initialState: TAuthState = {
   name: "",
   email: "",
   accessToken: accessTokenCurrent,
@@ -44,7 +68,7 @@ const initialState = {
   updateUserFailed: false,
 };
 
-export const auth = (state = initialState, action) => {
+export const auth = (state = initialState, action: TAuthActions): TAuthState => {
   switch (action.type) {
     case GET_REGISTRATION_REQUEST: {
       return {

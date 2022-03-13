@@ -1,10 +1,10 @@
 import {
   CHANGE_PASSWORD_FAILED,
-  CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS, GET_LOGIN_REQUEST, GET_LOGIN_SUCCESS, GET_ORDER_NUMBER_FAILED,
-  GET_ORDER_NUMBER_SUCCESS,
-  GET_ORDER_REQUEST, RESET_PASSWORD_FAILED,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
   RESET_PASSWORD_REQUEST,
-  RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_SUCCESS,
 } from "../types/action-types";
 
 export interface IFetchResetPasswordAction {
@@ -34,7 +34,17 @@ export interface IChangePasswordFailedAction {
   readonly type: typeof CHANGE_PASSWORD_FAILED;
 }
 
-export const fetchResetPassword = (email: string): IFetchResetPasswordAction => {
+export type TPasswordActions =
+  IFetchResetPasswordAction |
+  IResetPasswordSuccessAction |
+  IResetPasswordFailedAction |
+  IChangePasswordRequestAction |
+  IChangePasswordSuccessAction |
+  IChangePasswordFailedAction;
+
+export const fetchResetPassword = (
+  email: string
+): IFetchResetPasswordAction => {
   return { type: RESET_PASSWORD_REQUEST, payload: email };
 };
 
@@ -43,10 +53,13 @@ export const resetPasswordSuccess = (): IResetPasswordSuccessAction => {
 };
 
 export const resetPasswordFailed = (): IResetPasswordFailedAction => {
-  return { type: RESET_PASSWORD_FAILED }
+  return { type: RESET_PASSWORD_FAILED };
 };
 
-export const changePasswordRequest = (password: string, code: string): IChangePasswordRequestAction => {
+export const changePasswordRequest = (
+  password: string,
+  code: string
+): IChangePasswordRequestAction => {
   return { type: CHANGE_PASSWORD_REQUEST, password: password, token: code };
 };
 
@@ -55,5 +68,5 @@ export const changePasswordSuccess = (): IChangePasswordSuccessAction => {
 };
 
 export const changePasswordFailed = (): IChangePasswordFailedAction => {
-  return { type: CHANGE_PASSWORD_FAILED }
+  return { type: CHANGE_PASSWORD_FAILED };
 };

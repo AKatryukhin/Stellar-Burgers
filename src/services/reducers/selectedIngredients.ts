@@ -5,11 +5,17 @@
   DELETE_SELECTED_INGREDIENT,
   MOVE_INGREDIENT,
 } from "../types/action-types";
+ import { IIngredientData } from "../../utils/common-types";
+ import { TSelectIngredientsActions } from "../actions/actionsSelectIngredient";
 
-const initialState = {
+ type TSelectedIngredientsState = {
+   selectedIngredients: Array<IIngredientData>;
+ };
+
+const initialState: TSelectedIngredientsState = {
   selectedIngredients: [],
 };
-export const selectedIngredientsReducer = (state = initialState, action) => {
+export const selectedIngredientsReducer = (state = initialState, action: TSelectIngredientsActions): TSelectedIngredientsState => {
   switch (action.type) {
     case MOVE_INGREDIENT: {
       return {
@@ -23,20 +29,20 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
         selectedIngredients: [...state.selectedIngredients, action.payload],
       };
     }
-    case CHANGE_SELECTED_INGREDIENT: {
-      return {
-        ...state,
-        selectedIngredients: [
-          ...state.selectedIngredients.filter((i) => i.type !== "bun"),
-          action.payload,
-        ],
-      };
-    }
+    // case CHANGE_SELECTED_INGREDIENT: {
+    //   return {
+    //     ...state,
+    //     selectedIngredients: [
+    //       ...state.selectedIngredients.filter((i) => i.type !== "bun"),
+    //       action.payload,
+    //     ],
+    //   };
+    // }
     case DELETE_SELECTED_INGREDIENT:
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients].filter(
-          (i) => i.key !== action.payload.key
+          (i: IIngredientData) => i.key !== action.payload.key
         ),
       };
     case CLEAR_SELECTED_INGREDIENT_LIST: {

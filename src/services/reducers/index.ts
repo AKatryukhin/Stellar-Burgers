@@ -6,6 +6,8 @@ import {order} from './order';
 import { password } from "./password";
 import { auth } from "./auth";
 
+
+
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     selectedIngredients: selectedIngredientsReducer,
