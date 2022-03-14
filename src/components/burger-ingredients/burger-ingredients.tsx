@@ -5,22 +5,24 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
 import noBurger from "../../images/no-burger.png";
-import { removeCurrentIngredient, resetIngredients } from "../../services/actions/actionsIngredient";
+import {
+  removeCurrentIngredient,
+  resetIngredients,
+} from "../../services/actions/actionsIngredient";
 import { IIngredientData } from "../../utils/common-types";
+import { useSelector, useDispatch } from "../../services/hooks";
 
 export const BurgerIngredients: FC = React.memo(() => {
   const dispatch = useDispatch();
-  // @ts-ignore
-  const ingredients: Array<IIngredientData> = useSelector((state) => state?.ingredients.ingredients);
+  const ingredients: Array<IIngredientData> = useSelector(
+    (state) => state?.ingredients.ingredients
+  );
   const ingredientsFailed: boolean = useSelector(
-    // @ts-ignore
     (state) => state?.ingredients.ingredientsFailed
   );
   const currentIngredient: IIngredientData = useSelector(
-    // @ts-ignore
-    (state) => state?.currentIngredient.ingredient
+    (state) => state.currentIngredient.ingredient
   );
 
   const [current, setCurrent] = useState<string>("Булки");
@@ -47,10 +49,18 @@ export const BurgerIngredients: FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   function handleScroll() {
-    const containerTop = containerRef.current ? containerRef.current.getBoundingClientRect().top : 0;
-    const bunsTop = bunsRef.current ? bunsRef.current.getBoundingClientRect().top : 0;
-    const saucesTop = saucesRef.current ? saucesRef.current.getBoundingClientRect().top : 0;
-    const mainsTop = mainsRef.current ? mainsRef.current.getBoundingClientRect().top: 0;
+    const containerTop = containerRef.current
+      ? containerRef.current.getBoundingClientRect().top
+      : 0;
+    const bunsTop = bunsRef.current
+      ? bunsRef.current.getBoundingClientRect().top
+      : 0;
+    const saucesTop = saucesRef.current
+      ? saucesRef.current.getBoundingClientRect().top
+      : 0;
+    const mainsTop = mainsRef.current
+      ? mainsRef.current.getBoundingClientRect().top
+      : 0;
     const bunsAbs = Math.abs(containerTop - bunsTop);
     const saucesAbs = Math.abs(containerTop - saucesTop);
     const mainsAbs = Math.abs(containerTop - mainsTop);
@@ -66,8 +76,7 @@ export const BurgerIngredients: FC = React.memo(() => {
 
   const onClose = useCallback(() => {
     dispatch(removeCurrentIngredient());
-    ingredientsFailed &&
-    dispatch(resetIngredients());
+    ingredientsFailed && dispatch(resetIngredients());
   }, [currentIngredient, ingredientsFailed]);
 
   return (
@@ -122,7 +131,12 @@ export const BurgerIngredients: FC = React.memo(() => {
           title="При загрузке ингредиентов произошла ошибка:("
           onClose={onClose}
         >
-          <img src={noBurger} alt='Катринка - нет бургеров' style={{width: 635}} className='mt-10'/>
+          <img
+            src={noBurger}
+            alt="Катринка - нет бургеров"
+            style={{ width: 635 }}
+            className="mt-10"
+          />
         </Modal>
       )}
     </section>

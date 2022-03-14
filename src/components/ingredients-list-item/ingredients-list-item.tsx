@@ -4,7 +4,7 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { v4 as uuid } from "uuid";
 import { DragSourceMonitor, useDrag } from "react-dnd";
 import {
@@ -32,8 +32,7 @@ export const IngredientsItem: FC<IngredientsListItemProps> = ({ ingredient }) =>
 
   const dispatch = useDispatch();
 
-  const isBunInOrder: IIngredientData = useSelector((state) =>
-    // @ts-ignore
+  const isBunInOrder: IIngredientData | undefined = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.find((i: IIngredientData) => i.type === "bun")
   );
   const handleClick = () => {

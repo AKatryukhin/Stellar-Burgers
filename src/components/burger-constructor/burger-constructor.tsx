@@ -4,7 +4,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
   import {  useNavigate } from "react-router-dom";
@@ -16,20 +16,16 @@ import { IIngredientData } from "../../utils/common-types";
 export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
 
-  const orderIngredientsArr: Array<IIngredientData> = useSelector((state) =>
-    // @ts-ignore
-    state?.selectedIngredients.selectedIngredients.map((i) => i._id)
+  const orderIngredientsArr: Array<string> = useSelector((state) =>
+    state.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
-  const { orderRequest, orderFailed, orderNumber } = useSelector(
-    // @ts-ignore
-    (state) => state?.order
+  const { orderNumberRequest, orderNumberFailed, orderNumber } = useSelector(
+    (state) => state.order
   );
-  // @ts-ignore
   const token = useSelector((state) => state?.auth.accessToken);
   const navigate = useNavigate();
 
   const selectedIngredients: Array<IIngredientData> = useSelector(
-    // @ts-ignore
     (state) => state?.selectedIngredients.selectedIngredients
   );
   const bun: IIngredientData | undefined = useMemo(
@@ -76,9 +72,9 @@ export const BurgerConstructor: FC = React.memo(() => {
           <img src={bigIconPrice} alt="Иконка стоимости" />
         </span>
           <Button type="primary" size="medium" onClick={handleClick}>
-            {orderRequest
+            {orderNumberRequest
               ? "Отправка..."
-              : orderFailed
+              : orderNumberFailed
                 ? "Что-то пошло не так :("
                 : bun
                   ? "Оформить заказ"
@@ -87,8 +83,8 @@ export const BurgerConstructor: FC = React.memo(() => {
         </div>
       </div>
 
-      {orderRequest && <Preloader />}
-      {!orderRequest && orderNumber && (
+      {orderNumberRequest && <Preloader />}
+      {!orderNumberRequest && orderNumber && (
         <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>

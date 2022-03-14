@@ -6,11 +6,24 @@ import { IIngredientData } from "../../utils/common-types";
 import { TIngredientsActions } from "../actions/actionsIngredient";
 
 type TCurrentIngredientsState = {
-  ingredient: IIngredientData | null;
+  ingredient: IIngredientData;
 };
 
 const initialState: TCurrentIngredientsState = {
-  ingredient: null,
+  ingredient: {
+    _id: "",
+    name: "",
+    type: "",
+    proteins: 0,
+    fat: 0,
+    carbohydrates: 0,
+    calories: 0,
+    price: 0,
+    image: "",
+    image_mobile: "",
+    image_large: "",
+    __v: 0,
+  },
 };
 
 export const currentIngredientReducer = (state = initialState, action: TIngredientsActions): TCurrentIngredientsState => {
@@ -23,7 +36,7 @@ export const currentIngredientReducer = (state = initialState, action: TIngredie
     }
     case REMOVE_CURRENT_INGREDIENT: {
       return {
-        ingredient: null
+        ...state
       };
     }
     default:

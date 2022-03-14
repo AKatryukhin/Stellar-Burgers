@@ -1,4 +1,4 @@
-export type TIngredientType = 'bun' | 'sauce' | 'main';
+export type TIngredientType = 'bun' | 'sauce' | 'main' | string;
 
 export interface IIngredientData {
   _id: string;
@@ -12,10 +12,10 @@ export interface IIngredientData {
   image: string;
   image_mobile: string;
   image_large: string;
-  __v: number;
+  __v: number | null;
   key?: string;
   count?: number | null;
-  index: number;
+  index?: number;
 }
 
 

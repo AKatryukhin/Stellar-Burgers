@@ -1,4 +1,4 @@
-import { call, put, takeEvery, PutEffect, CallEffect } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { placeAnOrder } from "../../utils/IngredientsApi";
 import { GET_ORDER_REQUEST } from "../types/action-types";
 import {
@@ -7,9 +7,9 @@ import {
   requestOrderFailed,
   requestOrderSuccess
 } from "../actions/actionsOrder";
-import { IAllIngredientsResponse, IResponseOrder } from "../types/data-types";
+import { IResponseOrder } from "../types/data-types";
 
-function* workGetOrderNumber(action: IFetchOrderAction): Generator<PutEffect | CallEffect, void, IResponseOrder> {
+function* workGetOrderNumber(action: IFetchOrderAction) {
   try {
     const data: IResponseOrder = yield call(placeAnOrder, action.payload);
     yield put(requestOrderSuccess(data));

@@ -4,12 +4,11 @@ import {
   GET_ORDER_REQUEST,
   OPEN_ORDER_MODAL, RESET_ORDER_NUMBER
 } from "../types/action-types";
-import { IIngredientData } from "../../utils/common-types";
 import { IResponseOrder } from "../types/data-types";
 
 export interface IFetchOrderAction {
   readonly type: typeof GET_ORDER_REQUEST;
-  readonly payload: Array<IIngredientData>;
+  readonly payload: Array<string>;
 }
 
 export interface IRequestOrderSuccessAction {
@@ -36,7 +35,7 @@ export type TOrderActions =
   IOpenOrderModalAction |
   IResetOrderAction;
 
-export const fetchOrder = (orderIngredientsArr: Array<IIngredientData>): IFetchOrderAction => {
+export const fetchOrder = (orderIngredientsArr: Array<string>): IFetchOrderAction => {
   return { type: GET_ORDER_REQUEST, payload: orderIngredientsArr };
 };
 
