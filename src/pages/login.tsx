@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../services/hooks";
 import { login } from "../services/actions/actionsAuth";
 
 export const Login: FC = () => {
@@ -15,10 +15,8 @@ export const Login: FC = () => {
     useFormAndValidation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // @ts-ignore
   const { email, password } = values;
   const location = useLocation();
-  // @ts-ignore
   const { accessToken } = useSelector((state) => state?.auth);
   useEffect(() => {
     location.state
@@ -32,7 +30,7 @@ export const Login: FC = () => {
     isValid && handleLogin({ email, password });
     setValues({});
   };
-
+//TODO
   // @ts-ignore
   const handleLogin = ({ email, password }) => {
     dispatch(login(email, password));

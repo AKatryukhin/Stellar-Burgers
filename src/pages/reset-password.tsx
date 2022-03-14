@@ -3,7 +3,7 @@ import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burg
 import { Link, useNavigate } from "react-router-dom";
 import React, { FC, FormEvent, useEffect } from "react";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../services/hooks";
 import { changePasswordRequest } from "../services/actions/actionsPassword";
 
 
@@ -17,15 +17,12 @@ export const ResetPassword: FC = () => {
   const { password, code } = values;
 
   const changePasswordFailed = useSelector(
-    // @ts-ignore
     (state) => state?.password.changePasswordFailed
   );
   const isChangePasswordSuccess = useSelector(
-    // @ts-ignore
     (state) => state?.password.isChangePasswordSuccess
   );
   const { accessToken } = useSelector(
-    // @ts-ignore
     (state) => state?.auth);
 
   useEffect(() => {

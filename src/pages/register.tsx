@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../services/hooks";
 import { setCookie } from "../utils/cookie";
 import { createUser } from "../services/actions/actionsAuth";
 
@@ -19,12 +19,11 @@ export const Register: FC = () => {
   const navigate = useNavigate();
 
   const { isRegisterSuccess, refreshToken, accessToken } = useSelector(
-    // @ts-ignore
-    (state) => state?.auth
+    (state) => state.auth
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    if (isRegisterSuccess) {
+    if (isRegisterSuccess && refreshToken && accessToken) {
       setCookie("refreshToken", refreshToken);
       setCookie("accessToken", accessToken);
       navigate("/login");
