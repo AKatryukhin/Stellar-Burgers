@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import Main from "../main/main";
 import {
   Register,
@@ -14,16 +14,17 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 
-import { IngredientPage } from "../../pages/ingredient-page";
+import { IngredientPage } from "../../pages";
 import Preloader from "../preloader/preloader";
 import { fetchIngredients } from "../../services/actions/actionsIngredient";
+import { Feed } from "../../pages/feed";
+import { OrderInfo } from "../order-info/order-info";
 
 export const App: FC = () => {
   const dispatch = useDispatch();
 
   const { ingredientsRequest, loaded } = useSelector(
-    // @ts-ignore
-    (state) => state?.ingredients // store пока не типизируем
+    (state) => state.ingredients
   );
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -35,6 +36,8 @@ export const App: FC = () => {
       {ingredientsRequest && <Preloader />}
       {!ingredientsRequest && loaded && (
         <Routes>
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:id" element={<OrderInfo />} />
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -46,6 +49,8 @@ export const App: FC = () => {
               </ProtectedRoute>
             }
           />
+          {/*<Route path="/profile/orders" element={<ProfileOrders />} />*/}
+          {/*<Route path="/profile/orders/:id" element={<ProfileOrderInfo />} />*/}
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />

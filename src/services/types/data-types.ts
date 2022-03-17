@@ -42,15 +42,15 @@ export interface IAllIngredientsResponse {
   data: Array<IIngredientData>;
 }
 
-// export interface IOrder {
-//   _id: string | undefined;
-//   ingredients: string[];
-//   status: string;
-//   name: string;
-//   createdAt: string | undefined;
-//   updatedAt: string | undefined;
-//   number: number;
-// }
+export interface IOrder {
+  _id: string | undefined;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
+  number: number;
+}
 
 // export interface IOrders {
 //   ingredients: Array<IIngredientData>;
