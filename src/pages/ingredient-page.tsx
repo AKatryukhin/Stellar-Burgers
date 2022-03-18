@@ -22,7 +22,7 @@ export const IngredientPage: FC = () => {
   // @ts-ignore
   const currentIngredient: IIngredientData = ingredients.find(i => i._id === ingredientId);
   const navigate = useNavigate();
-  const location: {pathname: string, search: string, } = useLocation();
+  const location = useLocation();
   // @ts-ignore
   const background = location.state && location.state.background;
 

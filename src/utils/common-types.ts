@@ -19,13 +19,11 @@ export interface IIngredientData {
 }
 
 export interface ILocationState {
-  from: {
+  background: {
+    hash: string;
+    key: string;
     pathname: string;
+    search: string;
+    state: undefined;
   };
-  hash: string;
-  key: string;
-  pathname: string;
-  search: string;
-  state: undefined;
-  background: ILocationState;
 }

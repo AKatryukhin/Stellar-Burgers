@@ -5,3 +5,6 @@ export * from './forgot-password';
 export * from './ingredient-page';
 export * from './profile';
 export * from './reset-password';
+export * from './feed';
+export * from './profile-order';
+export * from './profile-orders';

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/hooks";
 
-import styles from "./ProfileNav.module.css";
+import styles from "./profile-nav.module.css";
 import { getCookie } from "../../utils/cookie";
 import { logout } from "../../services/actions/actionsAuth";
 
