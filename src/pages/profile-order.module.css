@@ -1,0 +1,12 @@
+.content {
+    min-width: 320px;
+    max-width: 1240px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 122px 0 230px;
+    min-height: 100vh;
+    overflow-y: hidden;
+}

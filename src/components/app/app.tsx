@@ -19,6 +19,8 @@ import Preloader from "../preloader/preloader";
 import { fetchIngredients } from "../../services/actions/actionsIngredient";
 import { Feed } from "../../pages/feed";
 import { OrderInfo } from "../order-info/order-info";
+import ProfileOrders from "../../pages/profile-orders";
+import ProfileOrder from "../../pages/profile-order";
 
 
 export const App: FC = () => {
@@ -50,8 +52,8 @@ export const App: FC = () => {
               </ProtectedRoute>
             }
           />
-          {/*<Route path="/profile/orders" element={<ProfileOrders />} />*/}
-          {/*<Route path="/profile/orders/:id" element={<ProfileOrderInfo />} />*/}
+          <Route path="/profile/orders" element={<ProfileOrders />} />
+          <Route path="/profile/orders/:id" element={<ProfileOrder />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
