@@ -7,7 +7,7 @@ import Modal from "../components/modal/modal";
 import { useSelector, useDispatch } from "../services/hooks";
 import { useLocation, useNavigate, useNavigationType, useParams } from "react-router-dom";
 import { removeCurrentIngredient, resetIngredients } from "../services/actions/actionsIngredient";
-import { IIngredientData } from "../utils/common-types";
+import { IIngredientData, ILocationState } from "../utils/common-types";
 
 export const IngredientPage: FC = () => {
 
@@ -22,7 +22,7 @@ export const IngredientPage: FC = () => {
   // @ts-ignore
   const currentIngredient: IIngredientData = ingredients.find(i => i._id === ingredientId);
   const navigate = useNavigate();
-  const location = useLocation();
+  const location: {pathname: string, search: string, } = useLocation();
   // @ts-ignore
   const background = location.state && location.state.background;
 

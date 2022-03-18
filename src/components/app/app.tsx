@@ -20,6 +20,7 @@ import { fetchIngredients } from "../../services/actions/actionsIngredient";
 import { Feed } from "../../pages/feed";
 import { OrderInfo } from "../order-info/order-info";
 
+
 export const App: FC = () => {
   const dispatch = useDispatch();
 

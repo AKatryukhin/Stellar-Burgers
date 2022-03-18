@@ -1,4 +1,4 @@
-export type TIngredientType = 'bun' | 'sauce' | 'main' | string;
+export type TIngredientType = "bun" | "sauce" | "main" | string;
 
 export interface IIngredientData {
   _id: string;
@@ -18,5 +18,14 @@ export interface IIngredientData {
   index?: number;
 }
 
-
-
+export interface ILocationState {
+  from: {
+    pathname: string;
+  };
+  hash: string;
+  key: string;
+  pathname: string;
+  search: string;
+  state: undefined;
+  background: ILocationState;
+}
