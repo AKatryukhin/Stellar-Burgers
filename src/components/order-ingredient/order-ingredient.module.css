@@ -1,0 +1,27 @@
+.ingredientDesc {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  height: 58px;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  border: 2px solid hotpink;
+  border-radius: 100px;
+  background: black;
+  margin-right: -20px;
+}
+.ingredientName {
+  width: 414px;
+  text-align: center;
+}
+
+.finalPrice {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
