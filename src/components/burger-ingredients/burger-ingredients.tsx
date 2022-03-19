@@ -121,7 +121,7 @@ export const BurgerIngredients: FC = React.memo(() => {
           ref={mainsRef}
         />
       </div>
-      {currentIngredient && (
+      {currentIngredient._id && (
         <Modal title="Детали ингредиента" onClose={onClose}>
           <IngredientDetails currentIngredient={currentIngredient} />
         </Modal>
