@@ -53,22 +53,24 @@ export interface IOrder {
 }
 
 export interface IOrders {
-  ingredients: Array<IIngredientData>;
+  ingredients: Array<string>,
   _id: string | undefined;
-  // owner: {
-  //   name: string;
-  //   email: string;
-  //   createdAt: string | null;
-  //   updatedAt: string | null;
-  // }
   status: string;
   name: string;
   createdAt: string | null;
   updatedAt: string | null;
   number: number;
-  // price: number;
 }
 
+export interface IOrdersFeed {
+  ingredients: Array<IIngredientData>,
+  _id: string | undefined;
+  status: string;
+  name: string;
+  createdAt: string | null;
+  updatedAt: string | null;
+  number: number;
+}
 export interface IResponseOrders {
   success: boolean;
   orders: Array<IOrder>;

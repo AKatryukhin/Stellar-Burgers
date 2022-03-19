@@ -5,6 +5,8 @@ import { TOrderActions } from "../actions/actionsOrder";
 import { TPasswordActions } from "../actions/actionsPassword";
 import { TSelectIngredientsActions } from "../actions/actionsSelectIngredient";
 import { Dispatch } from "redux";
+import { TWsActions } from "../actions/actionsWS";
+import { TOrdersActions } from "../actions/actionsOrders";
 
 // export type AppDispatch = typeof store.dispatch; // равнозначный метод
 export type AppDispatch = Dispatch<TApplicationActions>;
@@ -14,4 +16,6 @@ export type TApplicationActions =
   | TIngredientsActions
   | TOrderActions
   | TPasswordActions
-  | TSelectIngredientsActions;
+  | TSelectIngredientsActions
+  | TWsActions
+  |TOrdersActions;
