@@ -11,7 +11,7 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "../../pages";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 
 import { IngredientPage } from "../../pages";
@@ -21,14 +21,17 @@ import { Feed } from "../../pages/feed";
 import { OrderInfo } from "../order-info/order-info";
 import ProfileOrders from "../../pages/profile-orders";
 import ProfileOrder from "../../pages/profile-order";
+import { infoOrderCloseAction } from "../../services/actions/actionsOrders";
+import Modal from "../modal/modal";
 
 
 export const App: FC = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { ingredientsRequest, loaded } = useSelector(
     (state) => state.ingredients
   );
+  const { orders } = useSelector(state => state.ws)
   useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
@@ -59,7 +62,9 @@ export const App: FC = () => {
             <ProfileOrders />
             </ProtectedRoute>
           } />
-          <Route path="/profile/orders/:id" element={<ProfileOrder />} />
+          <Route path="/profile/orders/:id"
+                 element={<OrderInfo />
+                 }/>
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />

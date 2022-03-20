@@ -21,7 +21,7 @@ export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
   const Order: FC<TOrder> = ({ elem }) => {
     const orderArrayCut = elem.ingredients.slice(0, 6);
     return (
-      <Link to={{ pathname: `/${link}/${elem._id}` }} className={styles.link}>
+      <Link to={{ pathname: `${location.pathname}/${elem._id}` }} className={styles.link}>
         <div
           className={`${styles.orderContainer} p-6`}
           onClick={() => dispatch(infoOrderOpenAction(elem))}

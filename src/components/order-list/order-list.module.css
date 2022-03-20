@@ -6,6 +6,7 @@
     justify-content: center;
     width: 844px;
     border-radius: 40px;
+    overflow-y: hidden;;
 }
 .info {
     display: flex;
