@@ -1,44 +1,71 @@
-import React, {FC} from 'react';
-import style from "./order-list.module.css"
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import { OrderListProps } from "./order-list.props";
+import React, { FC } from "react";
+import styles from "./order-list.module.css";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
+import { OrderListProps, TOrder } from "./order-list.props";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { IOrdersFeed } from "../../services/types/data-types";
+import { filterOrdersArray, totalPrice } from "../../utils/constants";
+import { infoOrderOpenAction } from "../../services/actions/actionsOrders";
+import { IIngredientData } from "../../utils/common-types";
 
-
-export const OrderList: FC<OrderListProps> = ({children,link}) => {
-
-  const Order: FC = (elem) => {
-
+export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
+  const { modalInfoOrderOpen } = useSelector((state) => state.orders);
+  const { ingredients } = useSelector((state) => state.ingredients);
+  const dispatch = useDispatch();
+  const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
+    orders,
+    ingredients
+  );
+  const Order: FC<TOrder> = ({ elem }) => {
+    const orderArrayCut = elem.ingredients.slice(0, 6);
     return (
-      // @ts-ignore
-      <Link to={{ pathname: `/${link}/${elem._id}`}}>
-        <div className={style.order__container}>
-          <div className={style.info}>
-            <p className="text text_type_digits-default">number</p>
-            <p className={`text text_type_main-default text_color_inactive ${style.date}`}>10</p>
+      <Link to={{ pathname: `/${link}/${elem._id}` }} className={styles.link}>
+        <div
+          className={styles.orderContainer}
+          onClick={() => dispatch(infoOrderOpenAction(elem))}
+        >
+          <div className={styles.info}>
+            <p className="text text_type_digits-default">#{elem.number}</p>
+            <p
+              className={`text text_type_main-default text_color_inactive ${styles.date}`}
+            >
+              {elem.createdAt && elem.createdAt.slice(0, 10)} {elem.createdAt && elem.createdAt.slice(11, 19)}
+            </p>
           </div>
-          <h3 className='text text_type_main-medium' style={{marginLeft: 24}}>name</h3>
-          <div className={style.desc}>
-            <div className={style.images}>
-                    <div className={style.last}>
-                      <img src={''} className={`${style.image}`} style={{opacity: 0.3}}/>
-                      <p className={`text text_type_main-default ${style.amt}`}>11</p>
+          <h3 className="text text_type_main-medium" style={{ marginLeft: 24 }}>
+            {elem.name}
+          </h3>
+          <div className={styles.desc}>
+            <div className={styles.images}>
+              {orderArrayCut.map(function (e: IIngredientData, index: number) {
+                if (index === 5 && elem.ingredients.length > 6) {
+                  return (
+                    <div className={styles.last} key={index}>
+                      <img src={e.image} className={`${styles.image}`} alt={e.name} key={index} style={{opacity: 0.3}}/>
+                      <p className={`text text_type_main-default ${styles.amt}`}>+{elem.ingredients.length - 6}</p>
                     </div>
+                  )
+                } else {
+                  return <img src={e.image} className={styles.image} alt={e.name} key={index}/>
+                }
+              })}
             </div>
-            <div className={style.finalPrice}>
-              <p className="text text_type_digits-default">
-                Price
-              </p>
-              <CurrencyIcon type="primary"/>
+            <div className={styles.finalPrice}>
+              <p className="text text_type_digits-default">{totalPrice(elem.ingredients)}</p>
+              <CurrencyIcon type="primary" />
             </div>
           </div>
         </div>
       </Link>
-    )
-  }
+    );
+  };
   return (
-    <div className={style.feed}>
-        <Order />
+    <div className={styles.feed}>
+      {ordersArray.map((elem: IOrdersFeed, index: number) => (
+        <Order key={index} elem={elem}/>
+      ))}
+      {modalInfoOrderOpen && children}
     </div>
-  )
-}
+  );
+};

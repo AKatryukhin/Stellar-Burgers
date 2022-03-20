@@ -8,7 +8,8 @@ import { IResponseOrder } from "../types/data-types";
 
 export interface IFetchOrderAction {
   readonly type: typeof GET_ORDER_REQUEST;
-  readonly payload: Array<string>;
+  readonly order: Array<string>;
+  readonly accessToken: string | undefined;
 }
 
 export interface IRequestOrderSuccessAction {
@@ -35,8 +36,8 @@ export type TOrderActions =
   IOpenOrderModalAction |
   IResetOrderAction;
 
-export const fetchOrder = (orderIngredientsArr: Array<string>): IFetchOrderAction => {
-  return { type: GET_ORDER_REQUEST, payload: orderIngredientsArr };
+export const fetchOrder = (token: string | undefined, orderIngredientsArr: Array<string>): IFetchOrderAction => {
+  return { type: GET_ORDER_REQUEST, accessToken: token, order: orderIngredientsArr };
 };
 
 export const requestOrderSuccess = (data: IResponseOrder): IRequestOrderSuccessAction => {

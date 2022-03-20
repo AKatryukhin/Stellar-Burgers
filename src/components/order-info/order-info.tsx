@@ -11,6 +11,7 @@ import {
   wsProfileConnectionStart,
 } from "../../services/actions/actionsWS";
 import { IOrders, IOrdersFeed } from "../../services/types/data-types";
+import { filterOrdersArray, totalPrice } from "../../utils/constants";
 
 export const OrderInfo: FC = () => {
   const { id } = useParams();
@@ -25,44 +26,16 @@ export const OrderInfo: FC = () => {
     return count && elem.type === "bun" ? count + 1 : count;
   }, []);
 
-  const filterOrdersArray = (
-    orders: Array<IOrders>,
-    ingredientsArray: Array<IIngredientData>
-  ) => {
-    let a: any = [];
-    let b: any = [];
-    orders.forEach((o) => {
-      o.ingredients.forEach((i) => {
-        a.push(ingredientsArray.filter((e) => e._id === i)[0]);
-      });
-      b.push({
-        ...o,
-        ingredients: a,
-      });
-      a = [];
-    });
-    return b;
-  };
-
-  const totalPrice = (someIngredients: Array<IIngredientData>) => {
-    let price = 0
-    someIngredients.forEach((e: any) => {
-      if (e.type === 'bun') {
-        price += (2 * e.price)
-      } else {
-        price += e.price
-      }
-    })
-    return price
-  }
-
   useEffect(() => {
     dispatch(wsConnectionStart());
     dispatch(wsProfileConnectionStart());
   }, []);
   useEffect(() => {
     if (location.pathname === `/feed/${id}` && orders !== undefined) {
-      const ordersArray: Array<IOrdersFeed> = filterOrdersArray(orders, ingredients);
+      const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
+        orders,
+        ingredients
+      );
       dispatch(
         linkOpenInfoOrderAction(ordersArray.filter((e: any) => e._id === id)[0])
       );
@@ -108,12 +81,12 @@ export const OrderInfo: FC = () => {
               ))}
           </div>
           <div className={styles.info}>
-            {order.createdAt &&
             <p
               className={`text text_type_main-default text_color_inactive ${styles.time}`}
             >
-                {order.createdAt.slice(0, 10)} {order.createdAt.slice(11, 19)}
-            </p>}
+              {order.createdAt && order.createdAt.slice(0, 10)}{" "}
+              {order.createdAt && order.createdAt.slice(11, 19)}
+            </p>
             <div className={styles.finalPrice}>
               <p className="text text_type_digits-default">
                 {totalPrice(order.ingredients)}

@@ -52,7 +52,13 @@ export const App: FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/profile/orders" element={<ProfileOrders />} />
+          <Route
+            path="/profile/orders"
+            element={
+            <ProtectedRoute>
+            <ProfileOrders />
+            </ProtectedRoute>
+          } />
           <Route path="/profile/orders/:id" element={<ProfileOrder />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />

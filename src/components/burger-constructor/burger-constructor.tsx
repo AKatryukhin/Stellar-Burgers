@@ -12,10 +12,13 @@ import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
 import { IIngredientData } from "../../utils/common-types";
+import { GET_ORDER_REQUEST } from "../../services/types/action-types";
+import { getCookie } from "../../utils/cookie";
 
 export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
 
+  // const accessToken = getCookie("accessToken");
   const orderIngredientsArr: Array<string> = useSelector((state) =>
     state.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
@@ -54,7 +57,7 @@ export const BurgerConstructor: FC = React.memo(() => {
     !token && navigate("/login", { replace: true });
     token && bun &&
       otherIngredients &&
-      dispatch(fetchOrder(orderIngredientsArr));
+      dispatch(fetchOrder(token, orderIngredientsArr));
   }, [token, otherIngredients]);
 
   const onClose = useCallback(() => {

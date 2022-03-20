@@ -8,18 +8,28 @@ import {
   requestOrderSuccess
 } from "../actions/actionsOrder";
 import { IResponseOrder } from "../types/data-types";
+import { tokenUpdate } from "../actions/actionsAuth";
+import { getCookie } from "../../utils/cookie";
+const refreshToken = getCookie("refreshToken");
 
 function* workGetOrderNumber(action: IFetchOrderAction) {
   try {
-    const data: IResponseOrder = yield call(placeAnOrder, action.payload);
+    // @ts-ignore
+    const data: IResponseOrder = yield call(placeAnOrder, action.accessToken, action.order);
     yield put(requestOrderSuccess(data));
     yield put(openOrderModal());
-  } catch (err) {
-    console.log(err);
-    yield put(requestOrderFailed());
+  } catch (e: any) {
+    if (e.message === "jwt expired") {
+      // @ts-ignore
+      yield put(tokenUpdate(refreshToken));
+    } else {
+      console.log(e);
+      yield put(requestOrderFailed());
+    }
   }
 }
 
 export function* watchGetOrderNumber() {
   yield takeEvery(GET_ORDER_REQUEST, workGetOrderNumber);
-}
+};
+

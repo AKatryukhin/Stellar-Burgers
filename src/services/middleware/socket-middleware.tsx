@@ -15,8 +15,10 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsAction): Middlewar
       if (type === wsInit) {
         socket = new WebSocket(`${wsUrl}/all`);
       } else if (type === wsUserInit) {
-        if (getCookie('token')) {
-          socket = new WebSocket(`${wsUrl}?token=${getCookie('token')}`);
+        if (getCookie('accessToken')) {
+           const token = getCookie('accessToken')
+          const sliceToken = token && token.split('Bearer ')[1];
+          socket = new WebSocket(`${wsUrl}?token=${sliceToken}`);
         }
       }
 
