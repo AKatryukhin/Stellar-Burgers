@@ -12,19 +12,17 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 16px;
-    margin-left: 24px;
-    margin-top: 24px;
     color: #F2F2F3;
 }
 
 .link {
     text-decoration: none;
+    color: #F2F2F3;;
 }
 .desc {
     display: flex;
     flex-direction: row;
     gap: 24px;
-    margin-bottom: 24px;
 }
 
 .date {
@@ -75,4 +73,8 @@
     top: 50%;
     left: 70%;
     transform: translate(-50%, -50%);
+}
+
+.done {
+    color: #00CCCC
 }

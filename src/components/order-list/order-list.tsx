@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./order-list.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { OrderListProps, TOrder } from "./order-list.props";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { IOrdersFeed } from "../../services/types/data-types";
@@ -12,6 +12,7 @@ import { IIngredientData } from "../../utils/common-types";
 export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
   const { modalInfoOrderOpen } = useSelector((state) => state.orders);
   const { ingredients } = useSelector((state) => state.ingredients);
+  const location = useLocation();
   const dispatch = useDispatch();
   const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
     orders,
@@ -22,7 +23,7 @@ export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
     return (
       <Link to={{ pathname: `/${link}/${elem._id}` }} className={styles.link}>
         <div
-          className={styles.orderContainer}
+          className={`${styles.orderContainer} p-6`}
           onClick={() => dispatch(infoOrderOpenAction(elem))}
         >
           <div className={styles.info}>
@@ -33,9 +34,18 @@ export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
               {elem.createdAt && elem.createdAt.slice(0, 10)} {elem.createdAt && elem.createdAt.slice(11, 19)}
             </p>
           </div>
-          <h3 className="text text_type_main-medium" style={{ marginLeft: 24 }}>
+          <h3 className="text text_type_main-medium">
             {elem.name}
           </h3>
+          {/*{location.pathname === '/profile/orders/' && (*/}
+          {elem.status === "done" ?
+          <p className={`text text_type_main-default mb-6 ${styles.done}`} >
+            Выполнен
+          </p> :
+            <p className="text text_type_main-default mb-6 ">
+              В процессе
+            </p>}
+          {/*)}*/}
           <div className={styles.desc}>
             <div className={styles.images}>
               {orderArrayCut.map(function (e: IIngredientData, index: number) {
@@ -61,7 +71,7 @@ export const OrderList: FC<OrderListProps> = ({ children, link, orders }) => {
     );
   };
   return (
-    <div className={styles.feed}>
+    <div className={`${styles.feed} custom-scroll`}>
       {ordersArray.map((elem: IOrdersFeed, index: number) => (
         <Order key={index} elem={elem}/>
       ))}
