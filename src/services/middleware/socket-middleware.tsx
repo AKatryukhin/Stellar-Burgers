@@ -1,16 +1,15 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { getCookie } from "../../utils/cookie";
 import { AppDispatch, RootState } from "../types/store-types";
-import { TWsActions } from "../actions/actionsWS";
+import { TWsAction, TWsActions } from "../actions/actionsWS";
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWsAction): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return next => (action: TWsActions) => {
       const { dispatch } = store;
       const { type } = action;
-      // @ts-ignore
       const { wsInit, onOpen, onClose, onError, onMessage, wsUserInit } = wsActions;
 
       if (type === wsInit) {

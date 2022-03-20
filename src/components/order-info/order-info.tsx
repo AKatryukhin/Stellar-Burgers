@@ -1,11 +1,10 @@
-import React, { FC, useCallback, useEffect, useMemo } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import styles from "./order-info.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderIngredient } from "../order-ingredient/order-ingredient";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { IIngredientData } from "../../utils/common-types";
-import { element } from "prop-types";
 import { linkOpenInfoOrderAction } from "../../services/actions/actionsOrders";
 import {
   wsConnectionStart,

@@ -35,14 +35,13 @@ const wsUserActions = {
   onMessage: WS_GET_USER_ORDERS,
 };
 
-
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: false }).concat(
       sagaMiddleware,
-      // @ts-ignore
-      socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsUserActions)
+      socketMiddleware(wsUrl, wsActions),
+      socketMiddleware(wsUrl, wsUserActions)
     ),
   devTools: process.env.NODE_ENV !== "production",
 });
