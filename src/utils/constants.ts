@@ -1,8 +1,8 @@
 import { IOrders } from "../services/types/data-types";
 import { IIngredientData } from "./common-types";
 
-export const ESC_KEYCODE = 'Escape';
-export const BASE_URL = 'https://norma.nomoreparties.space/api';
+export const ESC_KEYCODE = "Escape";
+export const BASE_URL = "https://norma.nomoreparties.space/api";
 
 export const handleResponse = (res: Response) => {
   if (!res.ok) {
@@ -12,19 +12,17 @@ export const handleResponse = (res: Response) => {
 };
 
 export const totalPrice = (someIngredients: Array<IIngredientData>) => {
-  console.log(someIngredients)
-  const price = someIngredients.reduce((sum, i) => {
- return i.type === "bun" ? 2 * i.price : i.price
+  return someIngredients.reduce((sum: number, i: IIngredientData) => {
+    console.log(i.type);
+    return i.type === "bun" ? sum + 2 * i.price : sum + i.price;
   }, 0);
-  return price;
 };
 
 export const filterOrdersArray = (
   orders: Array<IOrders>,
-
   ingredientsArray: Array<IIngredientData>
 ) => {
-  console.log(orders)
+  console.log(orders);
   let a: any = [];
   let b: any = [];
   orders.forEach((o) => {
@@ -35,7 +33,8 @@ export const filterOrdersArray = (
       ...o,
       ingredients: a,
     });
+    a = [];
   });
-  console.log(b)
+  console.log(b);
   return b;
 };
