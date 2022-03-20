@@ -12,21 +12,19 @@ export const handleResponse = (res: Response) => {
 };
 
 export const totalPrice = (someIngredients: Array<IIngredientData>) => {
-  let price = 0;
-  someIngredients.forEach((e: any) => {
-    if (e.type === "bun") {
-      price += 2 * e.price;
-    } else {
-      price += e.price;
-    }
-  });
+  console.log(someIngredients)
+  const price = someIngredients.reduce((sum, i) => {
+ return i.type === "bun" ? 2 * i.price : i.price
+  }, 0);
   return price;
 };
 
 export const filterOrdersArray = (
   orders: Array<IOrders>,
+
   ingredientsArray: Array<IIngredientData>
 ) => {
+  console.log(orders)
   let a: any = [];
   let b: any = [];
   orders.forEach((o) => {
@@ -38,5 +36,6 @@ export const filterOrdersArray = (
       ingredients: a,
     });
   });
+  console.log(b)
   return b;
 };

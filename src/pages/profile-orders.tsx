@@ -18,7 +18,6 @@ const ProfileOrders: FC = () => {
       dispatch(wsUserConnectionClosed())
     }
   }, [])
-  console.log(userOrders)
   return (
     <section className={styles.profile}>
       <div style={{ marginTop: "80px" }}>

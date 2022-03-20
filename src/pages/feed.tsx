@@ -9,8 +9,9 @@ import {
   wsConnectionStart,
 } from "../services/actions/actionsWS";
 
-export const Feed: FC = ({ children }) => {
+export const Feed: FC = () => {
   const { orders, wsConnected } = useSelector((state) => state.ws);
+  console.log(orders)
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +30,6 @@ export const Feed: FC = ({ children }) => {
       {wsConnected && orders.length && (
         <div className={styles.main}>
           <OrderList link="feed" orders={orders}>
-            {children}
           </OrderList>
           <OrderStatus />
         </div>
