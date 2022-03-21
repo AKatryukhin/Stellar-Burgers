@@ -59,16 +59,16 @@ export const OrderInfo: FC = () => {
     <>
       {order !== undefined && order.ingredients !== undefined && (
         <div className={styles.main}>
-          <p className={`text text_type_digits-default ${styles.number}`}>
+          <p className={`text text_type_digits-default ${styles.number} mb-10`}>
             #{order.number}
           </p>
-          <h3 className={`text text_type_main-medium ${styles.name}`}>
+          <h3 className={`text text_type_main-medium ${styles.name} mb-3`}>
             {order.name}
           </h3>
-          <p className={`text text_type_main-default ${styles.status}`}>
-            {order.status}
+          <p className={`text text_type_main-default ${styles.status} mb-15`}>
+            Выполнен
           </p>
-          <p className={`text text_type_main-medium ${styles.consist}`}>
+          <p className={`text text_type_main-medium ${styles.consist} mb-6`}>
             Состав:
           </p>
           <div className={styles.ingred_container}>
@@ -80,7 +80,7 @@ export const OrderInfo: FC = () => {
                 <OrderIngredient counting={counting} elem={elem} key={index} />
               ))}
           </div>
-          <div className={styles.info}>
+          <div className={`${styles.info} pl-4`}>
             <p
               className={`text text_type_main-default text_color_inactive ${styles.time}`}
             >
@@ -88,7 +88,7 @@ export const OrderInfo: FC = () => {
               {order.createdAt && order.createdAt.slice(11, 19)}
             </p>
             <div className={styles.finalPrice}>
-              <p className="text text_type_digits-default">
+              <p className="text text_type_digits-default ">
                 {totalPrice(order.ingredients)}
               </p>
               <CurrencyIcon type="primary" />

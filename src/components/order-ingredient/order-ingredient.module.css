@@ -2,8 +2,14 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
-  justify-content: center;
+  justify-content: space-between;
   height: 58px;
+}
+
+.descWrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .image {
@@ -12,10 +18,9 @@
   border: 2px solid hotpink;
   border-radius: 100px;
   background: black;
-  margin-right: -20px;
+  margin-right: 20px;
 }
 .ingredientName {
-  width: 414px;
   text-align: center;
 }
 
