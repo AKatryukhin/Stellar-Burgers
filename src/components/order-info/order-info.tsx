@@ -71,7 +71,7 @@ export const OrderInfo: FC = () => {
           <p className={`text text_type_main-medium ${styles.consist} mb-6`}>
             Состав:
           </p>
-          <div className={styles.ingred_container}>
+          <div className={`${styles.ingredientContainer} custom-scroll`}>
             {order.ingredients
               .filter(function (o: any, pos: number) {
                 return order.ingredients.indexOf(o) === pos;

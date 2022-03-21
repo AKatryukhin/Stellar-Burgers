@@ -4,6 +4,7 @@
   gap: 16px;
   justify-content: space-between;
   height: 58px;
+  max-height: 640px;
 }
 
 .descWrap {

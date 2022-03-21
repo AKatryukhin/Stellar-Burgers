@@ -7,6 +7,15 @@
     margin: 120px auto auto auto;
 }
 
+.ingredientDesc {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: space-between;
+    height: 58px;
+    max-height: 640px;
+}
+
 .number {
     margin-top: -100px;
     text-align: center;
@@ -26,12 +35,10 @@
 }
 
 .ingredientContainer {
-    margin-top: 24px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    max-height: 250px;
-    gap: 24px;
+    max-height: 336px;
 }
 .info {
     display: flex;
