@@ -38,7 +38,7 @@ const wsUserActions = {
 const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: false }).concat(
+    getDefaultMiddleware({ thunk: false, serializableCheck: false }).concat(
       sagaMiddleware,
       socketMiddleware(wsUrl, wsActions),
       socketMiddleware(wsUrl, wsUserActions)
