@@ -29,8 +29,7 @@ export const Feed: FC = () => {
       {!wsConnected && "Произошла ошибка"}
       {wsConnected && orders.length && (
         <div className={styles.main}>
-          <OrderList link="feed" orders={orders}>
-          </OrderList>
+          <OrderList link="feed" orders={orders} />
           <OrderStatus />
         </div>
       )}
