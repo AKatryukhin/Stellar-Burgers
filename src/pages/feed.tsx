@@ -22,7 +22,7 @@ export const Feed: FC = () => {
     }
   }, []);
   return (
-    <section>
+    <section className={styles.wrap}>
       <h2 className={`text text_type_main-large ${styles.header}`}>
         Лента заказов
       </h2>

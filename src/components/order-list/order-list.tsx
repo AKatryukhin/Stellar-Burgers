@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { OrderListProps, TOrder } from "./order-list.props";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { IOrdersFeed } from "../../services/types/data-types";
-import { filterOrdersArray, finalPrice, totalPrice } from "../../utils/constants";
+import { filterOrdersArray, totalPrice } from "../../utils/constants";
 import { infoOrderOpenAction } from "../../services/actions/actionsOrders";
 import { IIngredientData } from "../../utils/common-types";
 
@@ -22,7 +22,6 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
 
   const Order: FC<TOrder> = ({ elem }) => {
     const orderArrayCut = elem.ingredients.slice(0, 6);
-    console.log(orderArrayCut);
     return (
       <Link to={{ pathname: `${link}/${elem._id}` }} className={styles.link}>
         <div
@@ -39,19 +38,14 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
             </p>
           </div>
           <h3 className="text text_type_main-medium">{elem.name}</h3>
-          {/*{location.pathname === '/profile/orders/' && (*/}
-          {elem.status === "done" ? (
+          {location.pathname === '/profile/orders/' &&
             <p className={`text text_type_main-default mb-6 ${styles.done}`}>
-              Выполнен
+              {elem.status === "done" ? 'Выполнен' : 'В процессе'}
             </p>
-          ) : (
-            <p className="text text_type_main-default mb-6 ">В процессе</p>
-          )}
-          {/*)}*/}
+        }
           <div className={styles.desc}>
             <div className={styles.images}>
               {orderArrayCut.map(function (e: IIngredientData, index: number) {
-                console.log(e);
                 if (e && index === 5 && elem.ingredients.length > 6) {
                   return (
                     <div className={styles.last} key={index}>
@@ -83,7 +77,7 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
             </div>
             <div className={styles.finalPrice}>
               <p className="text text_type_digits-default">
-                {finalPrice(elem.ingredients)}
+                {elem.ingredients ? totalPrice(elem.ingredients) : 0}
               </p>
               <CurrencyIcon type="primary" />
             </div>
@@ -95,7 +89,7 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
   return (
     <div className={`${styles.feed} custom-scroll`}>
       {ordersArray.map((elem: IOrdersFeed, index: number) => (
-        <Order key={index} elem={elem} />
+         <Order key={index} elem={elem} />
       ))}
       {/*{modalInfoOrderOpen}*/}
     </div>

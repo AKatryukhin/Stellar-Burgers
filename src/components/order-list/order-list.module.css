@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 24px;
     justify-content: center;
-    width: 844px;
+    /*width: 844px;*/
     border-radius: 40px;
     overflow-y: hidden;;
 }
@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: row;
     gap: 24px;
+    justify-content: space-between;
 }
 
 .date {
