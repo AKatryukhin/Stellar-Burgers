@@ -20,22 +20,11 @@ export const totalPrice = (someIngredients: Array<IIngredientData>) => {
   }, 0);
 };
 
-// export const finalPrice = (ingredients: Array<IIngredientData>) => {
-//   let price = 0
-//   console.log(ingredients)
-//   ingredients && ingredients.forEach((item) => {
-//     if(item !== undefined) {
-//       item.type === 'bun' ? price += (2 * item.price) : price += item.price
-//     }
-//   })
-//   return price
-// }
 
 export const filterOrdersArray = (
   orders: Array<IOrders>,
   ingredientsArray: Array<IIngredientData>
 ) => {
-  console.log(orders);
   let a: any = [];
   let b: any = [];
   orders.forEach((o) => {
@@ -48,7 +37,6 @@ export const filterOrdersArray = (
     });
     a = [];
   });
-  console.log(b);
   return b;
 };
 

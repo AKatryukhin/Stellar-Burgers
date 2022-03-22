@@ -9,21 +9,20 @@ import { filterOrdersArray, totalPrice } from "../../utils/constants";
 import { infoOrderOpenAction } from "../../services/actions/actionsOrders";
 import { IIngredientData } from "../../utils/common-types";
 
-export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
+export const OrderList: FC<OrderListProps> = (props) => {
   const { modalInfoOrderOpen } = useSelector((state) => state.orders);
   const { ingredients } = useSelector((state) => state.ingredients);
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log(orders);
   const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
-    orders,
+    props.orders,
     ingredients
   );
 
   const Order: FC<TOrder> = ({ elem }) => {
     const orderArrayCut = elem.ingredients.slice(0, 6);
     return (
-      <Link to={{ pathname: `${link}/${elem._id}` }} className={styles.link}>
+      <Link to={{ pathname: `${location.pathname}/${elem._id}` }} className={styles.link}>
         <div
           className={`${styles.orderContainer} p-6`}
           onClick={() => dispatch(infoOrderOpenAction(elem))}
@@ -38,10 +37,10 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
             </p>
           </div>
           <h3 className="text text_type_main-medium">{elem.name}</h3>
-          {location.pathname === '/profile/orders/' &&
-            <p className={`text text_type_main-default mb-6 ${styles.done}`}>
+          {location.pathname === '/profile/orders' &&
+            (<p className={`text text_type_main-default mb-6 ${styles.done}`}>
               {elem.status === "done" ? 'Выполнен' : 'В процессе'}
-            </p>
+            </p>)
         }
           <div className={styles.desc}>
             <div className={styles.images}>
@@ -91,7 +90,7 @@ export const OrderList: FC<OrderListProps> = ({ link, orders }) => {
       {ordersArray.map((elem: IOrdersFeed, index: number) => (
          <Order key={index} elem={elem} />
       ))}
-      {/*{modalInfoOrderOpen}*/}
+      {modalInfoOrderOpen && props.children}
     </div>
   );
 };

@@ -17,7 +17,7 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import { IngredientPage } from "../../pages";
 import Preloader from "../preloader/preloader";
 import { fetchIngredients } from "../../services/actions/actionsIngredient";
-import { Feed } from "../../pages/feed";
+import { Feed } from "../../pages";
 import { OrderInfo } from "../order-info/order-info";
 import ProfileOrders from "../../pages/profile-orders";
 import ProfileOrder from "../../pages/profile-order";
@@ -32,6 +32,7 @@ export const App: FC = () => {
     (state) => state.ingredients
   );
   const { orders } = useSelector(state => state.ws)
+  const { modalInfoOrderOpen } = useSelector(state => state.orders)
   useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
@@ -43,7 +44,18 @@ export const App: FC = () => {
       {!ingredientsRequest && loaded && (
         <Routes>
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:id" element={<OrderInfo />} />
+          <Route path="/feed/:id"
+                 element={modalInfoOrderOpen && orders ?
+                   <Feed>
+                     <Modal title='' onClose={() => {
+                       dispatch(infoOrderCloseAction())
+                       navigate('/feed')
+                     }}>
+                       <OrderInfo/>
+                     </Modal>
+                   </Feed> : <OrderInfo/>
+                 }
+          />
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -63,7 +75,15 @@ export const App: FC = () => {
             </ProtectedRoute>
           } />
           <Route path="/profile/orders/:id"
-                 element={<OrderInfo />
+                 element={modalInfoOrderOpen && orders ?
+                   <ProfileOrders>
+                     <Modal title='' onClose={() => {
+                       dispatch(infoOrderCloseAction())
+                       navigate('/profile/orders')
+                     }}>
+                       <OrderInfo/>
+                     </Modal>
+                   </ProfileOrders> : <OrderInfo/>
                  }/>
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
