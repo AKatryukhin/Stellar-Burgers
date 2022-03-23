@@ -11,7 +11,13 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "../../pages";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useNavigationType,
+  useLocation,
+} from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 
 import { IngredientPage } from "../../pages";
@@ -24,18 +30,22 @@ import ProfileOrder from "../../pages/profile-order";
 import { infoOrderCloseAction } from "../../services/actions/actionsOrders";
 import Modal from "../modal/modal";
 
-
 export const App: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { ingredientsRequest, loaded } = useSelector(
     (state) => state.ingredients
   );
-  const { orders } = useSelector(state => state.ws)
-  const { modalInfoOrderOpen } = useSelector(state => state.orders)
+  const { orders } = useSelector((state) => state.ws);
+  const { modalInfoOrderOpen } = useSelector((state) => state.orders);
   useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
+  // @ts-ignore
+  const background = location.state && location.state.background;
+
+  const action = useNavigationType();
 
   return (
     <div className={styles.page}>
@@ -44,18 +54,25 @@ export const App: FC = () => {
       {!ingredientsRequest && loaded && (
         <Routes>
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:id"
-                 element={modalInfoOrderOpen && orders ?
-                   <Feed>
-                     <Modal title='' onClose={() => {
-                       dispatch(infoOrderCloseAction())
-                       navigate('/feed')
-                     }}>
-                       <OrderInfo/>
-                     </Modal>
-                   </Feed> : <OrderInfo/>
-                 }
-          />
+
+          {background ? (
+            <Route
+              path="/feed/:id"
+              element={
+                <Modal
+                  title=""
+                  onClose={() => {
+                    dispatch(infoOrderCloseAction());
+                    navigate("/feed");
+                  }}
+                >
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          ) : (
+            <Route path="/feed/:id" element={<OrderInfo />} />
+          )}
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -70,21 +87,31 @@ export const App: FC = () => {
           <Route
             path="/profile/orders"
             element={
-            <ProtectedRoute>
-            <ProfileOrders />
-            </ProtectedRoute>
-          } />
-          <Route path="/profile/orders/:id"
-                 element={modalInfoOrderOpen && orders ?
-                   <ProfileOrders>
-                     <Modal title='' onClose={() => {
-                       dispatch(infoOrderCloseAction())
-                       navigate('/profile/orders')
-                     }}>
-                       <OrderInfo/>
-                     </Modal>
-                   </ProfileOrders> : <OrderInfo/>
-                 }/>
+              <ProtectedRoute>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              modalInfoOrderOpen && orders ? (
+                <ProfileOrders>
+                  <Modal
+                    title=""
+                    onClose={() => {
+                      dispatch(infoOrderCloseAction());
+                      navigate("/profile/orders");
+                    }}
+                  >
+                    <OrderInfo />
+                  </Modal>
+                </ProfileOrders>
+              ) : (
+                <OrderInfo />
+              )
+            }
+          />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
@@ -97,3 +124,16 @@ export const App: FC = () => {
     </div>
   );
 };
+// element={modalInfoOrderOpen && orders ?
+//           {/*<Route path="/feed/:id"*/}
+//           {/*       element={modalInfoOrderOpen && orders ?*/}
+//           {/*         <Feed>*/}
+//           {/*           <Modal title='' onClose={() => {*/}
+//           {/*             dispatch(infoOrderCloseAction())*/}
+//           {/*             navigate('/feed')*/}
+//           {/*           }}>*/}
+//           {/*             <OrderInfo/>*/}
+//           {/*           </Modal>*/}
+//           {/*         </Feed> : <OrderInfo/>*/}
+//           {/*       }*/}
+//           {/*

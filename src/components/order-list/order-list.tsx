@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styles from "./order-list.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { OrderListProps, TOrder } from "./order-list.props";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { IOrdersFeed } from "../../services/types/data-types";
@@ -13,6 +13,7 @@ export const OrderList: FC<OrderListProps> = (props) => {
   const { modalInfoOrderOpen } = useSelector((state) => state.orders);
   const { ingredients } = useSelector((state) => state.ingredients);
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
     props.orders,
@@ -20,9 +21,13 @@ export const OrderList: FC<OrderListProps> = (props) => {
   );
 
   const Order: FC<TOrder> = ({ elem }) => {
-    const orderArrayCut = elem.ingredients.slice(0, 6);
+    const handleClick = () => navigate(`${location.pathname}/${elem._id}`, {
+      state: { background: true },
+      replace: false,
+    });
+const orderArrayCut = elem.ingredients.slice(0, 6);
     return (
-      <Link to={{ pathname: `${location.pathname}/${elem._id}` }} className={styles.link}>
+      <div className={styles.link} onClick={handleClick}>
         <div
           className={`${styles.orderContainer} p-6`}
           onClick={() => dispatch(infoOrderOpenAction(elem))}
@@ -82,7 +87,7 @@ export const OrderList: FC<OrderListProps> = (props) => {
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     );
   };
   return (
