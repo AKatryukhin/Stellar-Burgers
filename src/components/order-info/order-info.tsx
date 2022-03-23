@@ -77,7 +77,7 @@ export const OrderInfo: FC = () => {
                 return order.ingredients.indexOf(o) === pos;
               })
               .map((elem: IIngredientData, index: number) => (
-                <OrderIngredient counting={counting} elem={elem} key={index} />
+                elem && <OrderIngredient counting={counting} elem={elem} key={index} />
               ))}
           </div>
           <div className={`${styles.info} pl-4`}>

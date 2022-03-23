@@ -9,14 +9,13 @@ import { filterOrdersArray, totalPrice } from "../../utils/constants";
 import { infoOrderOpenAction } from "../../services/actions/actionsOrders";
 import { IIngredientData } from "../../utils/common-types";
 
-export const OrderList: FC<OrderListProps> = (props) => {
-  const { modalInfoOrderOpen } = useSelector((state) => state.orders);
+export const OrderList: FC<OrderListProps> = ({orders}) => {
   const { ingredients } = useSelector((state) => state.ingredients);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ordersArray: Array<IOrdersFeed> = filterOrdersArray(
-    props.orders,
+    orders,
     ingredients
   );
 
@@ -95,7 +94,6 @@ const orderArrayCut = elem.ingredients.slice(0, 6);
       {ordersArray.map((elem: IOrdersFeed, index: number) => (
          <Order key={index} elem={elem} />
       ))}
-      {modalInfoOrderOpen && props.children}
     </div>
   );
 };
