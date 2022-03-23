@@ -175,7 +175,4 @@ export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(
   );
 });
 
-// BurgerConstructorList.propTypes = {
-//   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-//   bun: itemPropTypes,
-// };
+

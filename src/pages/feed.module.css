@@ -1,17 +1,19 @@
 .main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
 
 }
 .header {
     margin-top: 40px;
     margin-bottom: 20px;
-    margin-left: 130px;
 }
 
 .wrap {
-    padding: 0 80px;
+    padding: 0 320px;
+    margin:0 auto;
+    min-width: 320px;
+    max-width: 1920px;
 }
 
 @media screen and (max-width: 1900px) {
