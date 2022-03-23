@@ -92,26 +92,24 @@ export const App: FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/profile/orders/:id"
-            element={
-              modalInfoOrderOpen && orders ? (
-                <ProfileOrders>
-                  <Modal
-                    title=""
-                    onClose={() => {
-                      dispatch(infoOrderCloseAction());
-                      navigate("/profile/orders");
-                    }}
-                  >
-                    <OrderInfo />
-                  </Modal>
-                </ProfileOrders>
-              ) : (
-                <OrderInfo />
-              )
-            }
-          />
+          {background ? (
+            <Route
+              path="/profile/orders/:id"
+              element={
+                <Modal
+                  title=""
+                  onClose={() => {
+                    dispatch(infoOrderCloseAction());
+                    navigate("/profile/orders");
+                  }}
+                >
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          ) : (
+            <Route path="/profile/orders/:id" element={<OrderInfo />} />
+          )}
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
