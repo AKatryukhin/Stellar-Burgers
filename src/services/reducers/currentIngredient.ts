@@ -9,6 +9,7 @@ type TCurrentIngredientsState = {
   ingredient: IIngredientData;
 };
 
+
 const initialState: TCurrentIngredientsState = {
   ingredient: {
     _id: "",
@@ -36,7 +37,7 @@ export const currentIngredientReducer = (state = initialState, action: TIngredie
     }
     case REMOVE_CURRENT_INGREDIENT: {
       return {
-        ...state
+        ...initialState
       };
     }
     default:
