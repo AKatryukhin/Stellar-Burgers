@@ -9,7 +9,7 @@ import {
   wsConnectionStart,
 } from "../services/actions/actionsWS";
 
-export const Feed: FC = (children) => {
+export const Feed: FC = () => {
   const { orders, wsConnected } = useSelector((state) => state.ws);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export const Feed: FC = (children) => {
       {!wsConnected && "Произошла ошибка"}
       {wsConnected && orders.length && (
         <div className={styles.main}>
-          <OrderList link="feed" orders={orders}>{children}</OrderList >
+          <OrderList link="feed" orders={orders} />
           <OrderStatus />
         </div>
       )}

@@ -11,13 +11,7 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "../../pages";
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useNavigationType,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 
 import { IngredientPage } from "../../pages";
@@ -26,7 +20,6 @@ import { fetchIngredients } from "../../services/actions/actionsIngredient";
 import { Feed } from "../../pages";
 import { OrderInfo } from "../order-info/order-info";
 import ProfileOrders from "../../pages/profile-orders";
-import ProfileOrder from "../../pages/profile-order";
 import { infoOrderCloseAction } from "../../services/actions/actionsOrders";
 import Modal from "../modal/modal";
 
@@ -37,15 +30,12 @@ export const App: FC = () => {
   const { ingredientsRequest, loaded } = useSelector(
     (state) => state.ingredients
   );
-  const { orders } = useSelector((state) => state.ws);
-  const { modalInfoOrderOpen } = useSelector((state) => state.orders);
+
   useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
   // @ts-ignore
   const background = location.state && location.state.background;
-
-  const action = useNavigationType();
 
   return (
     <div className={styles.page}>
@@ -122,16 +112,3 @@ export const App: FC = () => {
     </div>
   );
 };
-// element={modalInfoOrderOpen && orders ?
-//           {/*<Route path="/feed/:id"*/}
-//           {/*       element={modalInfoOrderOpen && orders ?*/}
-//           {/*         <Feed>*/}
-//           {/*           <Modal title='' onClose={() => {*/}
-//           {/*             dispatch(infoOrderCloseAction())*/}
-//           {/*             navigate('/feed')*/}
-//           {/*           }}>*/}
-//           {/*             <OrderInfo/>*/}
-//           {/*           </Modal>*/}
-//           {/*         </Feed> : <OrderInfo/>*/}
-//           {/*       }*/}
-//           {/*
