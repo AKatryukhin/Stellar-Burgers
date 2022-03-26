@@ -12,14 +12,11 @@ import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
 import { IIngredientData } from "../../utils/common-types";
-import { GET_ORDER_REQUEST } from "../../services/types/action-types";
-import { getCookie } from "../../utils/cookie";
 
 export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
 
-  // const accessToken = getCookie("accessToken");
-  const orderIngredientsArr: Array<string> = useSelector((state) =>
+  const orderIngredientsArr = useSelector((state) =>
     state.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
   const { orderNumberRequest, orderNumberFailed, orderNumber } = useSelector(
@@ -28,14 +25,14 @@ export const BurgerConstructor: FC = React.memo(() => {
   const token = useSelector((state) => state?.auth.accessToken);
   const navigate = useNavigate();
 
-  const selectedIngredients: Array<IIngredientData> = useSelector(
+  const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
   );
   const bun: IIngredientData | undefined = useMemo(
-    () => selectedIngredients.find((i: IIngredientData) => i.type === "bun"),
+    () => selectedIngredients.find((i) => i.type === "bun"),
     [selectedIngredients]
   );
-  const otherIngredients = useMemo<Array<IIngredientData>>(
+  const otherIngredients = useMemo(
     () => selectedIngredients.filter((i: IIngredientData) => i.type !== "bun"),
     [selectedIngredients]
   );
@@ -44,7 +41,7 @@ export const BurgerConstructor: FC = React.memo(() => {
     if (bun) {
       const bunSum: number = bun.price * 2;
       const otherIngredientsSum: number = otherIngredients.reduce(
-        (acc: number, i: IIngredientData) => acc + i.price,
+        (acc: number, i) => acc + i.price,
         0
       );
       return bunSum + otherIngredientsSum;

@@ -21,7 +21,7 @@ import { burgerConstructorListProps } from "./burger-constructor-list.props";
 export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(({ bun, otherIngredients }) => {
 
   const isBunInOrder = useSelector((state) =>
-    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
+    state.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
   const handleClick = (ingredient: IIngredientData) => {
     if (ingredient.type !== "bun") {
@@ -72,8 +72,7 @@ export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(
 
 
   const selectedIngredients = useSelector(
-    // @ts-ignore
-    (state) => state?.selectedIngredients.selectedIngredients
+    (state) => state.selectedIngredients.selectedIngredients
   );
 
   const moveItems = useCallback(

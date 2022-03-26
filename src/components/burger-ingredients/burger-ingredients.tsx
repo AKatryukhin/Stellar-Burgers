@@ -15,27 +15,27 @@ import { useSelector, useDispatch } from "../../services/hooks";
 
 export const BurgerIngredients: FC = React.memo(() => {
   const dispatch = useDispatch();
-  const ingredients: Array<IIngredientData> = useSelector(
+  const ingredients = useSelector(
     (state) => state?.ingredients.ingredients
   );
-  const ingredientsFailed: boolean = useSelector(
+  const ingredientsFailed = useSelector(
     (state) => state?.ingredients.ingredientsFailed
   );
-  const currentIngredient: IIngredientData = useSelector(
+  const currentIngredient = useSelector(
     (state) => state.currentIngredient.ingredient
   );
 
   const [current, setCurrent] = useState<string>("Булки");
-  const buns: Array<IIngredientData> = useMemo(
-    () => ingredients.filter((i: IIngredientData) => i.type === "bun"),
+  const buns = useMemo(
+    () => ingredients.filter((i) => i.type === "bun"),
     [ingredients]
   );
-  const sauces: Array<IIngredientData> = useMemo(
-    () => ingredients.filter((i: IIngredientData) => i.type === "sauce"),
+  const sauces = useMemo(
+    () => ingredients.filter((i) => i.type === "sauce"),
     [ingredients]
   );
-  const mains: Array<IIngredientData> = useMemo(
-    () => ingredients.filter((i: IIngredientData) => i.type === "main"),
+  const mains = useMemo(
+    () => ingredients.filter((i) => i.type === "main"),
     [ingredients]
   );
 
