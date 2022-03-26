@@ -32,7 +32,7 @@ export const IngredientsItem: FC<IngredientsListItemProps> = ({ ingredient }) =>
 
   const dispatch = useDispatch();
 
-  const isBunInOrder: IIngredientData | undefined = useSelector((state) =>
+  const isBunInOrder = useSelector((state) =>
     state?.selectedIngredients.selectedIngredients.find((i: IIngredientData) => i.type === "bun")
   );
   const handleClick = () => {

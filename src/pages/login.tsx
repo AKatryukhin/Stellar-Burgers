@@ -30,7 +30,6 @@ export const Login: FC = () => {
     isValid && handleLogin({ email, password });
     setValues({});
   };
-//TODO
   // @ts-ignore
   const handleLogin = ({ email, password }) => {
     dispatch(login(email, password));

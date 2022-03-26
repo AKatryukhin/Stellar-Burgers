@@ -48,7 +48,7 @@ const orderArrayCut = elem.ingredients.slice(0, 6);
         }
           <div className={styles.desc}>
             <div className={styles.images}>
-              {orderArrayCut.map(function (e: IIngredientData, index: number) {
+              {orderArrayCut.map(function (e, index: number) {
                 if (e && index === 5 && elem.ingredients.length > 6) {
                   return (
                     <div className={styles.last} key={index}>
