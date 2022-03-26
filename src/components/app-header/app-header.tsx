@@ -30,7 +30,7 @@ export const AppHeader: FC = () => {
               </NavItem>
             </li>
           </Link>
-          <Link to="/profile/orders" className={styles.link}>
+          <Link to="/feed" className={styles.link}>
             <li>
               <NavItem text="Лента заказов" isActive={orderActive}>
                 <ListIcon type={orderActive ? "primary" : "secondary"} />

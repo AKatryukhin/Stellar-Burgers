@@ -1,0 +1,21 @@
+.menu {
+    width: 320px;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.textActive {
+    color: #f2f2f3;
+}

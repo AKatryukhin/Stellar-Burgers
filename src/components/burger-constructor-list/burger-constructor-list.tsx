@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from "./burger-constructor-list.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import bunImage from "../../images/bun-02.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { v4 as uuid } from "uuid";
 import BurgerConstructorItem from "../burger-constructor-item/burger-constructor-item";
@@ -15,14 +15,13 @@ import {
   decreaseCount,
   increaseCount,
 } from "../../services/actions/actionsIngredient";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 import { burgerConstructorListProps } from "./burger-constructor-list.props";
 
 export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(({ bun, otherIngredients }) => {
 
   const isBunInOrder = useSelector((state) =>
-    // @ts-ignore
-    state?.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
+    state.selectedIngredients.selectedIngredients.find((i) => i.type === "bun")
   );
   const handleClick = (ingredient: IIngredientData) => {
     if (ingredient.type !== "bun") {
@@ -73,8 +72,7 @@ export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(
 
 
   const selectedIngredients = useSelector(
-    // @ts-ignore
-    (state) => state?.selectedIngredients.selectedIngredients
+    (state) => state.selectedIngredients.selectedIngredients
   );
 
   const moveItems = useCallback(
@@ -176,7 +174,4 @@ export const BurgerConstructorList: FC<burgerConstructorListProps> = React.memo(
   );
 });
 
-// BurgerConstructorList.propTypes = {
-//   otherIngredients: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-//   bun: itemPropTypes,
-// };
+

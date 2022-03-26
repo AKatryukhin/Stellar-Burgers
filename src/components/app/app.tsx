@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../app-header/app-header";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import Main from "../main/main";
 import {
   Register,
@@ -11,23 +11,31 @@ import {
   ForgotPassword,
   ResetPassword,
 } from "../../pages";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { ProtectedRoute } from "../protected-route/protected-route";
 
-import { IngredientPage } from "../../pages/ingredient-page";
+import { IngredientPage } from "../../pages";
 import Preloader from "../preloader/preloader";
 import { fetchIngredients } from "../../services/actions/actionsIngredient";
+import { Feed } from "../../pages";
+import { OrderInfo } from "../order-info/order-info";
+import ProfileOrders from "../../pages/profile-orders";
+import { infoOrderCloseAction } from "../../services/actions/actionsOrders";
+import Modal from "../modal/modal";
 
 export const App: FC = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const { ingredientsRequest, loaded } = useSelector(
-    // @ts-ignore
-    (state) => state?.ingredients // store пока не типизируем
+    (state) => state.ingredients
   );
+
   useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
+  // @ts-ignore
+  const background = location.state && location.state.background;
 
   return (
     <div className={styles.page}>
@@ -35,6 +43,26 @@ export const App: FC = () => {
       {ingredientsRequest && <Preloader />}
       {!ingredientsRequest && loaded && (
         <Routes>
+          <Route path="/feed" element={<Feed />} />
+
+          {background ? (
+            <Route
+              path="/feed/:id"
+              element={
+                <Modal
+                  title=""
+                  onClose={() => {
+                    dispatch(infoOrderCloseAction());
+                    navigate("/feed");
+                  }}
+                >
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          ) : (
+            <Route path="/feed/:id" element={<OrderInfo />} />
+          )}
           <Route path="/" element={<Main />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -46,6 +74,32 @@ export const App: FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+          {background ? (
+            <Route
+              path="/profile/orders/:id"
+              element={
+                <Modal
+                  title=""
+                  onClose={() => {
+                    dispatch(infoOrderCloseAction());
+                    navigate("/profile/orders");
+                  }}
+                >
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          ) : (
+            <Route path="/profile/orders/:id" element={<OrderInfo />} />
+          )}
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />

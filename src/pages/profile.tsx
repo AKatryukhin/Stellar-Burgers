@@ -5,7 +5,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../services/hooks";
 import { FC, FormEvent, SyntheticEvent, useEffect } from "react";
 import { getCookie } from "../utils/cookie";
 import Preloader from "../components/preloader/preloader";
@@ -25,10 +25,8 @@ export const Profile: FC = () => {
   const refreshToken = getCookie("refreshToken");
   const accessToken = getCookie("accessToken");
   const navigate = useNavigate();
-  // @ts-ignore
-  const stateName = useSelector((state) => state?.auth.name);
-  // @ts-ignore
-  const stateEmail = useSelector((state) => state?.auth.email);
+  const stateName = useSelector((state) => state.auth.name);
+  const stateEmail = useSelector((state) => state.auth.email);
   useEffect(() => {
     setValues({
       name: stateName,
@@ -66,7 +64,6 @@ export const Profile: FC = () => {
 
 
   const { getUserInfoRequest, updateUserRequest } = useSelector(
-    // @ts-ignore
     (state) => state?.auth
   );
 

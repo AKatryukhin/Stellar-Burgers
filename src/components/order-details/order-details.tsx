@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import styles from "./order-details.module.css";
 import IconDone from "../../images/iconDoneGif.gif";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 
 export const OrderDetails: FC = React.memo(() => {
-  // @ts-ignore
-  const order = useSelector((state) => state?.order.orderNumber); // state пока не типизируем
+  const order = useSelector((state) => state?.order.orderNumber);
 
   return (
     <article className={styles.card}>

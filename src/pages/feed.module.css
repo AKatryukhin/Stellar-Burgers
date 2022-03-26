@@ -1,0 +1,42 @@
+.main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+
+}
+.header {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.wrap {
+    padding: 0 320px;
+    margin:0 auto;
+    min-width: 320px;
+    max-width: 1920px;
+}
+
+@media screen and (max-width: 1900px) {
+    .wrap {
+        padding: 0 280px;
+    }
+}
+
+
+@media screen and (max-width: 1820px) {
+    .wrap {
+        padding: 0 240px;
+    }
+}
+
+@media screen and (max-width: 1640px) {
+    .wrap {
+        padding: 0 180px;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .wrap {
+        padding: 0 80px;
+    }
+}

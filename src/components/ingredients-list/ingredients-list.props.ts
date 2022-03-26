@@ -1,4 +1,4 @@
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 import { RefObject } from "react";
 
 export interface IngredientsListProps {

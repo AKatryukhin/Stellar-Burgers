@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useRef } from "react";
-import PropTypes from "prop-types";
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from "react-dnd";
 import styles from "./burger-constructor-item.module.css";
 import {
@@ -7,7 +6,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorItemProps } from "./burger-constructor-item.props";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({
   index,
@@ -51,13 +50,13 @@ const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      if (dragIndex && dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      if (dragIndex && dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      moveItems(dragIndex, hoverIndex);
+      dragIndex && moveItems(dragIndex, hoverIndex);
       item.index = hoverIndex;
     },
   });

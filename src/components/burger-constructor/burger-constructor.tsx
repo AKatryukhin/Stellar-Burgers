@@ -4,39 +4,35 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
   import {  useNavigate } from "react-router-dom";
 import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
 import { clearIngredientsCount } from "../../services/actions/actionsIngredient";
 import { clearSelectIngredientList } from "../../services/actions/actionsSelectIngredient";
-import { IIngredientData } from "../../utils/types";
+import { IIngredientData } from "../../utils/common-types";
 
 export const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useDispatch();
 
-  const orderIngredientsArr: Array<IIngredientData> = useSelector((state) =>
-    // @ts-ignore
-    state?.selectedIngredients.selectedIngredients.map((i) => i._id)
+  const orderIngredientsArr = useSelector((state) =>
+    state.selectedIngredients.selectedIngredients.map((i) => i._id)
   );
-  const { orderRequest, orderFailed, orderNumber } = useSelector(
-    // @ts-ignore
-    (state) => state?.order
+  const { orderNumberRequest, orderNumberFailed, orderNumber } = useSelector(
+    (state) => state.order
   );
-  // @ts-ignore
   const token = useSelector((state) => state?.auth.accessToken);
   const navigate = useNavigate();
 
-  const selectedIngredients: Array<IIngredientData> = useSelector(
-    // @ts-ignore
+  const selectedIngredients = useSelector(
     (state) => state?.selectedIngredients.selectedIngredients
   );
   const bun: IIngredientData | undefined = useMemo(
-    () => selectedIngredients.find((i: IIngredientData) => i.type === "bun"),
+    () => selectedIngredients.find((i) => i.type === "bun"),
     [selectedIngredients]
   );
-  const otherIngredients = useMemo<Array<IIngredientData>>(
+  const otherIngredients = useMemo(
     () => selectedIngredients.filter((i: IIngredientData) => i.type !== "bun"),
     [selectedIngredients]
   );
@@ -45,7 +41,7 @@ export const BurgerConstructor: FC = React.memo(() => {
     if (bun) {
       const bunSum: number = bun.price * 2;
       const otherIngredientsSum: number = otherIngredients.reduce(
-        (acc: number, i: IIngredientData) => acc + i.price,
+        (acc: number, i) => acc + i.price,
         0
       );
       return bunSum + otherIngredientsSum;
@@ -58,7 +54,7 @@ export const BurgerConstructor: FC = React.memo(() => {
     !token && navigate("/login", { replace: true });
     token && bun &&
       otherIngredients &&
-      dispatch(fetchOrder(orderIngredientsArr));
+      dispatch(fetchOrder(token, orderIngredientsArr));
   }, [token, otherIngredients]);
 
   const onClose = useCallback(() => {
@@ -76,9 +72,9 @@ export const BurgerConstructor: FC = React.memo(() => {
           <img src={bigIconPrice} alt="Иконка стоимости" />
         </span>
           <Button type="primary" size="medium" onClick={handleClick}>
-            {orderRequest
+            {orderNumberRequest
               ? "Отправка..."
-              : orderFailed
+              : orderNumberFailed
                 ? "Что-то пошло не так :("
                 : bun
                   ? "Оформить заказ"
@@ -87,8 +83,8 @@ export const BurgerConstructor: FC = React.memo(() => {
         </div>
       </div>
 
-      {orderRequest && <Preloader />}
-      {!orderRequest && orderNumber && (
+      {orderNumberRequest && <Preloader />}
+      {!orderNumberRequest && orderNumber && (
         <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>

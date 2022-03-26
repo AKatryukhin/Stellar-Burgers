@@ -9,3 +9,10 @@
   font-weight: bold;
   src: url("./JetBrainsMono-Bold.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: "Iceland Regular";
+  src: url("./Iceland-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
