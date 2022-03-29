@@ -109,8 +109,6 @@ function* workGetUserInfo(action: IGetInfoUserAction): Generator<PutEffect | Cal
     const data: IGetUserInfoResponse = yield call(getUserInfo, action.accessToken);
     yield put(getInfoUserSuccess(data));
   } catch (e: any) {
-    // deleteCookie("accessToken");
-    // deleteCookie("refreshToken");
     if (e.message === "jwt expired") {
       yield put(tokenUpdate(action.refreshToken));
     } else {
