@@ -29,15 +29,6 @@ export const selectedIngredientsReducer = (state = initialState, action: TSelect
         selectedIngredients: [...state.selectedIngredients, action.payload],
       };
     }
-    // case CHANGE_SELECTED_INGREDIENT: {
-    //   return {
-    //     ...state,
-    //     selectedIngredients: [
-    //       ...state.selectedIngredients.filter((i) => i.type !== "bun"),
-    //       action.payload,
-    //     ],
-    //   };
-    // }
     case DELETE_SELECTED_INGREDIENT:
       return {
         ...state,

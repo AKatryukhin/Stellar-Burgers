@@ -53,11 +53,10 @@ describe("currentIngredient reducer", () => {
 
   it("should REMOVE_CURRENT_INGREDIENT", () => {
     const action = removeCurrentIngredient();
-    expect(currentIngredientReducer(initialState, action )).toEqual({
+    const state = currentIngredientReducer(initialState, action);
+    expect(state).toEqual({
       ...initialState
     });
   });
-
-
 
 });
