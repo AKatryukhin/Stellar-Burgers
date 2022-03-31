@@ -1,7 +1,19 @@
 import { auth } from "./auth";
 import { password } from "./password";
-import { createUser, login, requestRegisterFailed } from "../actions/actionsAuth";
-import { fetchResetPassword, resetPasswordFailed, resetPasswordSuccess } from "../actions/actionsPassword";
+import {
+  createUser,
+  login,
+  requestLoginFailed,
+  requestLoginSuccess,
+  requestRegisterFailed
+} from "../actions/actionsAuth";
+import {
+  changePasswordFailed,
+  changePasswordRequest, changePasswordSuccess,
+  fetchResetPassword,
+  resetPasswordFailed,
+  resetPasswordSuccess
+} from "../actions/actionsPassword";
 import { GET_REGISTRATION_SUCCESS } from "../types/action-types";
 
 const initialState = {
@@ -44,16 +56,32 @@ describe("password reducer", () => {
     });
   });
   it("should CHANGE_PASSWORD_REQUEST", () => {
-    const action = login();
-    const state = auth(initialState, action);
+    const password1 = '123qweASD';
+    const code = 'string';
+    const action = changePasswordRequest(password1, code);
+    const state = password(initialState, action);
     expect(state).toEqual({
       ...state,
-      loginRequest: true,
+      changePasswordRequest: true
     });
   });
-
-
-
-
+  it("should CHANGE_PASSWORD_SUCCESS", () => {
+    const action = changePasswordSuccess();
+    const state = password(initialState, action);
+    expect(state).toEqual({
+      ...state,
+      changePasswordFailed: false,
+      changePasswordRequest: false,
+      isChangePasswordSuccess: true,
+    });
+  });
+  it("should CHANGE_PASSWORD_FAILED", () => {
+    const action = changePasswordFailed();
+    const state = password(initialState, action);
+    expect(state).toEqual({
+      ...state,
+      changePasswordFailed: true,
+    });
+  });
 
 });
