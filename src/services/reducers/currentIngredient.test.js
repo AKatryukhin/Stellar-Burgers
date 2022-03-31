@@ -25,7 +25,7 @@ describe("currentIngredient reducer", () => {
     expect(currentIngredientReducer(undefined, {})).toEqual(initialState);
   });
   it("should ADD_CURRENT_INGREDIENT", () => {
-      const data = [
+      const data =
         {
           _id: "60d3b41abdacab0026a733c6",
           name: "Краторная булка N-200i",
@@ -41,8 +41,8 @@ describe("currentIngredient reducer", () => {
           image_large:
             "https://code.s3.yandex.net/react/code/bun-02-large.png",
           __v: 0,
-        },
-        ]
+        }
+
     const action = addCurrentIngredient(data);
     const state = currentIngredientReducer(initialState, action);
     expect(state).toEqual({
