@@ -56,7 +56,10 @@ describe("authorization reducer", () => {
     expect(auth(undefined, {})).toEqual(initialState);
   });
   it("should GET_REGISTRATION_REQUEST", () => {
-    const action = createUser();
+      const email = "testuser9@yandex.ru";
+      const name = "testuser9";
+      const password = '123qweASD';
+    const action = createUser(email, name, password);
     const state = auth(initialState, action);
     expect(state).toEqual({
       ...state,
@@ -64,9 +67,7 @@ describe("authorization reducer", () => {
     });
   });
   it("should GET_REGISTRATION_SUCCESS", () => {
-    const action = {
-      type: GET_REGISTRATION_SUCCESS,
-      data: {
+      const data = {
         success: true,
         user: {
           email: "testuser@yandex.ru",
@@ -74,8 +75,8 @@ describe("authorization reducer", () => {
         },
         accessToken: "token",
         refreshToken: "token",
-      },
-    };
+      }
+    const action = requestRegisterSuccess(data);
     const state = auth(initialState, action);
     expect(state).toEqual({
       ...state,
@@ -200,11 +201,10 @@ describe("authorization reducer", () => {
     });
   });
   it("should GET_USER_INFO_REQUEST", () => {
-    const data = {
-      accessToken: "token",
-      refreshToken: "token",
-    };
-    const action = getInfoUser(data);
+
+      const accessToken = "token";
+      const refreshToken = "token";
+    const action = getInfoUser(accessToken, refreshToken);
     const state = auth(initialState, action);
     expect(state).toEqual({
       ...state,
@@ -238,13 +238,11 @@ describe("authorization reducer", () => {
     });
   });
   it("should UPDATE_USER_INFO_REQUEST", () => {
-    const data = {
-      email: "testuser@yandex.ru",
-      name: "testuser",
-      accessToken: "token",
-      refreshToken: "token",
-    };
-    const action = updateInfoUser(data);
+    const email = "testuser@yandex.ru";
+    const name = "testuser";
+    const accessToken = "token";
+    const refreshToken = "token";
+    const action = updateInfoUser(email, name, accessToken, refreshToken);
     const state = auth(initialState, action);
     expect(state).toEqual({
       ...state,
