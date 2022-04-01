@@ -1,14 +1,11 @@
-import { ingredientsReducer } from "./ingredients";
 import { selectedIngredientsReducer } from "./selectedIngredients";
-import { addCurrentIngredient, removeCurrentIngredient, requestIngredientsFailed } from "../actions/actionsIngredient";
 import {
   addSelectIngredient,
   clearSelectIngredientList,
   moveSelectIngredient,
   removeSelectIngredient
 } from "../actions/actionsSelectIngredient";
-import { currentIngredientReducer } from "./currentIngredient";
-import { IIngredientData } from "../../utils/common-types";
+
 
 
 const initialState = {

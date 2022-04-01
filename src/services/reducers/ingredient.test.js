@@ -1,7 +1,4 @@
-import { auth } from "./auth";
 import { ingredientsReducer } from "./ingredients";
-import { createUser, requestLoginFailed, requestLoginSuccess } from "../actions/actionsAuth";
-import { getIngredientsList } from "../../utils/IngredientsApi";
 import {
   clearIngredientsCount,
   decreaseCount,
