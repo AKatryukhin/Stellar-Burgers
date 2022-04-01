@@ -1,15 +1,5 @@
-import { selectedIngredientsReducer } from "./selectedIngredients";
 import { order } from "./order";
-import { fetchResetPassword } from "../actions/actionsPassword";
-import { password } from "./password";
 import { fetchOrder, requestOrderFailed, requestOrderSuccess, resetOrder } from "../actions/actionsOrder";
-import {
-  removeCurrentIngredient,
-  requestIngredientsFailed,
-  requestIngredientsSuccess
-} from "../actions/actionsIngredient";
-import { ingredientsReducer } from "./ingredients";
-import { currentIngredientReducer } from "./currentIngredient";
 
 const initialState = {
   orderNumber: 0,
