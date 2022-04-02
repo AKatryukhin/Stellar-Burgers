@@ -35,6 +35,7 @@ const Modal: FC<ModalProps> = React.memo(({ title, children, onClose }) => {
             {title}
           </h2>
           <img
+            id='close-button'
             onClick={onClose}
             src={closeIcon}
             alt="Кнопка закрытия"
