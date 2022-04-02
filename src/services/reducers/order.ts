@@ -6,13 +6,13 @@ import {
 import { TOrderActions } from "../actions/actionsOrder";
 
 type TOrderState = {
-    orderNumber: number;
+    orderNumber: number | null;
     orderNumberRequest: boolean;
     orderNumberFailed: boolean;
 };
 
 const initialState: TOrderState = {
-    orderNumber: 0,
+    orderNumber: null,
     orderNumberRequest: false,
     orderNumberFailed: false,
 };
