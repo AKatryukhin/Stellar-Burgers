@@ -63,7 +63,7 @@ export const BurgerConstructor: FC = React.memo(() => {
     dispatch(resetOrder());
   }, []);
   return (
-    <section className={`${styles.section} pl-4`}>
+    <section id="constructor" className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <BurgerConstructorList bun={bun} otherIngredients={otherIngredients} />
         <div className={styles.orderWrap}>

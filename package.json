@@ -27,7 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:open": "C:/Users/katru/Desktop/Web/NEW_Typescript/Stellar-Burgers./node_modules/.bin/cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

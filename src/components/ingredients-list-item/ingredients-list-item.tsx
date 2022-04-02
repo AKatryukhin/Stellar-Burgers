@@ -78,6 +78,7 @@ export const IngredientsItem: FC<IngredientsListItemProps> = ({ ingredient }) =>
 
   return (
     <article
+      id="ingredient"
       ref={drag}
       onClick={handleClick}
       className={`${styles.card} ${isDrag && styles.cardTransparent}`}
