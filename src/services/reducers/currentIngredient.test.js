@@ -1,6 +1,4 @@
-import { auth } from "./auth";
 import { currentIngredientReducer } from "./currentIngredient";
-import { createUser } from "../actions/actionsAuth";
 import { addCurrentIngredient, removeCurrentIngredient } from "../actions/actionsIngredient";
 
 const initialState = {

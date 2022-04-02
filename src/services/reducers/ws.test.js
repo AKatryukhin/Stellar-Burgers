@@ -7,42 +7,6 @@ import {
   wsGetUserOrders, wsUserConnectionClosed
 } from "../actions/actionsWS";
 
-// export const order = {
-//   ingredients: [{
-//     calories: 643,
-//     carbohydrates: 85,
-//     fat: 26,
-//     image: "https://code.s3.yandex.net/react/code/bun-01.png",
-//     image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-//     image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-//     name: "Флюоресцентная булка R2-D3",
-//     price: 988,
-//     proteins: 44,
-//     type: "bun",
-//     __v: 0,
-//     _id: "60d3b41abdacab0026a733c7",
-//   },
-//     {
-//       calories: 14,
-//       carbohydrates: 11,
-//       fat: 22,
-//       image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-//       image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-//       image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-//       name: "Соус фирменный Space Sauce",
-//       price: 80,
-//       proteins: 50,
-//       type: "sauce",
-//       __v: 0,
-//       _id: "60d3b41abdacab0026a733cd",
-//     }],
-//   name: "Флюоресцентный space бургер",
-//   number: 12355,
-//   status: "done",
-//   _id: '615c66437deb54001ba5f58b',
-//   createdAt: "2022-03-20T09:30:58.061Z",
-//   updatedAt: "2022-03-22T16:23:10.075Z",
-// };
 
 const orders =  {createdAt: "2022-03-29T15:30:11.130Z",
   ingredients: ["60d3b41abdacab0026a733c6", "60d3b41abdacab0026a733c6", "60d3b41abdacab0026a733cd"],
