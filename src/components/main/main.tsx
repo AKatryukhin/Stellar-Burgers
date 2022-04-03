@@ -8,8 +8,6 @@ import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 
 
 const Main: FC = () => {
-  const l = window.location;
-  console.log(l)
   return (
     <main className={styles.main} id='constructor-page'>
       <DndProvider backend={HTML5Backend}>
