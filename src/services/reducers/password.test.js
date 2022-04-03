@@ -1,12 +1,4 @@
-import { auth } from "./auth";
-import { password } from "./password";
-import {
-  createUser,
-  login,
-  requestLoginFailed,
-  requestLoginSuccess,
-  requestRegisterFailed
-} from "../actions/actionsAuth";
+import { password, initialState } from "./password";
 import {
   changePasswordFailed,
   changePasswordRequest, changePasswordSuccess,
@@ -14,16 +6,7 @@ import {
   resetPasswordFailed,
   resetPasswordSuccess
 } from "../actions/actionsPassword";
-import { GET_REGISTRATION_SUCCESS } from "../types/action-types";
 
-const initialState = {
-  resetPasswordRequest: false,
-  resetPasswordFailed: false,
-  changePasswordRequest: false,
-  changePasswordFailed: false,
-  isResetPasswordSuccess: false,
-  isChangePasswordSuccess: false,
-};
 describe("password reducer", () => {
   it("should return the initial state", () => {
     expect(password(undefined, {})).toEqual(initialState);

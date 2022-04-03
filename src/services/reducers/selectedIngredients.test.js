@@ -1,16 +1,10 @@
-import { selectedIngredientsReducer } from "./selectedIngredients";
+import { selectedIngredientsReducer, initialState} from "./selectedIngredients";
 import {
   addSelectIngredient,
   clearSelectIngredientList,
   moveSelectIngredient,
   removeSelectIngredient
 } from "../actions/actionsSelectIngredient";
-
-
-
-const initialState = {
-  selectedIngredients: [],
-};
 
 describe("ingredients reducer", () => {
   it("should return the initial state", () => {

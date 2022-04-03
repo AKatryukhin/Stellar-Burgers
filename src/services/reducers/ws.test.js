@@ -1,4 +1,4 @@
-import {wsReducer} from "./ws";
+import {wsReducer, initialState} from "./ws";
 import {
   wsConnectionClosed,
   wsConnectionError,
@@ -30,14 +30,6 @@ const payload = {
 
 
 describe('webSocket reducer', () => {
-  const initialState = {
-    wsConnected: false,
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    userOrders: [],
-    wsProfileConnected: false
-  };
   it('should return the initial state', () => {
     expect(wsReducer(undefined, {})).toEqual(initialState)
   })

@@ -1,5 +1,4 @@
-import { auth } from "./auth";
-import { getCookie } from "../../utils/cookie";
+import { auth, initialState } from "./auth";
 import {
   createUser,
   getInfoUser,
@@ -20,36 +19,6 @@ import {
   updateInfoUserFailed,
   updateInfoUserSuccess,
 } from "../actions/actionsAuth";
-import { wsReducer } from "./ws";
-import {
-  GET_LOGIN_SUCCESS,
-  GET_REGISTRATION_SUCCESS,
-} from "../types/action-types";
-
-const refreshTokenCurrent = getCookie("refreshToken");
-const accessTokenCurrent = getCookie("accessToken");
-
-const initialState = {
-  name: "",
-  email: "",
-  accessToken: accessTokenCurrent,
-  refreshToken: refreshTokenCurrent,
-  registerRequest: false,
-  registerFailed: false,
-  isRegisterSuccess: false,
-  loginRequest: false,
-  loginFailed: false,
-  isLoginSuccess: false,
-  logoutRequest: false,
-  logoutFailed: false,
-  tokenUpdateRequest: false,
-  tokenUpdateFailed: false,
-  tokenUpdateSuccess: false,
-  getUserInfoRequest: false,
-  getUserInfoFailed: false,
-  updateUserRequest: false,
-  updateUserFailed: false,
-};
 
 describe("authorization reducer", () => {
   it("should return the initial state", () => {

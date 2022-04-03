@@ -1,14 +1,6 @@
-import { order } from "./order";
-import { ordersReducer } from "./orders";
-import { fetchOrder, requestOrderFailed } from "../actions/actionsOrder";
+import { ordersReducer, initialState } from "./orders";
 import { infoOrderCloseAction, infoOrderOpenAction, linkOpenInfoOrderAction } from "../actions/actionsOrders";
-import { IIngredientData } from "../../utils/common-types";
 
-const initialState= {
-  order: undefined,
-  modalInfoOrderOpen: false,
-  linkInfoOrderOpen: false,
-};
 export const testOrder = {
   createdAt: "2022-02-09T15:56:00.422Z",
   ingredients: [{

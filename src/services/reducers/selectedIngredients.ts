@@ -12,7 +12,7 @@
    selectedIngredients: Array<IIngredientData>;
  };
 
-const initialState: TSelectedIngredientsState = {
+export const initialState: TSelectedIngredientsState = {
   selectedIngredients: [],
 };
 export const selectedIngredientsReducer = (state = initialState, action: TSelectIngredientsActions): TSelectedIngredientsState => {

@@ -1,4 +1,4 @@
-import { ingredientsReducer } from "./ingredients";
+import { ingredientsReducer, initialState } from "./ingredients";
 import {
   clearIngredientsCount,
   decreaseCount,
@@ -7,14 +7,6 @@ import {
   requestIngredientsSuccess,
   resetIngredients
 } from "../actions/actionsIngredient";
-
-const initialState = {
-  ingredients: [],
-  ingredientsRequest: false,
-  ingredientsFailed: false,
-  loaded: false,
-};
-
 
 describe("ingredients reducer", () => {
   it("should return the initial state", () => {

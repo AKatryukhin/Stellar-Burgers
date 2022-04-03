@@ -1,11 +1,5 @@
-import { order } from "./order";
+import {  order, initialState } from "./order";
 import { fetchOrder, requestOrderFailed, requestOrderSuccess, resetOrder } from "../actions/actionsOrder";
-
-const initialState = {
-  orderNumber: 0,
-  orderNumberRequest: false,
-  orderNumberFailed: false,
-};
 
 describe("order reducer", () => {
   it("should return the initial state", () => {
