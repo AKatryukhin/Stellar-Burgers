@@ -9,9 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
-      {/*<BrowserRouter basename={'/stellar-burgers/'}>*/}
-        <BrowserRouter>
-
+      <BrowserRouter basename={'/stellar-burgers/'}>
         <Provider store={store}>
         <App />
       </Provider>
