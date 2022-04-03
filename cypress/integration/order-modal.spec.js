@@ -17,7 +17,6 @@ describe('order modal', () => {
     cy.wait(15000);
     cy.contains('идентификатор заказа');
     cy.get("#close-button").click()
-    cy.contains("Соберите бургер");
-    cy.contains("Необходимо добавить булку!");
+    cy.get("#constructor-page").should('not.contain', 'идентификатор заказа')
   })
 })

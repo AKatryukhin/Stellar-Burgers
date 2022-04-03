@@ -6,7 +6,6 @@ describe('ingredient modal', () => {
     cy.get("#ingredient").click();
     cy.contains('Детали ингредиента');
     cy.get("#close-button").click();
-    cy.contains("Соберите бургер");
     cy.get("#constructor-page").should('not.contain', 'Детали ингредиента')
   });
   it('should show ingredient details', () => {
