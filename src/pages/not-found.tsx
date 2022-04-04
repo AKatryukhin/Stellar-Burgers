@@ -3,6 +3,7 @@ import styles from "./not-found.module.css";
 import { Link } from "react-router-dom";
 
 export const NotFound: FC = () => {
+
   return (
     <section className={styles.wrap}>
       <div className={styles.container}>
@@ -20,3 +21,13 @@ export const NotFound: FC = () => {
   );
 }
 
+//   const pathSegmentsToKeep = 1;
+//   const l = window.location;
+// {l.href === 'https://akatryukhin.github.io/stellar-burgers/' &&
+//   l.replace(
+//   l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+//   l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+//   l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+//   (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+//   l.hash
+//   );}

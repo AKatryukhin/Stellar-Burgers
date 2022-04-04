@@ -10,7 +10,7 @@ type TCurrentIngredientsState = {
 };
 
 
-const initialState: TCurrentIngredientsState = {
+export const initialState: TCurrentIngredientsState = {
   ingredient: {
     _id: "",
     name: "",

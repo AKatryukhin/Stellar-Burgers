@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useMemo } from "react";
 import styles from "./burger-constructor.module.css";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorList } from "../burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { useSelector, useDispatch } from "../../services/hooks";
-import bigIconPrice from "../../images/bigIconPrice.svg";
 import Preloader from "../preloader/preloader";
   import {  useNavigate } from "react-router-dom";
 import { fetchOrder, resetOrder } from "../../services/actions/actionsOrder";
@@ -62,14 +62,16 @@ export const BurgerConstructor: FC = React.memo(() => {
     dispatch(clearIngredientsCount());
     dispatch(resetOrder());
   }, []);
+
+
   return (
-    <section className={`${styles.section} pl-4`}>
+    <section id="constructor" className={`${styles.section} pl-4`}>
       <div className={`${styles.listWrap} mb-10`}>
         <BurgerConstructorList bun={bun} otherIngredients={otherIngredients} />
         <div className={styles.orderWrap}>
         <span className={`${styles.iconWrap} mr-10`}>
           <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
-          <img src={bigIconPrice} alt="Иконка стоимости" />
+          <CurrencyIcon type="primary"/>
         </span>
           <Button type="primary" size="medium" onClick={handleClick}>
             {orderNumberRequest

@@ -8,9 +8,8 @@ import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 
 
 const Main: FC = () => {
-
   return (
-    <main className={styles.main}>
+    <main className={styles.main} id='constructor-page'>
       <DndProvider backend={HTML5Backend}>
         <BurgerIngredients />
         <BurgerConstructor />

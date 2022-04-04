@@ -9,8 +9,8 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter>
-      <Provider store={store}>
+      <BrowserRouter basename={ process.env.NODE_ENV === 'production' ? '/stellar-burgers/': '/'}>
+        <Provider store={store}>
         <App />
       </Provider>
       </BrowserRouter>

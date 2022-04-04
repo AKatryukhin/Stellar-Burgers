@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, FC } from "react";
 import { createPortal } from "react-dom";
 import style from "./modal.module.css";
-import closeIcon from "../../images/closeIcon.svg";
+import closeIcon from "../../images/closeicon.svg";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { ESC_KEYCODE } from "../../utils/constants";
 import { ModalProps } from "./modal.props";
@@ -35,6 +35,7 @@ const Modal: FC<ModalProps> = React.memo(({ title, children, onClose }) => {
             {title}
           </h2>
           <img
+            id='close-button'
             onClick={onClose}
             src={closeIcon}
             alt="Кнопка закрытия"

@@ -12,14 +12,14 @@ export type TFeedState = {
   linkInfoOrderOpen: boolean;
 };
 
-const initialStateFeed: TFeedState = {
+export const initialState: TFeedState = {
   order: undefined,
   modalInfoOrderOpen: false,
   linkInfoOrderOpen: false,
 };
 
 export const ordersReducer = (
-  state = initialStateFeed,
+  state = initialState,
   action: TOrdersActions
 ): TFeedState => {
   switch (action.type) {

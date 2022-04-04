@@ -9,7 +9,7 @@ export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ curre
   return (
     <article className={styles.card}>
       <img src={image_large} alt={name} className="mb-4 mr-5 ml-5" />
-      <p className={`${styles.name} text text_type_main-medium mb-8`}>{name}</p>
+      <p className={`${styles.name} text text_type_main-medium mb-8`} id='ingredient-name'>{name}</p>
       <div className={styles.infoWrap}>
         <div className={`${styles.infoContainer}`}>
           <p
@@ -19,6 +19,7 @@ export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ curre
           </p>
           <p
             className={`${styles.info} mr-2 text text_type_digits-default text_color_inactive`}
+            id='calories'
           >
             {calories}
           </p>
@@ -31,6 +32,7 @@ export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ curre
           </p>
           <p
             className={`${styles.info} mr-2 text text_type_digits-default text_color_inactive`}
+            id='proteins'
           >
             {proteins}
           </p>
@@ -43,6 +45,7 @@ export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ curre
           </p>
           <p
             className={`${styles.info} mr-2 text text_type_digits-default text_color_inactive`}
+            id='fat'
           >
             {fat}
           </p>
@@ -55,6 +58,7 @@ export const IngredientDetails: FC<IngredientDetailsProps> = React.memo(({ curre
           </p>
           <p
             className={`${styles.info} mr-2 text text_type_digits-default text_color_inactive`}
+            id='carbohydrates'
           >
             {carbohydrates}
           </p>

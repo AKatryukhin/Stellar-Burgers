@@ -18,7 +18,7 @@ interface IWsState {
   userOrders: Array<IOrders>
 }
 
-const initialState: IWsState = {
+export const initialState: IWsState = {
   wsConnected: false,
   orders: [],
   total: 0,
